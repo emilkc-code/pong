@@ -9,10 +9,11 @@ import greenfoot.*;
  */
 public class Ball extends Actor
 {
-    private static final int BALL_SIZE = 25;
-    private static final int BOUNCE_DEVIANCE_MAX = 5;
-    private static final int STARTING_ANGLE_WIDTH = 90;
-    private static final int DELAY_TIME = 100;
+    private final int BALL_SIZE = 25;
+    private final int BOUNCE_DEVIANCE_MAX = 5;
+    private final int STARTING_ANGLE_WIDTH = 90;
+    private final int DELAY_TIME = 100;
+    private final int HITS_FOR_SPEED = 4;
 
     private int speed;
     private int ownHits;
@@ -22,6 +23,8 @@ public class Ball extends Actor
     
     private Paddle bottomPaddle;
     private AIPaddle topPaddle;
+    
+    private PingWorld pingWorld;
     /**
      * Contructs the ball    and sets it in motion!
      */
@@ -154,13 +157,17 @@ public class Ball extends Actor
 
     private void checkBounceOffPaddleBottom()
     {
-    if (getIntersectingObjects(Paddle.class).size() < 1 || movingUpwards) { return; }
+        if (getIntersectingObjects(Paddle.class).size() < 1 || movingUpwards) { return; }
+        
+        revertVertically();
+        movingUpwards = true;
+        ownHits += 1;
     
-    revertVertically();
-    movingUpwards = true;
-    ownHits += 1;
-
-    if (ownHits % 10 == 0) { speed *= 2; }
+        pingWorld = (PingWorld) getWorld();
+        if (ownHits % HITS_FOR_SPEED == 0) {
+            speed *= 2;
+            pingWorld.LevelText((int) (ownHits / HITS_FOR_SPEED + 1));
+        }
     }
     
     private void checkBounceOffPaddleTop()
