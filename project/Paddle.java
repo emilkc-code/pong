@@ -68,10 +68,9 @@ public class Paddle extends Actor
      */
     private void createImage()
     {
-        GreenfootImage image = new GreenfootImage(width, height);
-        image.setColor(Color.BLACK);
-        image.fill();
-        setImage(image);
+        GreenfootImage img = new GreenfootImage("ct.png");
+        img.scale(this.width, this.height);
+        setImage(img);
     }
 
 }

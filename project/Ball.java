@@ -37,10 +37,9 @@ public class Ball extends Actor
      */
     private void createImage()
     {
-        GreenfootImage ballImage = new GreenfootImage(BALL_SIZE,BALL_SIZE);
-        ballImage.setColor(Color.BLACK);
-        ballImage.fillOval(0, 0, BALL_SIZE, BALL_SIZE);
-        setImage(ballImage);
+        GreenfootImage img = new GreenfootImage("c4.png");
+        img.scale(BALL_SIZE, BALL_SIZE);
+        setImage(img);
     }
 
     /**

@@ -30,6 +30,7 @@ public class PingWorld extends World
             GreenfootImage background = getBackground();
             background.setColor(Color.BLACK);
             // Create a new world with WORLD_WIDTHxWORLD_HEIGHT cells with a cell size of 1x1 pixels.
+            addObject(new Background(WORLD_WIDTH, WORLD_HEIGHT),WORLD_WIDTH/2, WORLD_HEIGHT/2);
             addObject(botPaddle, 60, WORLD_HEIGHT - 50);
             addObject(ball, WORLD_WIDTH/2, WORLD_HEIGHT/2);
             addObject(topPaddle, 60, WORLD_HEIGHT - 650);
