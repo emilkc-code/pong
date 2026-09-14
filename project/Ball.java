@@ -138,7 +138,7 @@ public class Ball extends Actor
     private void revertHorizontally()
     {
         //int randomness = Greenfoot.getRandomNumber(BOUNCE_DEVIANCE_MAX)- BOUNCE_DEVIANCE_MAX / 2;
-        setRotation((180 - getRotation() + 360) % 360); // 
+        setRotation(180 - getRotation()); // 
         hasBouncedHorizontally = true;
     }
 
@@ -148,7 +148,7 @@ public class Ball extends Actor
     private void revertVertically()
     {
         //int randomness = Greenfoot.getRandomNumber(BOUNCE_DEVIANCE_MAX)- BOUNCE_DEVIANCE_MAX / 2;
-        setRotation((360 - getRotation() + 360) % 360);
+        setRotation(360 - getRotation());
     }
 
     private void checkBounceOffPaddleBottom()

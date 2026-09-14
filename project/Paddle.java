@@ -12,9 +12,6 @@ public class Paddle extends Actor
     private int width;
     private int height;
     private int dx;
-    
-    private boolean atLWall;
-    private boolean atRWall;
     private int speed;
 
     /**
@@ -37,7 +34,6 @@ public class Paddle extends Actor
     public void act() 
     {
         //tryChangeDirection();
-        wallCollChecker();
         inputChecker();
         //setLocation(getX() + dx, getY());
     }    
@@ -58,27 +54,13 @@ public class Paddle extends Actor
 
     private void inputChecker()
     {
-        if (Greenfoot.isKeyDown("a") && !atLWall || Greenfoot.isKeyDown("left") && !atLWall) {
+        if ((Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left")) && this.getX() > width / 2) {
             this.setLocation(getX() - speed, getY());
-            atRWall = false;
         }
-        if (Greenfoot.isKeyDown("d") && !atRWall || Greenfoot.isKeyDown("right") && !atRWall) {
+        if ((Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right")) && this.getX() < getWorld().getWidth() - width / 2) {
             this.setLocation(getX() + speed, getY());
-            atLWall = false;
         }
         
-    }
-    
-    private void wallCollChecker()
-    {
-        //leftWall
-        if ((this.getX() - this.width/2) == 0){
-            atLWall = true;
-        }
-        //rightWall
-        if (((this.getX() + this.width/2) == getWorld().getWidth())){
-            atRWall = true;
-        }
     }
     
     /**
