@@ -42,7 +42,7 @@ public class PingWorld extends World
     
     public void LevelText(int x)
     {
-        showText("Level:" + Integer.toString(x), 40, 16);
+        showText("Speed:" + Integer.toString(x), 40, 16);
     }
     
 }

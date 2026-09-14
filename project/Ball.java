@@ -25,6 +25,7 @@ public class Ball extends Actor
     private AIPaddle topPaddle;
     
     private PingWorld pingWorld;
+    private GameManager gameManager = new GameManager();
     /**
      * Contructs the ball    and sets it in motion!
      */
@@ -60,7 +61,6 @@ public class Ball extends Actor
         {
             move(speed);
             checkBounceOffWalls();
-            checkBounceOffCeiling();
             checkBounceOffPaddleBottom();
             checkBounceOffPaddleTop();
             checkRestart();
@@ -101,28 +101,23 @@ public class Ball extends Actor
     }
 
     /**
-     * Check to see if the ball should bounce off the ceiling.
-     * If touching the ceiling the ball is bouncing off.
-     */
-    private void checkBounceOffCeiling()
-    {
-        if (!isTouchingCeiling() || !movingUpwards) { return; }
-        
-        revertVertically();
-        movingUpwards = false;
-    }
-
-    /**
      * Check to see if the ball should be restarted.
      * If touching the floor the ball is restarted in initial position and speed.
      */
     private void checkRestart()
     {
-        if (isTouchingFloor() || isTouchingCeiling())
-        {
-            init(true);
-            setLocation(getWorld().getWidth() / 2, getWorld().getHeight() / 2);
+        if (!isTouchingFloor() && !isTouchingCeiling()) { return; }
+        
+        init(true);
+        setLocation(getWorld().getWidth() / 2, getWorld().getHeight() / 2);
+        
+        if (isTouchingCeiling()) {
+            gameManager.setWins(gameManager.getWins() + 1);
+            gameManager.setMoney(gameManager.getMoney() + 1 * ownHits * (ownHits % 10 + 1));
         }
+        
+        if (isTouchingFloor()) { gameManager.setLoses(gameManager.getLoses() + 1); }
+        
     }
 
     /**
