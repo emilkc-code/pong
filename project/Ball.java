@@ -1,12 +1,5 @@
 import greenfoot.*;
 
-
-/**
- * A Ball is a thing that bounces of walls and paddles (or at least i should).
- * 
- * @author The teachers 
- * @version 1
- */
 public class Ball extends Actor
 {
     private final int BALL_SIZE = 25;
@@ -18,7 +11,6 @@ public class Ball extends Actor
     private int speed;
     private int ownHits;
     private boolean hasBouncedHorizontally;
-    private boolean movingUpwards;
     private int delay;
     
     private Paddle bottomPaddle;
@@ -26,137 +18,80 @@ public class Ball extends Actor
     
     private PingWorld pingWorld;
     private GameManager gameManager = new GameManager();
-    /**
-     * Contructs the ball    and sets it in motion!
-     */
-    public Ball(Paddle bP, AIPaddle tP)
-    {
+    
+    public Ball(Paddle bottomPaddle, AIPaddle topPaddle) {
         createImage();
         init(true);
-        bottomPaddle = bP;
-        topPaddle = tP;
+        this.bottomPaddle = bottomPaddle;
+        this.topPaddle = topPaddle;
     }
 
-    /**
-     * Creates and sets an image of a black ball to this actor.
-     */
-    private void createImage()
-    {
+    private void createImage() {
         GreenfootImage img = new GreenfootImage("c4.png");
         img.scale(BALL_SIZE, BALL_SIZE);
         setImage(img);
     }
 
-    /**
-     * Act - do whatever the Ball wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act() 
-    {
-        if (delay > 0)
-        {
-            delay--;
-        }
-        else
-        {
+    public void act() {
+        if (delay > 0) { delay--; }
+        else {
             move(speed);
-            checkBounceOffWalls();
+            bounceWalls();
             checkBounceOffPaddleBottom();
             checkBounceOffPaddleTop();
             checkRestart();
         }
     }    
 
-    /**
-     * Returns true if the ball is touching one of the side walls.
-     */
-    private boolean isTouchingSides()
-    {
+    private boolean isTouchingSides() {
         return (getX() <= BALL_SIZE/2 || getX() >= getWorld().getWidth() - BALL_SIZE/2);
     }
-
-    /**
-     * Returns true if the ball is touching the ceiling.
-     */
+    
     private boolean isTouchingCeiling() { return (getY() <= BALL_SIZE/2); }
     private boolean isTouchingFloor() { return (getY() >= getWorld().getHeight() - BALL_SIZE/2); }
 
-    /**
-     * Check to see if the ball should bounce off one of the walls.
-     * If touching one of the walls, the ball is bouncing off.
-     */
-    private void checkBounceOffWalls()
-    {
-        if (isTouchingSides())
-        {
-            if (! hasBouncedHorizontally)
-            {
-                revertHorizontally();
-            }
-        }
-        else
-        {
-            hasBouncedHorizontally = false;
-        }
+    private void bounceWalls() {
+        if (!isTouchingSides()) { return; }
+        
+        if (90 < getRotation() && getRotation() < 270) { setRotation(180 - getRotation()); }
+        if (0 < getRotation() && getRotation() < 90 || 270 < getRotation() && getRotation() < 360) { setRotation(180 - getRotation()); }
+        
+        GreenfootSound onPaddleHit = new GreenfootSound("WallThudSound.mp3");
+        onPaddleHit.play();
     }
-
-    /**
-     * Check to see if the ball should be restarted.
-     * If touching the floor the ball is restarted in initial position and speed.
-     */
-    private void checkRestart()
-    {
+    
+    private void checkRestart() {
         if (!isTouchingFloor() && !isTouchingCeiling()) { return; }
-        
-        if (isTouchingCeiling()) {
-            gameManager.setWins(gameManager.getWins() + 1);
-            gameManager.setMoney(gameManager.getMoney() + 1 * ownHits * ((int) (ownHits / 10) + 1));
-            pingWorld = (PingWorld) getWorld();
-            pingWorld.moneyText(gameManager.getMoney());
-        }
-        
+        if (isTouchingCeiling()) { applyWin(); }
         if (isTouchingFloor()) { gameManager.setLoses(gameManager.getLoses() + 1); }
         
         init(true);
         setLocation(getWorld().getWidth() / 2, getWorld().getHeight() / 2);
-        
     }
 
-    /**
-     * Bounces the ball back from a vertical surface.
-     */
-    private void revertHorizontally()
-    {
-        //int randomness = Greenfoot.getRandomNumber(BOUNCE_DEVIANCE_MAX)- BOUNCE_DEVIANCE_MAX / 2;
-        setRotation(180 - getRotation()); // 
-        hasBouncedHorizontally = true;
-        GreenfootSound onPaddleHit = new GreenfootSound("WallThudSound.mp3");
-        onPaddleHit.play();
+    private void applyWin() {
+        gameManager.setWins(gameManager.getWins() + 1);
+        gameManager.setMoney(gameManager.getMoney() + 1 * ownHits * ((int) (ownHits / 10) + 1));
+        pingWorld = (PingWorld) getWorld();
+        pingWorld.moneyText(gameManager.getMoney());
     }
-
-    /**
-     * Bounces the bal back from a horizontal surface.
-     */
-    private void revertVertically()
-    {
-        //int randomness = Greenfoot.getRandomNumber(BOUNCE_DEVIANCE_MAX)- BOUNCE_DEVIANCE_MAX / 2;
-        setRotation(360 - getRotation());
-    }
-
-    private void checkBounceOffPaddleBottom()
-    {
-        if (getIntersectingObjects(Paddle.class).size() < 1 || movingUpwards) { return; }
-        
-        movingUpwards = true;
+    
+    private void checkBounceOffPaddleBottom() {
+        if (getIntersectingObjects(Paddle.class).size() < 1 || getRotation() < 180) { return; }
         ownHits += 1;
-        GreenfootSound onPaddleHit = new GreenfootSound("BombBeep.mp3");
-        onPaddleHit.play();
+        hitPaddle();
     
         Paddle paddle = (Paddle) getIntersectingObjects(Paddle.class).get(0);
-        
-        turnTowards(paddle.getX(), paddle.getY());
-        setRotation(180 + getRotation());
-        
+        turnAwayFrom(paddle.getX(), paddle.getY());
+    }
+    
+    private void hitPaddle() {
+        GreenfootSound onPaddleHit = new GreenfootSound("BombBeep.mp3");
+        onPaddleHit.play();
+        increaseSpeed();
+    }
+    
+    private void increaseSpeed() {
         pingWorld = (PingWorld) getWorld();
         if (ownHits % HITS_FOR_SPEED == 0) {
             speed *= 2;
@@ -164,25 +99,25 @@ public class Ball extends Actor
         }
     }
     
-    private void checkBounceOffPaddleTop()
-    {
-    if (getIntersectingObjects(AIPaddle.class).size() < 1 || !movingUpwards) { return; }
-    
-    revertVertically();
-    movingUpwards = false;
-    GreenfootSound onPaddleHit = new GreenfootSound("BombBeep.mp3");
-        onPaddleHit.play();
+    private void checkBounceOffPaddleTop() {
+        if (getIntersectingObjects(AIPaddle.class).size() < 1 || getRotation() > 180) { return; }
+        
+        AIPaddle paddle = (AIPaddle) getIntersectingObjects(AIPaddle.class).get(0);
+        turnAwayFrom(paddle.getX(), paddle.getY());
+        
+        GreenfootSound bombBeepSound = new GreenfootSound("BombBeep.mp3");
+        bombBeepSound.play();
     }
     
-    /**
-     * Initialize the ball settings.
-     */
-    private void init(boolean reset)
-    {
+    private void turnAwayFrom(int x, int y) {
+        turnTowards(x, y);
+        setRotation(180 + getRotation());
+    }
+    
+    private void init(boolean reset) {
         speed = 2;
         delay = DELAY_TIME;
         hasBouncedHorizontally = false;
-        movingUpwards = false;
         ownHits = 0;
         
         if (pingWorld != null) { pingWorld.levelText(1); }
