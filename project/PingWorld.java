@@ -26,9 +26,8 @@ public class PingWorld extends World
         super(WORLD_WIDTH, WORLD_HEIGHT, 1); 
         if (gameStarted)
         {
+            LevelText(1);
             
-            GreenfootImage background = getBackground();
-            background.setColor(Color.BLACK);
             // Create a new world with WORLD_WIDTHxWORLD_HEIGHT cells with a cell size of 1x1 pixels.
             addObject(new Background(WORLD_WIDTH, WORLD_HEIGHT),WORLD_WIDTH/2, WORLD_HEIGHT/2);
             addObject(botPaddle, 60, WORLD_HEIGHT - 50);
@@ -39,6 +38,11 @@ public class PingWorld extends World
         {
             Greenfoot.setWorld(new IntroWorld());
         }
+    }
+    
+    public void LevelText(int x)
+    {
+        showText("Level:" + Integer.toString(x), 40, 16);
     }
     
 }

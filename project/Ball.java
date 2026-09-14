@@ -9,18 +9,22 @@ import greenfoot.*;
  */
 public class Ball extends Actor
 {
-    private static final int BALL_SIZE = 25;
-    private static final int BOUNCE_DEVIANCE_MAX = 5;
-    private static final int STARTING_ANGLE_WIDTH = 90;
-    private static final int DELAY_TIME = 100;
+    private final int BALL_SIZE = 25;
+    private final int BOUNCE_DEVIANCE_MAX = 5;
+    private final int STARTING_ANGLE_WIDTH = 90;
+    private final int DELAY_TIME = 100;
+    private final int HITS_FOR_SPEED = 4;
 
     private int speed;
+    private int ownHits;
     private boolean hasBouncedHorizontally;
     private boolean movingUpwards;
     private int delay;
     
     private Paddle bottomPaddle;
     private AIPaddle topPaddle;
+    
+    private PingWorld pingWorld;
     /**
      * Contructs the ball    and sets it in motion!
      */
@@ -74,18 +78,8 @@ public class Ball extends Actor
     /**
      * Returns true if the ball is touching the ceiling.
      */
-    private boolean isTouchingCeiling()
-    {
-        return (getY() <= BALL_SIZE/2);
-    }
-
-    /**
-     * Returns true if the ball is touching the floor.
-     */
-    private boolean isTouchingFloor()
-    { 
-        return (getY() >= getWorld().getHeight() - BALL_SIZE/2);
-    }
+    private boolean isTouchingCeiling() { return (getY() <= BALL_SIZE/2); }
+    private boolean isTouchingFloor() { return (getY() >= getWorld().getHeight() - BALL_SIZE/2); }
 
     /**
      * Check to see if the ball should bounce off one of the walls.
@@ -124,7 +118,7 @@ public class Ball extends Actor
      */
     private void checkRestart()
     {
-        if (isTouchingFloor())
+        if (isTouchingFloor() || isTouchingCeiling())
         {
             init(true);
             setLocation(getWorld().getWidth() / 2, getWorld().getHeight() / 2);
@@ -152,10 +146,17 @@ public class Ball extends Actor
 
     private void checkBounceOffPaddleBottom()
     {
-    if (getIntersectingObjects(Paddle.class).size() < 1 || movingUpwards) { return; }
+        if (getIntersectingObjects(Paddle.class).size() < 1 || movingUpwards) { return; }
+        
+        revertVertically();
+        movingUpwards = true;
+        ownHits += 1;
     
-    revertVertically();
-    movingUpwards = true;
+        pingWorld = (PingWorld) getWorld();
+        if (ownHits % HITS_FOR_SPEED == 0) {
+            speed *= 2;
+            pingWorld.LevelText((int) (ownHits / HITS_FOR_SPEED + 1));
+        }
     }
     
     private void checkBounceOffPaddleTop()
@@ -175,8 +176,12 @@ public class Ball extends Actor
         delay = DELAY_TIME;
         hasBouncedHorizontally = false;
         movingUpwards = false;
-        if (reset == true) {
-            setRotation(Greenfoot.getRandomNumber(STARTING_ANGLE_WIDTH)+STARTING_ANGLE_WIDTH/2); }
+        ownHits = 0;
+        
+        if (pingWorld != null) { pingWorld.LevelText(1); }
+        
+        if (reset == false) { return; }
+        setRotation(Greenfoot.getRandomNumber(STARTING_ANGLE_WIDTH)+STARTING_ANGLE_WIDTH/2);
     }
 
 }
