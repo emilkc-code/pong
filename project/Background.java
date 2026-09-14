@@ -17,6 +17,8 @@ public class Background extends Actor
         GreenfootImage img = new GreenfootImage("mir.jpg");
         img.scale(width, height);
         setImage(img);  
+        GreenfootSound backgroundS = new GreenfootSound("cs2LobbyMusic.mp3");
+        backgroundS.playLoop();
         
     }
 }
