@@ -23,13 +23,18 @@ public class Ball extends Actor
     
     public Ball(Paddle bottomPaddle, AIPaddle topPaddle) {
         createImage();
-        
-        if (getWorld() == null) { return; }
-        init(true);
         this.bottomPaddle = bottomPaddle;
         this.topPaddle = topPaddle;
     }
+    
+    public void addedToWorld(World world) {
+        init(true);
+    }
 
+    public int getSize() {
+        return BALL_SIZE;
+    }
+    
     private void createImage() {
         GreenfootImage img = new GreenfootImage("c4.png");
         img.scale(BALL_SIZE, BALL_SIZE);
@@ -37,6 +42,8 @@ public class Ball extends Actor
     }
 
     public void act() {
+        if (topPaddle.getBall() == null) { topPaddle.setBall(this); }
+        
         if (delay > 0) { delay--; }
         else {
             positionX += Math.cos(Math.toRadians(getRotation())) * speed;
@@ -98,6 +105,8 @@ public class Ball extends Actor
     
         Paddle paddle = (Paddle) getIntersectingObjects(Paddle.class).get(0);
         turnAwayFrom(paddle.getX(), paddle.getY(), false);
+        
+        topPaddle.setupPredictor(this);
     }
     
     private void hitPaddle() {

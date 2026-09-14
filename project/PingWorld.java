@@ -5,6 +5,10 @@ public class PingWorld extends World
     private static final int WORLD_WIDTH = 500;
     private static final int WORLD_HEIGHT = 700;
     
+    private AIPaddle aiPaddle = new AIPaddle(100, 20, 1);
+    private Paddle paddle = new Paddle(100,20, 2);
+    private Ball ball = new Ball(paddle, aiPaddle);
+    
     public PingWorld(boolean gameStarted) {
         super(WORLD_WIDTH, WORLD_HEIGHT, 1);
         
@@ -12,9 +16,9 @@ public class PingWorld extends World
             levelText(1);
             
             addObject(new Background(getHeight(), getHeight()),getHeight()/2, getHeight()/2);
-            addObject(new AIPaddle(100, 20, 1), 60, getHeight() - 650);
-            addObject(new Paddle(100,20, 2), 60, getHeight() - 50);
-            addObject(new Ball(getObjects(Paddle.class).get(0), getObjects(AIPaddle.class).get(0)), getHeight()/2, getHeight()/2);
+            addObject(aiPaddle, 60, 50);
+            addObject(paddle, 60, getHeight() - 50);
+            addObject(ball, getHeight()/2, getHeight()/2);
         }
         
         else { Greenfoot.setWorld(new IntroWorld()); }

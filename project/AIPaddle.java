@@ -1,72 +1,73 @@
 import greenfoot.*;
 
-
-/**
- * A paddle is an object that goes back and forth. Though it would be nice if balls would bounce of it.
- * 
- * @author The teachers 
- * @version 1
- */
 public class AIPaddle extends Actor
 {
     private int width;
     private int height;
-    private int dx;
+    private Double targetPoint;
     
     private int speed;
     private Ball ball;
-    private boolean firstActRunned = false;
-    /**
-     * Constructs a new paddle with the given dimensions.
-     */
-    public AIPaddle(int width, int height, int sped)
-    {
+    
+    public AIPaddle(int width, int height, int speed) {
         this.width = width;
         this.height = height;
-        this.speed = sped;
-        dx = 1;
+        this.speed = speed;
         createImage();
         
     }
-
-    /**
-     * Act - do whatever the Paddle wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act() 
-    {
-        if (!firstActRunned)
-        { 
-            this.ball = (Ball) getWorld().getObjects(Ball.class).get(0);
-            firstActRunned = true;
+    
+    public void act() {
+        if (ball == null || targetPoint == null) { return; }
+        moveHere((int) Math.round(targetPoint));
+    }
+    
+    public void setBall(Ball ball) {
+        this.ball = ball;
+    }
+    
+    public Ball getBall() {
+        return ball;
+    }
+    
+    private void moveHere(int n) {
+        if (this.getX() < n
+         && this.getX() < getWorld().getWidth() - width / 2) {
+             this.setLocation(getX() + speed, getY());
         }
-        chaseBall();
-    }    
-
-    /**
-     * Will rotate the paddle 180 degrees if the paddle is at worlds edge.
-     */
-    private void chaseBall()
-    {
-        if (ball.getRotation() > 180) 
-        {
-            if (this.getX() < ball.getX() && this.getX() < getWorld().getWidth() - width / 2) {
-                this.setLocation(getX() + speed, getY());
-            }
-            // if this x højere end ball x, gå venstre
-            if (this.getX() > ball.getX() && this.getX() > width / 2) {
-                this.setLocation(getX() - speed, getY());
-
-            }
-            // hvis this x og ball x er lig. gør ingenting
+        
+        if (this.getX() > n
+         && this.getX() > width / 2) {
+             this.setLocation(getX() - speed, getY());
         }
     }
     
-    /**
-     * Creates and sets an image for the paddle, the image will have the same dimensions as the paddles width and height.
-     */
-    private void createImage()
-    {
+    public void setupPredictor(Ball ball) {
+        double width = getWorld().getWidth() - ball.getSize();
+        double height = getWorld().getHeight() - 140 - ball.getSize();
+        double startPosition = ball.getX() / width;
+        double predictionPoint = height * 1.1 / width;
+        
+        targetPoint = predict(ball.getRotation() - 90, startPosition, predictionPoint);
+        targetPoint = (1 - targetPoint) * width;
+    }
+    
+    private double predict(double angle, double startPosition, double predictionPoint) {
+        angle = Math.toRadians(angle);
+        double a = Math.sin(-angle) / Math.cos(-angle);
+        double count = a * predictionPoint + 1 - startPosition;
+        double flipper = Math.pow(-1, Math.floor(count));
+        double result1 = trueModulo(count, 1);
+        double result2 = 0.5 + 0.5 * (-1) * flipper;
+        double result = result1 * flipper + result2;
+        return result;
+    }
+    
+    private double trueModulo(double a, double b) {
+    return a - b * Math.floor(a / b);
+}
+    
+    private void createImage() {
         GreenfootImage img = new GreenfootImage("ak.png");
         img.scale(this.width, this.height);
         setImage(img);

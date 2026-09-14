@@ -15,7 +15,6 @@ public class Paddle extends Actor
     public Paddle(int width, int height, int maxSpeed) {
         this.width = width;
         this.height = height;
-        //positionX = getX();
         this.maxSpeed = maxSpeed;
         createImage();
     }
