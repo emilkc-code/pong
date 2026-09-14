@@ -9,7 +9,9 @@ public class Ball extends Actor
     private final int HITS_FOR_SPEED = 4;
     private final int MAX_ANGLE = 60;
 
-    private int speed;
+    private float positionX;
+    private float positionY;
+    private float speed;
     private int ownHits;
     private int delay;
     
@@ -21,6 +23,8 @@ public class Ball extends Actor
     
     public Ball(Paddle bottomPaddle, AIPaddle topPaddle) {
         createImage();
+        
+        if (getWorld() == null) { return; }
         init(true);
         this.bottomPaddle = bottomPaddle;
         this.topPaddle = topPaddle;
@@ -35,7 +39,10 @@ public class Ball extends Actor
     public void act() {
         if (delay > 0) { delay--; }
         else {
-            move(speed);
+            positionX += Math.cos(Math.toRadians(getRotation())) * speed;
+            positionY += Math.sin(Math.toRadians(getRotation())) * speed;
+            setLocation((int) positionX, (int) positionY);
+            
             bounceWalls();
             checkBounceOffPaddleBottom();
             checkBounceOffPaddleTop();
@@ -63,8 +70,8 @@ public class Ball extends Actor
         if (isTouchingCeiling()) { applyWin(); }
         if (isTouchingFloor()) { gameManager.setLoses(gameManager.getLoses() + 1); }
         
-        init(true);
         setLocation(getWorld().getWidth() / 2, getWorld().getHeight() / 2);
+        init(true);
     }
 
     private void applyWin() {
@@ -114,6 +121,9 @@ public class Ball extends Actor
     }
     
     private void init(boolean reset) {
+        positionX = getX();
+        positionY = getY();
+        
         speed = 2;
         delay = DELAY_TIME;
         ownHits = 0;
