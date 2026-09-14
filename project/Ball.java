@@ -16,7 +16,7 @@ public class Ball extends Actor
 
     private int speed;
     private boolean hasBouncedHorizontally;
-    private boolean hasBouncedVertically;
+    private boolean movingUpwards;
     private int delay;
     
     private Paddle bottomPaddle;
@@ -113,17 +113,10 @@ public class Ball extends Actor
      */
     private void checkBounceOffCeiling()
     {
-        if (isTouchingCeiling())
-        {
-            if (! hasBouncedVertically)
-            {
-                revertVertically();
-            }
-        }
-        else
-        {
-            hasBouncedVertically = false;
-        }
+        if (!isTouchingCeiling() || !movingUpwards) { return; }
+        
+        revertVertically();
+        movingUpwards = false;
     }
 
     /**
@@ -155,34 +148,23 @@ public class Ball extends Actor
     private void revertVertically()
     {
         //int randomness = Greenfoot.getRandomNumber(BOUNCE_DEVIANCE_MAX)- BOUNCE_DEVIANCE_MAX / 2;
-        setRotation((360 - getRotation() + 360) % 360);    
-        hasBouncedVertically = true;
+        setRotation((360 - getRotation() + 360) % 360);
     }
 
-    private void checkBounceOffPaddleBottom() 
+    private void checkBounceOffPaddleBottom()
     {
-    if (getIntersectingObjects(Paddle.class).size() >= 1)
-    {
-        if (getRotation() < 180)
-        {
-            revertVertically();
-            int safeY = bottomPaddle.getY() - (bottomPaddle.getImage().getHeight() / 2) - (BALL_SIZE / 2) - 1;
-            setLocation(getX(), safeY);
-        }
-    }
+    if (getIntersectingObjects(Paddle.class).size() < 1 || movingUpwards) { return; }
+    
+    revertVertically();
+    movingUpwards = true;
     }
     
-    private void checkBounceOffPaddleTop() 
+    private void checkBounceOffPaddleTop()
     {
-    if (getIntersectingObjects(AIPaddle.class).size() >= 1)
-    {
-        if (getRotation() > 180)
-        {
-            revertVertically();
-            int safeY = topPaddle.getY() + (topPaddle.getImage().getHeight() / 2) + (BALL_SIZE / 2) + 1;
-            setLocation(getX(), safeY);
-        }
-    }
+    if (getIntersectingObjects(AIPaddle.class).size() < 1 || !movingUpwards) { return; }
+    
+    revertVertically();
+    movingUpwards = false;
     }
     
     /**
@@ -193,7 +175,7 @@ public class Ball extends Actor
         speed = 2;
         delay = DELAY_TIME;
         hasBouncedHorizontally = false;
-        hasBouncedVertically = false;
+        movingUpwards = false;
         if (reset == true) {
             setRotation(Greenfoot.getRandomNumber(STARTING_ANGLE_WIDTH)+STARTING_ANGLE_WIDTH/2); }
     }
