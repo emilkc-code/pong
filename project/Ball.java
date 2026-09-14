@@ -147,12 +147,16 @@ public class Ball extends Actor
     {
         if (getIntersectingObjects(Paddle.class).size() < 1 || movingUpwards) { return; }
         
-        revertVertically();
         movingUpwards = true;
         ownHits += 1;
         GreenfootSound onPaddleHit = new GreenfootSound("BombBeep.mp3");
         onPaddleHit.play();
     
+        Paddle paddle = (Paddle) getIntersectingObjects(Paddle.class).get(0);
+        
+        turnTowards(paddle.getX(), paddle.getY());
+        setRotation(180 + getRotation());
+        
         pingWorld = (PingWorld) getWorld();
         if (ownHits % HITS_FOR_SPEED == 0) {
             speed *= 2;
