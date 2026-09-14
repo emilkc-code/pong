@@ -133,6 +133,8 @@ public class Ball extends Actor
         //int randomness = Greenfoot.getRandomNumber(BOUNCE_DEVIANCE_MAX)- BOUNCE_DEVIANCE_MAX / 2;
         setRotation(180 - getRotation()); // 
         hasBouncedHorizontally = true;
+        GreenfootSound onPaddleHit = new GreenfootSound("WallThudSound.mp3");
+        onPaddleHit.play();
     }
 
     /**
@@ -151,6 +153,8 @@ public class Ball extends Actor
         revertVertically();
         movingUpwards = true;
         ownHits += 1;
+        GreenfootSound onPaddleHit = new GreenfootSound("BombBeep.mp3");
+        onPaddleHit.play();
     
         pingWorld = (PingWorld) getWorld();
         if (ownHits % HITS_FOR_SPEED == 0) {
@@ -165,6 +169,8 @@ public class Ball extends Actor
     
     revertVertically();
     movingUpwards = false;
+    GreenfootSound onPaddleHit = new GreenfootSound("BombBeep.mp3");
+        onPaddleHit.play();
     }
     
     /**
