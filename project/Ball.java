@@ -79,18 +79,8 @@ public class Ball extends Actor
     /**
      * Returns true if the ball is touching the ceiling.
      */
-    private boolean isTouchingCeiling()
-    {
-        return (getY() <= BALL_SIZE/2);
-    }
-
-    /**
-     * Returns true if the ball is touching the floor.
-     */
-    private boolean isTouchingFloor()
-    { 
-        return (getY() >= getWorld().getHeight() - BALL_SIZE/2);
-    }
+    private boolean isTouchingCeiling() { return (getY() <= BALL_SIZE/2); }
+    private boolean isTouchingFloor() { return (getY() >= getWorld().getHeight() - BALL_SIZE/2); }
 
     /**
      * Check to see if the ball should bounce off one of the walls.
@@ -129,7 +119,7 @@ public class Ball extends Actor
      */
     private void checkRestart()
     {
-        if (isTouchingFloor())
+        if (isTouchingFloor() || isTouchingCeiling())
         {
             init(true);
             setLocation(getWorld().getWidth() / 2, getWorld().getHeight() / 2);
@@ -188,8 +178,11 @@ public class Ball extends Actor
         hasBouncedHorizontally = false;
         movingUpwards = false;
         ownHits = 0;
-        if (reset == true) {
-            setRotation(Greenfoot.getRandomNumber(STARTING_ANGLE_WIDTH)+STARTING_ANGLE_WIDTH/2); }
+        
+        if (pingWorld != null) { pingWorld.LevelText(1); }
+        
+        if (reset == false) { return; }
+        setRotation(Greenfoot.getRandomNumber(STARTING_ANGLE_WIDTH)+STARTING_ANGLE_WIDTH/2);
     }
 
 }
