@@ -13,8 +13,6 @@ public class AIPaddle extends Actor
     private int height;
     private int dx;
     
-    private boolean atLWall;
-    private boolean atRWall;
     private int speed;
     private Ball ball;
     private boolean firstActRunned = false;
@@ -42,9 +40,6 @@ public class AIPaddle extends Actor
             this.ball = (Ball) getWorld().getObjects(Ball.class).get(0);
             firstActRunned = true;
         }
-
-        //tryChangeDirection();
-        wallCollChecker();
         chaseBall();
     }    
 
@@ -55,33 +50,15 @@ public class AIPaddle extends Actor
     {
         if (ball.getRotation() > 180) 
         {
-            // if this x mindre end ball x, gå højre
-            wallCollChecker();
-            if (this.getX() < ball.getX() && !atRWall) {
+            if (this.getX() < ball.getX() && this.getX() < getWorld().getWidth() - width / 2) {
                 this.setLocation(getX() + speed, getY());
-                atRWall = false;
             }
             // if this x højere end ball x, gå venstre
-            if (this.getX() > ball.getX() && !atLWall) {
+            if (this.getX() > ball.getX() && this.getX() > width / 2) {
                 this.setLocation(getX() - speed, getY());
-                atLWall = false;
 
             }
             // hvis this x og ball x er lig. gør ingenting
-        }
-    }
-    
-    private void wallCollChecker()
-    {
-        //leftWall
-        if ((this.getX() - this.width/2) <= 0){
-            this.setLocation((this.getX() + this.width/2), getY());
-            atLWall = true;
-        }
-        //rightWall
-        if (((this.getX() + this.width/2) == getWorld().getWidth())){
-            this.setLocation((this.getX() + this.width/2), getX());
-            atRWall = true;
         }
     }
     
