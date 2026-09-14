@@ -58,11 +58,11 @@ public class Paddle extends Actor
 
     private void inputChecker()
     {
-        if (Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left") && !atLWall) {
+        if (Greenfoot.isKeyDown("a") && !atLWall || Greenfoot.isKeyDown("left") && !atLWall) {
             this.setLocation(getX() - speed, getY());
             atRWall = false;
         }
-        if (Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right") && !atRWall) {
+        if (Greenfoot.isKeyDown("d") && !atRWall || Greenfoot.isKeyDown("right") && !atRWall) {
             this.setLocation(getX() + speed, getY());
             atLWall = false;
         }
