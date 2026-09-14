@@ -57,9 +57,7 @@ public class AIPaddle extends Actor
         double a = Math.sin(-angle) / Math.cos(-angle);
         double count = a * predictionPoint + 1 - startPosition;
         double flipper = Math.pow(-1, Math.floor(count));
-        double result1 = trueModulo(count, 1);
-        double result2 = 0.5 + 0.5 * (-1) * flipper;
-        double result = result1 * flipper + result2;
+        double result = trueModulo(count, 1) * flipper + 0.5 + 0.5 * (-1) * flipper;
         return result;
     }
     
