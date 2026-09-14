@@ -10,7 +10,7 @@ public class Paddle extends Actor
     private float positionX = 0;
     private int maxSpeed;
     private float velocity;
-    private int acceloration = 0;
+    private int acceleration = 0;
 
     public Paddle(int width, int height, int maxSpeed) {
         this.width = width;
@@ -26,16 +26,16 @@ public class Paddle extends Actor
 
     private void inputChecker() {
         if (!Greenfoot.isKeyDown("a") && !Greenfoot.isKeyDown("left") && !Greenfoot.isKeyDown("d") && !Greenfoot.isKeyDown("right")) {
-            acceloration = 0;
+            acceleration = 0;
             velocity *= DRAG_COEFFICIENT;
         }
         
-        if ((Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left"))) { acceloration = -1; }
-        if ((Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right"))) { acceloration = 1; }
+        if ((Greenfoot.isKeyDown("a") || Greenfoot.isKeyDown("left"))) { acceleration = -1; }
+        if ((Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right"))) { acceleration = 1; }
     }
     
     private void applyMovement() {
-        velocity += acceloration * ACCELORATION_FORCE;
+        velocity += acceleration * ACCELORATION_FORCE;
         if (this.getX() > getWorld().getWidth() - width / 2) { velocity = Math.clamp(velocity, -maxSpeed, 0); }
         if (this.getX() < width / 2) { velocity = Math.clamp(velocity, 0, maxSpeed); }
         velocity = Math.clamp(velocity, -maxSpeed, maxSpeed);
