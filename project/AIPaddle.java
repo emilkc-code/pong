@@ -22,13 +22,9 @@ public class AIPaddle extends Actor
         moveHere((int) Math.round(targetPoint));
     }
     
-    public void setBall(Ball ball) {
-        this.ball = ball;
-    }
+    public void setBall(Ball ball) { this.ball = ball; }
     
-    public Ball getBall() {
-        return ball;
-    }
+    public Ball getBall() { return ball; }
     
     private void moveHere(int n) {
         if (this.getX() < n
@@ -61,9 +57,7 @@ public class AIPaddle extends Actor
         return result;
     }
     
-    private double trueModulo(double a, double b) {
-    return a - b * Math.floor(a / b);
-}
+    private double trueModulo(double a, double b) { return a - b * Math.floor(a / b); }
     
     private void createImage() {
         GreenfootImage img = new GreenfootImage("ak.png");

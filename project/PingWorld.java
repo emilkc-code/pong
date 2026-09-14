@@ -5,7 +5,7 @@ public class PingWorld extends World
     private static final int WORLD_WIDTH = 500;
     private static final int WORLD_HEIGHT = 700;
     
-    private AIPaddle aiPaddle = new AIPaddle(100, 20, 1);
+    private AIPaddle aiPaddle = new AIPaddle(100, 20, 2);
     private Paddle paddle = new Paddle(100,20, 2);
     private Ball ball = new Ball(paddle, aiPaddle);
     

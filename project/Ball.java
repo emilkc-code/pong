@@ -27,13 +27,9 @@ public class Ball extends Actor
         this.topPaddle = topPaddle;
     }
     
-    public void addedToWorld(World world) {
-        init(true);
-    }
+    public void addedToWorld(World world) { init(true); }
 
-    public int getSize() {
-        return BALL_SIZE;
-    }
+    public int getSize() { return BALL_SIZE; }
     
     private void createImage() {
         GreenfootImage img = new GreenfootImage("c4.png");
@@ -58,7 +54,6 @@ public class Ball extends Actor
     }    
 
     private boolean isTouchingSides() { return (getX() <= BALL_SIZE/2 || getX() >= getWorld().getWidth() - BALL_SIZE/2); }
-    
     private boolean isTouchingCeiling() { return (getY() <= BALL_SIZE/2); }
     private boolean isTouchingFloor() { return (getY() >= getWorld().getHeight() - BALL_SIZE/2); }
 
@@ -142,5 +137,4 @@ public class Ball extends Actor
         if (reset == false) { return; }
         setRotation(Greenfoot.getRandomNumber(STARTING_ANGLE_WIDTH)+STARTING_ANGLE_WIDTH/2);
     }
-
 }
