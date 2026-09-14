@@ -108,15 +108,17 @@ public class Ball extends Actor
     {
         if (!isTouchingFloor() && !isTouchingCeiling()) { return; }
         
-        init(true);
-        setLocation(getWorld().getWidth() / 2, getWorld().getHeight() / 2);
-        
         if (isTouchingCeiling()) {
             gameManager.setWins(gameManager.getWins() + 1);
-            gameManager.setMoney(gameManager.getMoney() + 1 * ownHits * (ownHits % 10 + 1));
+            gameManager.setMoney(gameManager.getMoney() + 1 * ownHits * ((int) (ownHits / 10) + 1));
+            pingWorld = (PingWorld) getWorld();
+            pingWorld.moneyText(gameManager.getMoney());
         }
         
         if (isTouchingFloor()) { gameManager.setLoses(gameManager.getLoses() + 1); }
+        
+        init(true);
+        setLocation(getWorld().getWidth() / 2, getWorld().getHeight() / 2);
         
     }
 
@@ -154,7 +156,7 @@ public class Ball extends Actor
         pingWorld = (PingWorld) getWorld();
         if (ownHits % HITS_FOR_SPEED == 0) {
             speed *= 2;
-            pingWorld.LevelText((int) (ownHits / HITS_FOR_SPEED + 1));
+            pingWorld.levelText((int) (ownHits / HITS_FOR_SPEED + 1));
         }
     }
     
@@ -179,7 +181,7 @@ public class Ball extends Actor
         movingUpwards = false;
         ownHits = 0;
         
-        if (pingWorld != null) { pingWorld.LevelText(1); }
+        if (pingWorld != null) { pingWorld.levelText(1); }
         
         if (reset == false) { return; }
         setRotation(Greenfoot.getRandomNumber(STARTING_ANGLE_WIDTH)+STARTING_ANGLE_WIDTH/2);

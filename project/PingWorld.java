@@ -16,8 +16,6 @@ public class PingWorld extends World
     private AIPaddle topPaddle = new AIPaddle(100, 20, 1);
     private Ball ball = new Ball(botPaddle, topPaddle);
 
-    
-
     /**
      * Constructor for objects of class PingWorld.
      */
@@ -26,7 +24,7 @@ public class PingWorld extends World
         super(WORLD_WIDTH, WORLD_HEIGHT, 1); 
         if (gameStarted)
         {
-            LevelText(1);
+            levelText(1);
             
             // Create a new world with WORLD_WIDTHxWORLD_HEIGHT cells with a cell size of 1x1 pixels.
             addObject(new Background(WORLD_WIDTH, WORLD_HEIGHT),WORLD_WIDTH/2, WORLD_HEIGHT/2);
@@ -40,9 +38,8 @@ public class PingWorld extends World
         }
     }
     
-    public void LevelText(int x)
-    {
-        showText("Speed:" + Integer.toString(x), 40, 16);
-    }
+    public void levelText(int n) { showText("Speed:" + Integer.toString(n), 40, 16); }
+    
+    public void moneyText(int n) { showText("Money:" + Integer.toString(n), getWidth() - 50, 16); }
     
 }
