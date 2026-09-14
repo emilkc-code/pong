@@ -15,6 +15,7 @@ public class Ball extends Actor
     private static final int DELAY_TIME = 100;
 
     private int speed;
+    private int ownHits;
     private boolean hasBouncedHorizontally;
     private boolean movingUpwards;
     private int delay;
@@ -157,6 +158,9 @@ public class Ball extends Actor
     
     revertVertically();
     movingUpwards = true;
+    ownHits += 1;
+
+    if (ownHits % 10 == 0) { speed *= 2; }
     }
     
     private void checkBounceOffPaddleTop()
@@ -176,6 +180,7 @@ public class Ball extends Actor
         delay = DELAY_TIME;
         hasBouncedHorizontally = false;
         movingUpwards = false;
+        ownHits = 0;
         if (reset == true) {
             setRotation(Greenfoot.getRandomNumber(STARTING_ANGLE_WIDTH)+STARTING_ANGLE_WIDTH/2); }
     }
