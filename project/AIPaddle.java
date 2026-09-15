@@ -44,13 +44,17 @@ public class AIPaddle extends Actor
     
     public void setupPredictor(Ball ball) {
         double width = getWorld().getWidth() - ball.getSize();
-        double height = getWorld().getHeight() - 120 - ball.getSize();
+        double height = getWorld().getHeight() - 60 - ball.getSize() / 2 - (getWorld().getHeight() - ball.getY());
         double startPosition = ball.getX() / width;
-        double predictionPoint = height * 1.05 / width;
+        double predictionPoint = height / width;
         
         targetPoint = predict(ball.getRotation() - 90, startPosition, predictionPoint);
         targetPoint = (1 - targetPoint) * width + ball.getSize() / 2;
         targetPoint = Math.round(targetPoint);
+        
+        double snipe = ball.getX() - getWorld().getWidth() / 2;
+        snipe /= width / 2;
+        targetPoint += snipe * 10;
     }
     
     private double predict(double angle, double startPosition, double predictionPoint) {

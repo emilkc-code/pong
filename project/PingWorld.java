@@ -18,7 +18,7 @@ public class PingWorld extends World
             addObject(new Background(getHeight(), getHeight()),getHeight()/2, getHeight()/2);
             addObject(aiPaddle, 60, 50);
             addObject(paddle, 60, getHeight() - 50);
-            addObject(ball, getHeight()/2, getHeight()/2);
+            addObject(ball, 0, 0);
         }
         
         else { Greenfoot.setWorld(new IntroWorld()); }
