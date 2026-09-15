@@ -1,5 +1,5 @@
 #BlueJ class context
 comment0.target=Background
-comment1.params=width\ height
-comment1.target=Background(int,\ int)
+comment1.params=width\ height\ bgImage\ bgSoun
+comment1.target=Background(int,\ int,\ greenfoot.GreenfootImage,\ greenfoot.GreenfootSound)
 numComments=2

@@ -18,6 +18,7 @@ public class Ball extends Actor
     private float speed;
     private int ownHits;
     private int delay;
+    private GreenfootImage image;
     
     private Paddle bottomPaddle;
     private AIPaddle topPaddle;
@@ -25,10 +26,12 @@ public class Ball extends Actor
     private PingWorld pingWorld;
     private GameManager gameManager = new GameManager();
     
-    public Ball(Paddle bottomPaddle, AIPaddle topPaddle) {
-        createImage();
+    public Ball(Paddle bottomPaddle, AIPaddle topPaddle, GreenfootImage img) {
         this.bottomPaddle = bottomPaddle;
         this.topPaddle = topPaddle;
+        this.image = img;
+        createImage();
+
     }
     
     public void addedToWorld(World world) { init(true); }
@@ -36,9 +39,8 @@ public class Ball extends Actor
     public int getSize() { return BALL_SIZE; }
     
     private void createImage() {
-        GreenfootImage img = new GreenfootImage("c4.png");
-        img.scale(BALL_SIZE, BALL_SIZE);
-        setImage(img);
+        image.scale(BALL_SIZE, BALL_SIZE);
+        setImage(image);
     }
 
     public void act() {

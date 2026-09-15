@@ -5,14 +5,15 @@ public class AIPaddle extends Actor
     private int width;
     private int height;
     private double targetPoint;
-    
+    private GreenfootImage image;
     private int speed;
     private Ball ball;
     
-    public AIPaddle(int width, int height, int speed) {
+    public AIPaddle(int width, int height, int speed, GreenfootImage img) {
         this.width = width;
         this.height = height;
         this.speed = speed;
+        this.image = img;
         createImage();
         
     }
@@ -69,9 +70,8 @@ public class AIPaddle extends Actor
     private double trueModulo(double a, double b) { return a - b * Math.floor(a / b); }
     
     private void createImage() {
-        GreenfootImage img = new GreenfootImage("ak.png");
-        img.scale(this.width, this.height);
-        setImage(img);
+        image.scale(this.width, this.height);
+        setImage(image);
     }
 
 }

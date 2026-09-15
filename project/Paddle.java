@@ -11,11 +11,13 @@ public class Paddle extends Actor
     private int maxSpeed;
     private float velocity;
     private int acceleration = 0;
+    private GreenfootImage image;
 
-    public Paddle(int width, int height, int maxSpeed) {
+    public Paddle(int width, int height, int maxSpeed, GreenfootImage img) {
         this.width = width;
         this.height = height;
         this.maxSpeed = maxSpeed;
+        this.image = img;
         createImage();
     }
     
@@ -44,9 +46,8 @@ public class Paddle extends Actor
     }
     
     private void createImage() {
-        GreenfootImage img = new GreenfootImage("ct.png");
-        img.scale(this.width, this.height);
-        setImage(img);
+        image.scale(this.width, this.height);
+        setImage(image);
     }
 
 }

@@ -1,3 +1,4 @@
+import greenfoot.*;
 public class GameManager  
 {
     private static int wins = 0;
@@ -16,4 +17,19 @@ public class GameManager
     public int getMoney() { return money; }
     public int getLevel() { return level; }
     public Product getActiveSkinPack() { return activeSkinPack; };
+    
+public GameManager() {
+        activeSkinPack = new Product(
+            "CSGO", 
+            50, 
+            new GreenfootImage("ct.png"), 
+            new GreenfootImage("ak.png"), 
+            new GreenfootImage("mir.jpg"), 
+            new GreenfootImage("c4.png"), 
+            new GreenfootSound("WallThudSound.mp3"), 
+            new GreenfootSound("BombBeep.mp3"), 
+            new GreenfootSound("WinningRobloxOldWinningSoundEffect.mp3"), 
+            new GreenfootSound("WinningRobloxOldWinningSoundEffect.mp3")
+        );
+    }
 }
