@@ -26,10 +26,14 @@ public class Ball extends Actor
     private PingWorld pingWorld;
     private GameManager gameManager = new GameManager();
     
-    public Ball(Paddle bottomPaddle, AIPaddle topPaddle, GreenfootImage img) {
+    private GreenfootSound wallHitSound;
+    private GreenfootSound paddleHitSound;
+    public Ball(Paddle bottomPaddle, AIPaddle topPaddle, GreenfootImage img, GreenfootSound wallHitS, GreenfootSound paddleHitS) {
         this.bottomPaddle = bottomPaddle;
         this.topPaddle = topPaddle;
         this.image = img;
+        this.wallHitSound = wallHitS;
+        this.paddleHitSound = paddleHitS;
         createImage();
 
     }
@@ -70,8 +74,8 @@ public class Ball extends Actor
         if (90 < getRotation() && getRotation() < 270 && getX() < getWorld().getWidth() / 2) { setRotation(180 - getRotation()); }
         if ((0 < getRotation() && getRotation() < 90 || 270 < getRotation() && getRotation() < 360) && getX() > getWorld().getWidth() / 2) { setRotation(180 - getRotation()); }
         
-        GreenfootSound onPaddleHit = new GreenfootSound("WallThudSound.mp3");
-        onPaddleHit.play();
+        
+        wallHitSound.play();
     }
     
     private void checkRestart() {
@@ -113,8 +117,7 @@ public class Ball extends Actor
     }
     
     private void hitPaddle() {
-        GreenfootSound onPaddleHit = new GreenfootSound("BombBeep.mp3");
-        onPaddleHit.play();
+        paddleHitSound.play();
         increaseSpeed();
     }
     

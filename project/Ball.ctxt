@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Ball
-comment1.params=bottomPaddle\ topPaddle\ img
-comment1.target=Ball(Paddle,\ AIPaddle,\ greenfoot.GreenfootImage)
+comment1.params=bottomPaddle\ topPaddle\ img\ wallHitS\ paddleHitS
+comment1.target=Ball(Paddle,\ AIPaddle,\ greenfoot.GreenfootImage,\ greenfoot.GreenfootSound,\ greenfoot.GreenfootSound)
 comment10.params=
 comment10.target=void\ checkRestart()
 comment11.params=

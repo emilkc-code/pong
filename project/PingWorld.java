@@ -7,7 +7,7 @@ public class PingWorld extends World
     private GameManager gm = new GameManager();
     private AIPaddle aiPaddle = new AIPaddle(100, 20, 2, gm.getActiveSkinPack().getSkins().get(1));
     private Paddle paddle = new Paddle(100,20, 2, gm.getActiveSkinPack().getSkins().get(0));
-    private Ball ball = new Ball(paddle, aiPaddle, gm.getActiveSkinPack().getSkins().get(3));
+    private Ball ball = new Ball(paddle, aiPaddle, gm.getActiveSkinPack().getSkins().get(3), gm.getActiveSkinPack().getSounds().get(0), gm.getActiveSkinPack().getSounds().get(1));
     
     public PingWorld(boolean gameStarted) {
         super(WORLD_WIDTH, WORLD_HEIGHT, 1);
@@ -15,7 +15,7 @@ public class PingWorld extends World
         if (gameStarted) {
             levelText(1);
             
-            addObject(new Background(getHeight(), getHeight()),getHeight()/2, getHeight()/2);
+            addObject(new Background(getHeight(), getHeight(), gm.getActiveSkinPack().getSkins().get(2), gm.getActiveSkinPack().getSounds().get(4)),getHeight()/2, getHeight()/2);
             addObject(aiPaddle, 60, 50);
             addObject(paddle, 60, getHeight() - 50);
             addObject(ball, 0, 0);

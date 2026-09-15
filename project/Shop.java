@@ -24,7 +24,8 @@ public class Shop extends World
         new GreenfootSound("rlWHso.mp3"), 
         new GreenfootSound("rlPHso.mp3"), 
         new GreenfootSound("rlWso.mp3"), 
-        new GreenfootSound("rlLso.mp3")));
+        new GreenfootSound("rlLso.mp3"),
+        new GreenfootSound("cs2LobbyMusic.mp3")));
         
     /**
      * Constructor for objects of class Shop.

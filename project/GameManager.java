@@ -29,7 +29,8 @@ public GameManager() {
             new GreenfootSound("WallThudSound.mp3"), 
             new GreenfootSound("BombBeep.mp3"), 
             new GreenfootSound("WinningRobloxOldWinningSoundEffect.mp3"), 
-            new GreenfootSound("WinningRobloxOldWinningSoundEffect.mp3")
+            new GreenfootSound("WinningRobloxOldWinningSoundEffect.mp3"),
+            new GreenfootSound("cs2LobbyMusic.mp3")
         );
     }
 }

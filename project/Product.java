@@ -20,10 +20,11 @@ public class Product
     private GreenfootSound paddleHit;
     private GreenfootSound winSound;
     private GreenfootSound lossSound;
+    private GreenfootSound backgroundSound;
     
     // Constructor 
     public Product(String pN, int p, GreenfootImage bP, GreenfootImage tP, GreenfootImage bG, GreenfootImage b,
-                   GreenfootSound wH, GreenfootSound pH, GreenfootSound wS, GreenfootSound lS) 
+                   GreenfootSound wH, GreenfootSound pH, GreenfootSound wS, GreenfootSound lS, GreenfootSound bgS) 
     {
         packName = pN;
         price = p;
@@ -35,6 +36,7 @@ public class Product
         paddleHit = pH;
         winSound = wS;
         lossSound = lS;
+        backgroundSound = bgS;
     }
     
     public List<GreenfootImage> getSkins() {
@@ -52,6 +54,7 @@ public class Product
         sounds.add(paddleHit);
         sounds.add(winSound);
         sounds.add(lossSound);
+        sounds.add(backgroundSound);
         return sounds;
     }
 }
