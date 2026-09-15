@@ -9,7 +9,12 @@ public class IntroWorld extends World
         super(WORLD_WIDTH, WORLD_HEIGHT, 1); 
         GreenfootImage background = getBackground();
         background.setColor(Color.BLACK);
-        background.drawString("Intro world. Hit <enter> to start game...", WORLD_WIDTH / 2 - 100, WORLD_HEIGHT / 2);
+        background.fillRect(0, 0, getWidth(), getHeight());
+        
+        addObject(new TextLabel("Slong.. (Ping) (Pong)", 40), getWidth() / 2, getHeight() / 6);
+        
+        addObject(new TextLabel("Play", 30), getWidth() / 2, getHeight() - getHeight() / 3);
+        addObject(new TextLabel("Shop", 30), getWidth() / 2, getHeight() - getHeight() / 5);
     }
     
     public void act() {
