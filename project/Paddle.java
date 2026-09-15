@@ -3,7 +3,7 @@ import greenfoot.*;
 public class Paddle extends Actor
 {
     private final float DRAG_COEFFICIENT = 0.9f;
-    private final float ACCELORATION_FORCE = 0.1f;
+    private final float ACCELORATION_FORCE = 0.4f;
     
     private int width;
     private int height;

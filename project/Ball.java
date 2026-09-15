@@ -77,7 +77,6 @@ public class Ball extends Actor
         if (isTouchingCeiling()) { applyWin(); }
         if (isTouchingFloor()) { gameManager.setLoses(gameManager.getLoses() + 1); }
         
-        setLocation(getWorld().getWidth() / 2, getWorld().getHeight() / 2);
         init(true);
     }
 
@@ -136,6 +135,8 @@ public class Ball extends Actor
     }
     
     private void init(boolean reset) {
+        setLocation(getWorld().getWidth() / 2, getWorld().getHeight() - 60 - BALL_SIZE);
+        
         positionX = getX();
         positionY = getY();
         
@@ -147,6 +148,8 @@ public class Ball extends Actor
         if (pingWorld != null) { pingWorld.levelText(1); }
         
         if (reset == false) { return; }
-        setRotation(Greenfoot.getRandomNumber(STARTING_ANGLE_WIDTH)+STARTING_ANGLE_WIDTH/2);
+        setRotation(Greenfoot.getRandomNumber(STARTING_ANGLE_WIDTH)+STARTING_ANGLE_WIDTH/2 + 180);
+        
+        topPaddle.setupPredictor(this);
     }
 }
