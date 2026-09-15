@@ -8,9 +8,13 @@ public class Ball extends Actor
     private final int DELAY_TIME = 100;
     private final int HITS_FOR_SPEED = 4;
     private final int MAX_ANGLE = 60;
+    private final int MINIMUM_SPEED = 2;
+    private final float DRAG_COEFFICIENT = 0.995f;
+    private final float SPEED_INCREASE = 0.5f;
 
     private float positionX;
     private float positionY;
+    private float velocity;
     private float speed;
     private int ownHits;
     private int delay;
@@ -42,9 +46,10 @@ public class Ball extends Actor
         
         if (delay > 0) { delay--; }
         else {
-            positionX += Math.cos(Math.toRadians(getRotation())) * speed;
-            positionY += Math.sin(Math.toRadians(getRotation())) * speed;
+            positionX += Math.cos(Math.toRadians(getRotation())) * (velocity * speed + MINIMUM_SPEED);
+            positionY += Math.sin(Math.toRadians(getRotation())) * (velocity * speed + MINIMUM_SPEED);
             setLocation((int) positionX, (int) positionY);
+            applyDrag();
             
             bounceWalls();
             checkBounceOffPaddleBottom();
@@ -85,11 +90,11 @@ public class Ball extends Actor
     
     private void checkBounceOffPaddleTop() {
         if (getIntersectingObjects(AIPaddle.class).size() < 1 || getRotation() < 180) { return; }
+        hitPaddle();
+        
+        velocity = 1;
         
         turnAwayFrom(topPaddle.getX(), topPaddle.getY(), true);
-        
-        GreenfootSound bombBeepSound = new GreenfootSound("BombBeep.mp3");
-        bombBeepSound.play();
         
         topPaddle.resetToCenter();
     }
@@ -98,6 +103,8 @@ public class Ball extends Actor
         if (getIntersectingObjects(Paddle.class).size() < 1 || getRotation() > 180) { return; }
         ownHits += 1;
         hitPaddle();
+        
+        velocity = 1;
     
         turnAwayFrom(bottomPaddle.getX(), bottomPaddle.getY(), false);
         
@@ -113,9 +120,13 @@ public class Ball extends Actor
     private void increaseSpeed() {
         pingWorld = (PingWorld) getWorld();
         if (ownHits % HITS_FOR_SPEED == 0) {
-            speed *= 2;
+            speed += SPEED_INCREASE;
             pingWorld.levelText((int) (ownHits / HITS_FOR_SPEED + 1));
         }
+    }
+    
+    private void applyDrag() {
+        velocity *= DRAG_COEFFICIENT;
     }
     
     private void turnAwayFrom(int x, int y, boolean goingUp) {
@@ -128,7 +139,8 @@ public class Ball extends Actor
         positionX = getX();
         positionY = getY();
         
-        speed = 2;
+        velocity = 1;
+        speed = 1;
         delay = DELAY_TIME;
         ownHits = 0;
         
