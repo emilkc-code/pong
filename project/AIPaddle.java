@@ -4,7 +4,7 @@ public class AIPaddle extends Actor
 {
     private int width;
     private int height;
-    private Double targetPoint;
+    private double targetPoint;
     
     private int speed;
     private Ball ball;
@@ -18,8 +18,8 @@ public class AIPaddle extends Actor
     }
     
     public void act() {
-        if (ball == null || targetPoint == null) { return; }
-        moveHere((int) Math.round(targetPoint));
+        if (ball == null || targetPoint < 0) { return; }
+        moveHere((int) targetPoint);
     }
     
     public void setBall(Ball ball) { this.ball = ball; }
@@ -38,14 +38,19 @@ public class AIPaddle extends Actor
         }
     }
     
+    public void resetToCenter() {
+        targetPoint = getWorld().getWidth() / 2;
+    }
+    
     public void setupPredictor(Ball ball) {
         double width = getWorld().getWidth() - ball.getSize();
-        double height = getWorld().getHeight() - 140 - ball.getSize();
+        double height = getWorld().getHeight() - 120 - ball.getSize();
         double startPosition = ball.getX() / width;
-        double predictionPoint = height * 1.1 / width;
+        double predictionPoint = height * 1.02 / width;
         
         targetPoint = predict(ball.getRotation() - 90, startPosition, predictionPoint);
-        targetPoint = (1 - targetPoint) * width;
+        targetPoint = (1 - targetPoint) * width + ball.getSize() / 2;
+        targetPoint = Math.round(targetPoint);
     }
     
     private double predict(double angle, double startPosition, double predictionPoint) {

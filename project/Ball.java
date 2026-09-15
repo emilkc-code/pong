@@ -86,11 +86,12 @@ public class Ball extends Actor
     private void checkBounceOffPaddleTop() {
         if (getIntersectingObjects(AIPaddle.class).size() < 1 || getRotation() < 180) { return; }
         
-        AIPaddle paddle = (AIPaddle) getIntersectingObjects(AIPaddle.class).get(0);
-        turnAwayFrom(paddle.getX(), paddle.getY(), true);
+        turnAwayFrom(topPaddle.getX(), topPaddle.getY(), true);
         
         GreenfootSound bombBeepSound = new GreenfootSound("BombBeep.mp3");
         bombBeepSound.play();
+        
+        topPaddle.resetToCenter();
     }
     
     private void checkBounceOffPaddleBottom() {
@@ -98,8 +99,7 @@ public class Ball extends Actor
         ownHits += 1;
         hitPaddle();
     
-        Paddle paddle = (Paddle) getIntersectingObjects(Paddle.class).get(0);
-        turnAwayFrom(paddle.getX(), paddle.getY(), false);
+        turnAwayFrom(bottomPaddle.getX(), bottomPaddle.getY(), false);
         
         topPaddle.setupPredictor(this);
     }
