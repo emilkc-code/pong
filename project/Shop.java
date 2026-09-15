@@ -11,7 +11,9 @@ public class Shop extends World
 {
     private static final int WORLD_WIDTH = 500;
     private static final int WORLD_HEIGHT = 700;
-private static final List<Product> products = List.of(
+    private static final GreenfootImage rocketLeagueLogo = new GreenfootImage("RLlogo.png");
+    private static final GreenfootImage leagueOfLegendsLogo = new GreenfootImage("leagueLogo.jpg");
+    private static final List<Product> products = List.of(
     new Product(
         "Rocket League pack", 
         50, 
@@ -32,6 +34,20 @@ private static final List<Product> products = List.of(
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(WORLD_WIDTH, WORLD_HEIGHT, 1); 
-
+        placeImages();
+    }
+    
+    public void placeImages()
+    {
+        // Rocket League
+        rocketLeagueLogo.scale(150,70);
+        getBackground().drawImage(rocketLeagueLogo, 70, 100);
+        addObject(new Button(10, false, 150, 50, products.get(0)), 145, 190);
+        
+        // League of legends
+        leagueOfLegendsLogo.scale(150,70);
+        getBackground().drawImage(leagueOfLegendsLogo, 300, 100);
+        addObject(new Button(10, false, 150, 50, products.get(0)), 375, 190);
+        
     }
 }
