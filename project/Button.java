@@ -40,12 +40,11 @@ public class Button extends Actor
     
     public void act()
     {
-        if (Greenfoot.mouseClicked(this) && !purchased && price<= gm.getMoney()){
+        if (Greenfoot.mouseClicked(this) && !purchased && price <= gm.getMoney() && product != null){
             setColor(Color.BLUE);
             gm.setMoney(gm.getMoney() - price);
             gm.setActiveSkinPack(product);
         }
-        
     }
     
     public void setColor(Color color)

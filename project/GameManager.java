@@ -6,6 +6,7 @@ public class GameManager
     private static int money = 0;
     private static int level = 0;
     private static Product activeSkinPack;
+    private static int initializations = 0;
     public void setWins(int n) { wins = n; }
     public void setLoses(int n) { loses = n; }
     public void setMoney(int n) { money = n; }
@@ -19,18 +20,21 @@ public class GameManager
     public Product getActiveSkinPack() { return activeSkinPack; };
     
 public GameManager() {
-        activeSkinPack = new Product(
-            "CSGO", 
-            50, 
-            new GreenfootImage("ct.png"), 
-            new GreenfootImage("ak.png"), 
-            new GreenfootImage("mir.jpg"), 
-            new GreenfootImage("c4.png"), 
-            new GreenfootSound("WallThudSound.mp3"), 
-            new GreenfootSound("BombBeep.mp3"), 
-            new GreenfootSound("WinningRobloxOldWinningSoundEffect.mp3"), 
-            new GreenfootSound("WinningRobloxOldWinningSoundEffect.mp3"),
-            new GreenfootSound("cs2LobbyMusic.mp3")
-        );
+        initializations++;
+        if (initializations == 1) {
+            activeSkinPack = new Product(
+                "CSGO", 
+                50, 
+                new GreenfootImage("ct.png"), 
+                new GreenfootImage("ak.png"), 
+                new GreenfootImage("mir.jpg"), 
+                new GreenfootImage("c4.png"), 
+                new GreenfootSound("WallThudSound.mp3"), 
+                new GreenfootSound("BombBeep.mp3"), 
+                new GreenfootSound("WinningRobloxOldWinningSoundEffect.mp3"), 
+                new GreenfootSound("WinningRobloxOldWinningSoundEffect.mp3"),
+                new GreenfootSound("cs2LobbyMusic.mp3")
+            );
+        }
     }
 }

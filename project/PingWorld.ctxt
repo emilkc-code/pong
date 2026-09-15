@@ -1,9 +1,13 @@
 #BlueJ class context
 comment0.target=PingWorld
-comment1.params=gameStarted
+comment1.params=gamestarted
 comment1.target=PingWorld(boolean)
-comment2.params=n
-comment2.target=void\ levelText(int)
+comment2.params=
+comment2.target=void\ act()
 comment3.params=n
-comment3.target=void\ moneyText(int)
-numComments=4
+comment3.target=void\ levelText(int)
+comment4.params=n
+comment4.target=void\ moneyText(int)
+comment5.params=
+comment5.target=void\ returnText()
+numComments=6

@@ -50,5 +50,11 @@ public class Shop extends World
         getBackground().drawImage(leagueOfLegendsLogo, 300, 100);
         addObject(new Button(10, false, 150, 50, products.get(0)), 375, 190);
         
+        // Menu button
+        WorldSwappingButton menuButton = new WorldSwappingButton("IntroWorld", 500, 70);
+        menuButton.setTextandColor("Return To Main Menu", 100, 45);
+        addObject(menuButton, 250, 550);
+
+        
     }
 }
