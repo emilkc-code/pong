@@ -21,14 +21,14 @@ public class Ball extends Actor
     private GreenfootImage image;
     
     private Paddle bottomPaddle;
-    private AIPaddle topPaddle;
+    private Paddle topPaddle;
     
     private PingWorld pingWorld;
     private GameManager gameManager = new GameManager();
     
     private GreenfootSound wallHitSound;
     private GreenfootSound paddleHitSound;
-    public Ball(Paddle bottomPaddle, AIPaddle topPaddle, GreenfootImage img, GreenfootSound wallHitS, GreenfootSound paddleHitS) {
+    public Ball(Paddle bottomPaddle, Paddle topPaddle, GreenfootImage img, GreenfootSound wallHitS, GreenfootSound paddleHitS) {
         this.bottomPaddle = bottomPaddle;
         this.topPaddle = topPaddle;
         this.image = img;
@@ -49,6 +49,7 @@ public class Ball extends Actor
 
     public void act() {
         if (topPaddle.getBall() == null) { topPaddle.setBall(this); }
+        if (bottomPaddle.getBall() == null) { bottomPaddle.setBall(this); }
         
         if (delay > 0) { delay--; }
         else {
@@ -94,18 +95,19 @@ public class Ball extends Actor
     }
     
     private void checkBounceOffPaddleTop() {
-        if (getIntersectingObjects(AIPaddle.class).size() < 1 || getRotation() < 180) { return; }
+        if (getIntersectingObjects(Paddle.class).size() < 1 || getIntersectingObjects(Paddle.class).get(0).getY() > getWorld().getWidth() / 2 || getRotation() < 180) { return; }
         hitPaddle();
         
         velocity = 1;
         
         turnAwayFrom(topPaddle.getX(), topPaddle.getY(), true);
         
-        topPaddle.resetToCenter();
+        if ( topPaddle.isAI() ) { topPaddle.resetToCenter(); }
+        if ( bottomPaddle.isAI() ) { bottomPaddle.setupPredictor(this); }
     }
     
     private void checkBounceOffPaddleBottom() {
-        if (getIntersectingObjects(Paddle.class).size() < 1 || getRotation() > 180) { return; }
+        if (getIntersectingObjects(Paddle.class).size() < 1 || getIntersectingObjects(Paddle.class).get(0).getY() < getWorld().getWidth() / 2 || getRotation() > 180) { return; }
         ownHits += 1;
         hitPaddle();
         
@@ -113,7 +115,8 @@ public class Ball extends Actor
     
         turnAwayFrom(bottomPaddle.getX(), bottomPaddle.getY(), false);
         
-        topPaddle.setupPredictor(this);
+        if ( topPaddle.isAI() ) { topPaddle.setupPredictor(this); }
+        if ( bottomPaddle.isAI() ) { bottomPaddle.resetToCenter(); }
     }
     
     private void hitPaddle() {

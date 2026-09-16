@@ -5,8 +5,8 @@ public class PingWorld extends World
     private static final int WORLD_WIDTH = 500;
     private static final int WORLD_HEIGHT = 700;
     private GameManager gm = new GameManager();
-    private AIPaddle aiPaddle = new AIPaddle(100, 20, 1, gm.getActiveSkinPack().getSkins().get(1));
-    private Paddle paddle = new Paddle(100,20, 2, gm.getActiveSkinPack().getSkins().get(0));
+    private Paddle aiPaddle = new Paddle(100,20, 2, true, gm.getActiveSkinPack().getSkins().get(0));
+    private Paddle paddle = new Paddle(100,20, 2, false, gm.getActiveSkinPack().getSkins().get(0));
     private Ball ball = new Ball(paddle, aiPaddle, gm.getActiveSkinPack().getSkins().get(3), gm.getActiveSkinPack().getSounds().get(0), gm.getActiveSkinPack().getSounds().get(1));
     private Background background;
     private int runner = 0;
@@ -36,10 +36,10 @@ public class PingWorld extends World
         }
     }
     
-    public void levelText(int n) { showText("Speed:" + Integer.toString(n), 40, 16); }
+    public void levelText(int n) { showText("Speed:" + Integer.toString(n), 40, getHeight() - 16); }
     
-    public void moneyText(int n) { showText("Money:" + Integer.toString(n), getWidth() - 50, 16); }
+    public void moneyText(int n) { showText("Money:" + Integer.toString(n), getWidth() - 60, getHeight() - 16); }
     
-    public void returnText() {showText("Press ESC to return to main menu", getWidth()/2 - 10, 16); }
+    public void returnText() {showText("Press ESC to return to main menu", 105, 16); }
     
 }

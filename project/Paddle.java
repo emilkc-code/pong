@@ -3,7 +3,11 @@ import greenfoot.*;
 public class Paddle extends Actor
 {
     private final float DRAG_COEFFICIENT = 0.9f;
-    private final float ACCELORATION_FORCE = 0.4f;
+    private final float ACCELORATION_FORCE = 0.8f;
+    
+    private boolean isAI;
+    private double targetPoint;
+    private Ball ball;
     
     private int width;
     private int height;
@@ -13,18 +17,82 @@ public class Paddle extends Actor
     private int acceleration = 0;
     private GreenfootImage image;
 
-    public Paddle(int width, int height, int maxSpeed, GreenfootImage img) {
+    public Paddle(int width, int height, int maxSpeed, boolean isAI, GreenfootImage img) {
         this.width = width;
         this.height = height;
         this.maxSpeed = maxSpeed;
+        this.isAI = isAI;
         this.image = img;
         createImage();
     }
     
     public void act() {
-        inputChecker();
-        applyMovement();
+        if (!isAI) {
+            inputChecker();
+            applyMovement();
+        } else {
+            if (ball == null || targetPoint < 0) { return; }
+            moveHere((int) targetPoint);
+        }
     }
+    
+    public void setBall(Ball ball) { this.ball = ball; }
+    
+    public Ball getBall() { return ball; }
+    
+    public void setAI(boolean b) { isAI = b; }
+    
+    public boolean isAI() { return isAI; }
+    
+    private void moveHere(int n) {
+        if (this.getX() < n
+         && this.getX() < getWorld().getWidth() - width / 2) {
+             this.setLocation(getX() + maxSpeed, getY());
+        }
+        
+        if (this.getX() > n
+         && this.getX() > width / 2) {
+             this.setLocation(getX() - maxSpeed, getY());
+        }
+    }
+    
+    public void resetToCenter() {
+        targetPoint = getWorld().getWidth() / 2;
+    }
+    
+    public void setupPredictor(Ball ball) {
+        int ballHeight = ball.getY();
+        int ballRotation = ball.getRotation();
+        
+        if ( getY() > getWorld().getHeight() / 2 ) {
+            ballHeight = getWorld().getHeight() - ballHeight;
+            ballRotation = 360 - ballRotation;
+        }
+        
+        double width = getWorld().getWidth() - ball.getSize();
+        double height = getWorld().getHeight() - 60 - ball.getSize() / 2 - (getWorld().getHeight() - ballHeight);
+        double startPosition = ball.getX() / width;
+        double predictionPoint = height / width;
+        
+        targetPoint = predict(ballRotation - 90, startPosition, predictionPoint);
+        targetPoint = (1 - targetPoint) * width + ball.getSize() / 2;
+        targetPoint = Math.round(targetPoint);
+        
+        double snipe = ball.getX() - getWorld().getWidth() / 2;
+        snipe /= width / 2;
+        targetPoint += snipe * 10;
+    }
+    
+    private double predict(double angle, double startPosition, double predictionPoint) {
+        angle = Math.toRadians(angle);
+        double a = Math.sin(-angle) / Math.cos(-angle);
+        double count = a * predictionPoint + 1 - startPosition;
+        double flipper = Math.pow(-1, Math.floor(count));
+        double result = trueModulo(count, 1) * flipper + 0.5 + 0.5 * (-1) * flipper;
+        return result;
+    }
+    
+    private double trueModulo(double a, double b) { return a - b * Math.floor(a / b); }
 
     private void inputChecker() {
         if (!Greenfoot.isKeyDown("a") && !Greenfoot.isKeyDown("left") && !Greenfoot.isKeyDown("d") && !Greenfoot.isKeyDown("right")) {
