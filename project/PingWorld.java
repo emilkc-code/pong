@@ -6,7 +6,7 @@ public class PingWorld extends World
     private static final int WORLD_HEIGHT = 700;
     private GameManager gm = new GameManager();
     private Paddle topPaddle = new Paddle(100,20, 2, true, gm.getActiveSkinPack().getSkins().get(1));
-    private Paddle bottomPaddle = new Paddle(100,20, 2, false, gm.getActiveSkinPack().getSkins().get(0));
+    private Paddle bottomPaddle = new Paddle(100,20, 2, true, gm.getActiveSkinPack().getSkins().get(0));
     private Ball ball = new Ball(bottomPaddle, topPaddle, gm.getActiveSkinPack().getSkins().get(3), gm.getActiveSkinPack().getSounds().get(0), gm.getActiveSkinPack().getSounds().get(1));
     private Background background;
     private int runner = 0;

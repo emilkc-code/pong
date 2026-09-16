@@ -1,34 +1,38 @@
 import greenfoot.*;
 
 public class TextLabel extends Actor {
-    public TextLabel(String text, int fontSize) {
-        updateText(text, fontSize);
+    private String text;
+    private int fontSize;
+    private Color color;
+    
+    public TextLabel(String text, int fontSize, Color color) {
+        this.text = text;
+        this.fontSize = fontSize;
+        this.color = color;
+        updateText();
     }
     
-    public void updateText(String text, int fontSize) {
+    public void updateText() {
         int width = text.length() * (fontSize / 2) * 2;
         int height = fontSize + 10;
         
         GreenfootImage img = new GreenfootImage(width, height);
         Font font = new Font(true, false, fontSize);
         img.setFont(font);
-        img.setColor(Color.WHITE);
+        img.setColor(color);
         
         img.drawString(text, width / 4, fontSize);
         
         setImage(img);
     }
-        public void setBlackColor(String text, int fontSize) {
-        int width = text.length() * (fontSize / 2) * 2;
-        int height = fontSize + 10;
-        GreenfootImage img = new GreenfootImage(width, height);
-        Font font = new Font(true, false, fontSize);
-        img.setFont(font);
-        img.setColor(Color.BLACK);
-        
-        img.drawString(text, width / 4, fontSize);
-        
-        setImage(img);
-        
+    
+    public void setColor(Color color) {
+        this.color = color;
+        updateText();
+    }
+    
+    public void setText(String text) {
+        this.text = text;
+        updateText();
     }
 }

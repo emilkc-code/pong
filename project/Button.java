@@ -25,16 +25,16 @@ public class Button extends Actor
         
         //set image
 
-        setColor(Color.GREEN);
+        setColor(new Color(35, 220, 35));
         
         if (purchased) {
-            setColor(Color.BLUE);
+            setColor(new Color(35, 35, 220));
         }
         else if (cost <= gm.getMoney()){
-            setColor(Color.GREEN);
+            setColor(new Color(35, 220, 35));
         }
         else if (cost > gm.getMoney()){
-            setColor(Color.RED);
+            setColor(new Color(220, 35, 35));
         }
     }
     

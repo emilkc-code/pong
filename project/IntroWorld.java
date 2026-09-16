@@ -10,10 +10,10 @@ public class IntroWorld extends World
     public IntroWorld() {
         super(WORLD_WIDTH, WORLD_HEIGHT, 1); 
         GreenfootImage background = getBackground();
-        background.setColor(Color.BLACK);
+        background.setColor(new Color(35, 35, 35));
         background.fillRect(0, 0, getWidth(), getHeight());
         
-        addObject(new TextLabel("Slong.. (Ping) (Pong)", 40), getWidth() / 2, getHeight() / 6);
+        addObject(new TextLabel("Slong.. (Ping) (Pong)", 40, new Color(220, 220, 220)), getWidth() / 2, getHeight() / 6);
         
         //addObject(new TextLabel("Play", 30), getWidth() / 2, getHeight() - getHeight() / 3);
         //addObject(new TextLabel("Shop", 30), getWidth() / 2, getHeight() - getHeight() / 5);
