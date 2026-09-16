@@ -5,9 +5,9 @@ public class PingWorld extends World
     private static final int WORLD_WIDTH = 500;
     private static final int WORLD_HEIGHT = 700;
     private GameManager gm = new GameManager();
-    private Paddle aiPaddle = new Paddle(100,20, 2, true, gm.getActiveSkinPack().getSkins().get(0));
-    private Paddle paddle = new Paddle(100,20, 2, false, gm.getActiveSkinPack().getSkins().get(0));
-    private Ball ball = new Ball(paddle, aiPaddle, gm.getActiveSkinPack().getSkins().get(3), gm.getActiveSkinPack().getSounds().get(0), gm.getActiveSkinPack().getSounds().get(1));
+    private Paddle topPaddle = new Paddle(100,20, 2, true, gm.getActiveSkinPack().getSkins().get(1));
+    private Paddle bottomPaddle = new Paddle(100,20, 2, false, gm.getActiveSkinPack().getSkins().get(0));
+    private Ball ball = new Ball(bottomPaddle, topPaddle, gm.getActiveSkinPack().getSkins().get(3), gm.getActiveSkinPack().getSounds().get(0), gm.getActiveSkinPack().getSounds().get(1));
     private Background background;
     private int runner = 0;
     private boolean gameStarted;
@@ -26,8 +26,8 @@ public class PingWorld extends World
             returnText();
             background = new Background(getHeight(), getHeight(), gm.getActiveSkinPack().getSkins().get(2), gm.getActiveSkinPack().getSounds().get(4));
             addObject(background, getHeight()/2, getHeight()/2);
-            addObject(aiPaddle, getWidth() / 2, 50);
-            addObject(paddle, getWidth() / 2, getHeight() - 50);
+            addObject(topPaddle, getWidth() / 2, 50);
+            addObject(bottomPaddle, getWidth() / 2, getHeight() - 50);
             addObject(ball, 0, 0);
         }
         }
