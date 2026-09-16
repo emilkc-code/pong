@@ -14,7 +14,7 @@ public class Button extends Actor
     private int buttonHeight;
     private Product product;
     private GameManager gm = new GameManager();
-    
+    private Color col;    
     public Button(int cost, boolean prePurchased, int width, int height, Product prod )
     {
         this.price = cost;
@@ -42,16 +42,32 @@ public class Button extends Actor
     {
         if (Greenfoot.mouseClicked(this) && !purchased && price <= gm.getMoney() && product != null){
             setColor(Color.BLUE);
+            purchased = true;
             gm.setMoney(gm.getMoney() - price);
             gm.setActiveSkinPack(product);
+            Shop shop_menu = (Shop) getWorld();
+            shop_menu.updateAll();
         }
     }
     
     public void setColor(Color color)
     {
+        col = color;
         image.setColor(color);
         image.scale(buttonWidth, buttonHeight);
         image.fill();
         setImage(image);
+    }
+    
+    public Color getColor() {
+        return col;
+    }
+    
+    public int getCost() {
+        return price;
+    }
+    
+    public boolean getPurchased() {
+        return purchased;
     }
 }

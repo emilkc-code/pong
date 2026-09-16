@@ -57,5 +57,9 @@ public class Product
         sounds.add(backgroundSound);
         return sounds;
     }
+    
+    public int getPrice() {
+        return price;
+    }
 }
 

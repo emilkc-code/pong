@@ -27,6 +27,10 @@ public class Shop extends World
         new GreenfootSound("rlLso.mp3"),
         new GreenfootSound("cs2LobbyMusic.mp3")));
         
+        private TextLabel money_text = new TextLabel("Money", 38);
+        private GameManager gm = new GameManager();
+        private Button rlButton = new Button(gm.getActiveSkinPack().getPrice(), false, 150, 50, products.get(0));
+        private Button llButton = new Button(gm.getActiveSkinPack().getPrice(), false, 150, 50, products.get(0));
     /**
      * Constructor for objects of class Shop.
      * 
@@ -43,18 +47,36 @@ public class Shop extends World
         // Rocket League
         rocketLeagueLogo.scale(150,70);
         getBackground().drawImage(rocketLeagueLogo, 70, 100);
-        addObject(new Button(10, false, 150, 50, products.get(0)), 145, 190);
+        addObject(rlButton, 145, 190);
         
         // League of legends
         leagueOfLegendsLogo.scale(150,70);
         getBackground().drawImage(leagueOfLegendsLogo, 300, 100);
-        addObject(new Button(10, false, 150, 50, products.get(0)), 375, 190);
+        addObject(llButton, 375, 190);
         
         // Menu button
         WorldSwappingButton menuButton = new WorldSwappingButton("IntroWorld", 500, 70);
         menuButton.setTextandColor("Return To Main Menu", 100, 45);
         addObject(menuButton, 250, 550);
 
+        // Shop display
+        TextLabel shop_text = new TextLabel("Shop", 38);
+        shop_text.setBlackColor("Shop", 38);
+        addObject(shop_text, 250, 50);
         
+        // Money Display
+        money_text.setBlackColor("Money: " + Integer.toString(gm.getMoney()), 24);
+        addObject(money_text, 400, 50);
+    }
+    
+    public void updateAll() {
+        // Upd money
+        money_text.setBlackColor("Money: " + Integer.toString(gm.getMoney()), 24);
+        addObject(money_text, 400, 50);
+        if (rlButton.getColor() == Color.GREEN)
+        {
+            if (rlButton.getCost() <= gm.getMoney()) { return; }
+            else if (rlButton.getCost() > gm.getMoney()) { rlButton.setColor(Color.RED); }
+        }
     }
 }

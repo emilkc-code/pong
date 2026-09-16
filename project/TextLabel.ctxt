@@ -4,4 +4,6 @@ comment1.params=text\ fontSize
 comment1.target=TextLabel(java.lang.String,\ int)
 comment2.params=text\ fontSize
 comment2.target=void\ updateText(java.lang.String,\ int)
-numComments=3
+comment3.params=text\ fontSize
+comment3.target=void\ setBlackColor(java.lang.String,\ int)
+numComments=4
