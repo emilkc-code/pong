@@ -16,7 +16,7 @@ public class Shop extends World
     private static final List<Product> products = List.of(
     new Product(
         "Rocket League pack", 
-        50, 
+        150,
         new GreenfootImage("RLcar1.png"), 
         new GreenfootImage("RLcar2.png"), 
         new GreenfootImage("RLbg.png"), 

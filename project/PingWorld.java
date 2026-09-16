@@ -22,11 +22,12 @@ public class PingWorld extends World
         if (runner == 1) {
             if (gameStarted) {
             levelText(1);
+            moneyText(new GameManager().getMoney());
             returnText();
             background = new Background(getHeight(), getHeight(), gm.getActiveSkinPack().getSkins().get(2), gm.getActiveSkinPack().getSounds().get(4));
             addObject(background, getHeight()/2, getHeight()/2);
-            addObject(aiPaddle, 60, 50);
-            addObject(paddle, 60, getHeight() - 50);
+            addObject(aiPaddle, getWidth() / 2, 50);
+            addObject(paddle, getWidth() / 2, getHeight() - 50);
             addObject(ball, 0, 0);
         }
         }

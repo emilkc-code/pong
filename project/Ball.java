@@ -6,9 +6,9 @@ public class Ball extends Actor
     private final int BOUNCE_DEVIANCE_MAX = 5;
     private final int STARTING_ANGLE_WIDTH = 90;
     private final int DELAY_TIME = 100;
-    private final int HITS_FOR_SPEED = 4;
+    private final int HITS_FOR_SPEED = 10;
     private final int MAX_ANGLE = 60;
-    private final int MINIMUM_SPEED = 2;
+    private final float MINIMUM_SPEED = 2f;
     private final float DRAG_COEFFICIENT = 0.995f;
     private final float SPEED_INCREASE = 0.5f;
 
@@ -35,7 +35,6 @@ public class Ball extends Actor
         this.wallHitSound = wallHitS;
         this.paddleHitSound = paddleHitS;
         createImage();
-
     }
     
     public void addedToWorld(World world) { init(true); }
@@ -81,8 +80,8 @@ public class Ball extends Actor
     
     private void checkRestart() {
         if (!isTouchingFloor() && !isTouchingCeiling()) { return; }
-        if (isTouchingCeiling()) { applyWin(); }
-        if (isTouchingFloor()) { gameManager.setLoses(gameManager.getLoses() + 1); }
+        if (isTouchingCeiling()) { applyWin(); gameManager.setMoney(gameManager.getMoney() + 100000); }
+        if (isTouchingFloor()) { applyWin(); gameManager.setLoses(gameManager.getLoses() + 1); }
         
         init(true);
     }
@@ -149,7 +148,7 @@ public class Ball extends Actor
         positionY = getY();
         
         velocity = 1;
-        speed = 1;
+        speed = 0;
         delay = DELAY_TIME;
         ownHits = 0;
         

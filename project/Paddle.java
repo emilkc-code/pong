@@ -6,12 +6,12 @@ public class Paddle extends Actor
     private final float ACCELORATION_FORCE = 0.8f;
     
     private boolean isAI;
-    private double targetPoint;
+    private double targetPoint = -1;
     private Ball ball;
     
     private int width;
     private int height;
-    private float positionX = 0;
+    private float positionX = -1;
     private int maxSpeed;
     private float velocity;
     private int acceleration = 0;
@@ -28,6 +28,8 @@ public class Paddle extends Actor
     
     public void act() {
         if (!isAI) {
+            if ( getWorld() != null && positionX == -1 ) { positionX = getWorld().getWidth() / 2; }
+            
             inputChecker();
             applyMovement();
         } else {
