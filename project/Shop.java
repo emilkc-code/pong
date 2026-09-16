@@ -38,7 +38,10 @@ public class Shop extends World
     public Shop()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(WORLD_WIDTH, WORLD_HEIGHT, 1); 
+        super(WORLD_WIDTH, WORLD_HEIGHT, 1);
+        GreenfootImage background = getBackground();
+        background.setColor(new Color(255, 255, 0));
+        background.fillRect(0, 0, getWidth(), getHeight());
         placeImages();
     }
     
