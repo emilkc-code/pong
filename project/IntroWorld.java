@@ -2,13 +2,14 @@ import greenfoot.*;
 
 public class IntroWorld extends World
 {
-    // Instance Variables.
+    /* Instance Variables. */
     private static final int WORLD_WIDTH = 500;
     private static final int WORLD_HEIGHT = 700;
     private Font font = new greenfoot.Font("Arial", true, false, 30);
     private Font titleFont = new greenfoot.Font("Arial", true, false, 48);
     private Color textColor = new Color(220, 220, 220);
-    // World swapping buttons for swapping and Display.
+
+    /* World swapping buttons for swapping and Display. */
     private WorldSwappingButton title_Button = new WorldSwappingButton(false, "NULL", "Ping", 120, 90, titleFont, textColor);
     private WorldSwappingButton highscore_Button = new WorldSwappingButton(false, "NULL", "Highscore: " + Integer.toString(new GameManager().getHighscore()), 230, 50, font, textColor);
     private WorldSwappingButton play_Button = new WorldSwappingButton(true, "PingWorld", "Play", 100, 60, font, textColor);
@@ -16,12 +17,13 @@ public class IntroWorld extends World
     private WorldSwappingButton shop_Button = new WorldSwappingButton(true, "Shop", "Shop", 100, 60, font, textColor);
     
     public IntroWorld() {
-        // Create the world and its background.
+        /* Create the world and its background. */
         super(WORLD_WIDTH, WORLD_HEIGHT, 1); 
         GreenfootImage background = getBackground();
         background.setColor(new Color(35, 35, 35));
         background.fillRect(0, 0, getWidth(), getHeight());
-        // Adding above names Buttons
+
+        /* Adding above names Buttons */
         addObject(title_Button, getWidth() / 2, 150);
         addObject(highscore_Button, getWidth() / 2, 200);
         addObject(play_Button, getWidth() / 2, getHeight() - 250);

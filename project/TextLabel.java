@@ -1,12 +1,17 @@
 import greenfoot.*;
 
 public class TextLabel extends Actor {
-    // Instance variables
+    /* Instance variables */
     private String text;
     private int fontSize;
     private Color color;
     
-    // Constructor for holding text, size and color
+    /**
+     * Constructor
+     * @param text Text to display
+     * @param fontSize Size of text
+     * @param color Color of text
+     */
     public TextLabel(String text, int fontSize, Color color) {
         this.text = text;
         this.fontSize = fontSize;
@@ -14,7 +19,7 @@ public class TextLabel extends Actor {
         updateText();
     }
     
-    // Update the text typically for shop updates
+    /* Update the text typically for shop updates */
     public void updateText() {
         int width = text.length() * (fontSize / 2) * 2;
         int height = fontSize + 10;
@@ -29,13 +34,13 @@ public class TextLabel extends Actor {
         setImage(img);
     }
     
-    // set new color
+    /* set new color */
     public void setColor(Color color) {
         this.color = color;
         updateText();
     }
     
-    //set new text
+    /* set new text */
     public void setText(String text) {
         this.text = text;
         updateText();

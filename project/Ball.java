@@ -2,7 +2,7 @@ import greenfoot.*;
 
 public class Ball extends Actor
 {
-    //Instance variables and default/essential "settings"
+    /* Instance variables and default/essential "settings" */
     private final int BALL_SIZE = 25;
     private final int BOUNCE_DEVIANCE_MAX = 5;
     private final int STARTING_ANGLE_WIDTH = 90;
@@ -13,7 +13,7 @@ public class Ball extends Actor
     private final float DRAG_COEFFICIENT = 0.995f;
     private final float SPEED_INCREASE = 0.5f;
 
-    // Points and info for calculation
+    /* Points and info for calculation */
     private float positionX;
     private float positionY;
     private float velocity;
@@ -22,16 +22,17 @@ public class Ball extends Actor
     private int delay;
     private GreenfootImage image;
     
-    //Paddles, pingWorld and gameManager
+    /* Paddles, pingWorld and gameManager */
     private Paddle bottomPaddle;
     private Paddle topPaddle;
     private PingWorld pingWorld;
     private GameManager gameManager = new GameManager();
-    // Sounds
+
+    /* Sounds */
     private GreenfootSound wallHitSound;
     private GreenfootSound paddleHitSound;
     
-    //Constructor
+    /* Constructor */
     public Ball(Paddle bottomPaddle, Paddle topPaddle, GreenfootImage img, GreenfootSound wallHitS, GreenfootSound paddleHitS) {
         this.bottomPaddle = bottomPaddle;
         this.topPaddle = topPaddle;
@@ -41,25 +42,29 @@ public class Ball extends Actor
         createImage();
     }
     
-    // Initialiser call method
+    /* Initialiser call method */
     public void addedToWorld(World world) { init(true); }
 
-    //Getting ball size
+    /**
+     * Get ball size
+     */
     public int getSize() { return BALL_SIZE; }
     
-    // Scale and set ball img
+    /**
+     * Scale and set ball img
+     */
     private void createImage() {
         image.scale(BALL_SIZE, BALL_SIZE);
         setImage(image);
     }
 
-    // funtion runs every frame.
     public void act() {
         if (topPaddle.getBall() == null) { topPaddle.setBall(this); }
         if (bottomPaddle.getBall() == null) { bottomPaddle.setBall(this); }
         
         if (delay > 0) { delay--; }
-        // Logic behind the ball's movement (Vector based math)
+
+        /* Logic behind the ball's movement (Vector based math) */
         else {
             positionX += Math.cos(Math.toRadians(getRotation())) * (velocity * speed + MINIMUM_SPEED);
             positionY += Math.sin(Math.toRadians(getRotation())) * (velocity * speed + MINIMUM_SPEED);
@@ -73,12 +78,14 @@ public class Ball extends Actor
         }
     }    
 
-    // Method for is Touching sides, ceiling and or floor.
+    /* Methods for is Touching sides, ceiling and or floor. */
     private boolean isTouchingSides() { return (getX() <= BALL_SIZE/2 || getX() >= getWorld().getWidth() - BALL_SIZE/2); }
     private boolean isTouchingCeiling() { return (getY() <= BALL_SIZE/2); }
     private boolean isTouchingFloor() { return (getY() >= getWorld().getHeight() - BALL_SIZE/2); }
 
-    // Bounce off walls method
+    /**
+     * Bounce off walls method
+     */
     private void bounceWalls() {
         if (!isTouchingSides()) { return; }
         
@@ -89,7 +96,9 @@ public class Ball extends Actor
         wallHitSound.play();
     }
     
-    // CheckRestart method for when said player passes the ball past "enemy" paddle.
+    /**
+     * CheckRestart method for when said player passes the ball past "enemy" paddle.
+     */
     private void checkRestart() {
         if (!isTouchingFloor() && !isTouchingCeiling()) { return; }
         if (isTouchingCeiling() && !bottomPaddle.isAI()) {
@@ -106,12 +115,16 @@ public class Ball extends Actor
         init(true);
     }
 
-    // Adding money in gamemanager
+    /**
+     * Adding money in gamemanager
+     */
     private void addMoney() {
         gameManager.setMoney(gameManager.getMoney() + 1 * ownHits * ((int) (ownHits / 10) + 1));
     }
     
-    // Checking for bounce off of top paddle. (Look towards paddle center and revert på 180 degrees
+    /**
+     * Checking for bounce off of top paddle. (Look towards paddle center and revert på 180 degrees
+     */
     private void checkBounceOffPaddleTop() {
         if (getIntersectingObjects(Paddle.class).size() < 1 || getIntersectingObjects(Paddle.class).get(0).getY() > getWorld().getWidth() / 2 || getRotation() < 180) { return; }
         hitPaddle();
@@ -124,7 +137,9 @@ public class Ball extends Actor
         if ( bottomPaddle.isAI() ) { bottomPaddle.setupPredictor(this); }
     }
     
-    // Checking for bounce off of bottom paddle (Same logic as above)
+    /**
+     * Checking for bounce off of bottom paddle (Same logic as above)
+     */
     private void checkBounceOffPaddleBottom() {
         if (getIntersectingObjects(Paddle.class).size() < 1 || getIntersectingObjects(Paddle.class).get(0).getY() < getWorld().getWidth() / 2 || getRotation() > 180) { return; }
         ownHits += 1;
@@ -143,13 +158,17 @@ public class Ball extends Actor
         if ( bottomPaddle.isAI() ) { bottomPaddle.resetToCenter(); }
     }
     
-    // Plays sound for hitting paddle
+    /**
+     * Plays sound for hitting paddle
+     */
     private void hitPaddle() {
         paddleHitSound.play();
         increaseSpeed();
     }
     
-    // Increases speed after a set number of collisions
+    /**
+     * Increases speed after a set number of collisions
+     */
     private void increaseSpeed() {
         pingWorld = (PingWorld) getWorld();
         if (ownHits % HITS_FOR_SPEED == 0) {
@@ -158,19 +177,25 @@ public class Ball extends Actor
         }
     }
     
-    // Applies drag (for ball movement logic)
+    /**
+     * Applies drag (for ball movement logic)
+     */
     private void applyDrag() {
         velocity *= DRAG_COEFFICIENT;
     }
     
-    // Roation flipper.
+    /**
+     * Rotation flipper.
+     */
     private void turnAwayFrom(int x, int y, boolean goingUp) {
         turnTowards(x, y);
         if (goingUp) { setRotation(Math.clamp((180 + getRotation()) % 360, 90 - MAX_ANGLE, 90 + MAX_ANGLE)); }
         else { setRotation(Math.clamp((180 + getRotation()) % 360, 270 - MAX_ANGLE, 270 + MAX_ANGLE)); }
     }
     
-    // Ball reseter
+    /**
+     * Ball reseter
+     */
     private void init(boolean reset) {
         setLocation(getWorld().getWidth() / 2, getWorld().getHeight() - 60 - BALL_SIZE);
         

@@ -2,7 +2,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 public class Button extends Actor
 {
-    // Instance variables
+    /* Instance variables */
     private GreenfootImage image = new GreenfootImage(50,50);
     private int price;
     private boolean purchased;
@@ -12,7 +12,14 @@ public class Button extends Actor
     private GameManager gm = new GameManager();
     private Color col;    
     
-    // Constructor for button using following params: cost, purchased or not, wiedth, height and target product.
+    /**
+     * Constructor for button
+     * @param cost
+     * @param prePurchased
+     * @param width
+     * @param height
+     * @param prod
+     */
     public Button(int cost, boolean prePurchased, int width, int height, Product prod )
     {
         this.price = cost;
@@ -20,12 +27,11 @@ public class Button extends Actor
         this.buttonWidth = width;
         this.buttonHeight = height;
         this.product = prod;
-        
-        //set image
 
+        /* set image */
         setColor(new Color(35, 220, 35));
-        
-        // If purchased, can buy or can't buy color settings
+
+        /* If purchased, can buy or can't buy color settings */
         if (purchased) {
             setColor(new Color(35, 35, 220));
         }
@@ -37,7 +43,7 @@ public class Button extends Actor
         }
     }
     
-    // Checking if said button has been clicked and updated money, shop and applies new skin pack
+    /* Checking if said button has been clicked and updated money, shop and applies new skin pack */
     public void act()
     {
         if (Greenfoot.mouseClicked(this) && !purchased && price <= gm.getMoney() && product != null){
@@ -50,7 +56,9 @@ public class Button extends Actor
         }
     }
     
-    // Setting color of said button
+    /**
+     * Setting color of said button
+     */
     public void setColor(Color color)
     {
         col = color;
@@ -60,17 +68,23 @@ public class Button extends Actor
         setImage(image);
     }
     
-    // Getting current color
+    /**
+     * Getting current color
+     */
     public Color getColor() {
         return col;
     }
     
-    //Getting current cost
+    /**
+     * Getting current cost
+     */
     public int getCost() {
         return price;
     }
     
-    //Getting if purchaes or not
+    /**
+     * Getting if purchased or not
+     */
     public boolean getPurchased() {
         return purchased;
     }

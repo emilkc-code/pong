@@ -1,24 +1,27 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-// imports for functionallity
+/* imports for functionality */
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.BasicStroke;
 import java.awt.Rectangle;
 
-/**
- * Write a description of class WorldSwappingButton here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class WorldSwappingButton extends Actor
 {
-    // instance variables
+    /* instance variables */
     private String targetWorldName;
     private GreenfootImage img;
-    
-    // Constructor for button, target world name and essential visuals
-    public WorldSwappingButton(Boolean button, String targetWorldName, String text, int width, int height, Font font, Color color)
+
+/**
+ * Constructor
+ * @param button
+ * @param targetWorldName
+ * @param text
+ * @param width
+ * @param height
+ * @param font
+ * @param color
+ */
+public WorldSwappingButton(Boolean button, String targetWorldName, String text, int width, int height, Font font, Color color)
     {
         this.targetWorldName = targetWorldName;
         
@@ -31,7 +34,9 @@ public class WorldSwappingButton extends Actor
         return;
     }
     
-    // Check if mouse clicked this button and act accordingly
+    /**
+     * Check if mouse clicked this button and act accordingly
+     */
     public void act() {
         if (Greenfoot.mouseClicked(this)) {
             switch (targetWorldName) {
@@ -53,24 +58,24 @@ public class WorldSwappingButton extends Actor
         }
     }
     
-    // Draw the string centered
+    /* Draw the string centered */
     public void drawCenteredString(boolean button, GreenfootImage img, String text, int rectWidth, int rectHeight, greenfoot.Font font, Color color) {
-        // 1. Convert greenfoot.Font to java.awt.Font behind the scenes just to measure the text
+        /* Convert greenfoot.Font to java.awt.Font behind the scenes just to measure the text */
         int style = java.awt.Font.PLAIN;
         if (font.isBold()) style |= java.awt.Font.BOLD;
         if (font.isItalic()) style |= java.awt.Font.ITALIC;
         java.awt.Font awtFont = new java.awt.Font(font.getName(), style, font.getSize());
-        
-        // 2. Measure the text
+
+        /* Measure the text */
         Graphics2D g2d = (Graphics2D) img.getAwtImage().createGraphics();
         FontMetrics metrics = g2d.getFontMetrics(awtFont);
         g2d.dispose(); // Clean up memory
-        
-        // 3. Calculate the centered coordinates
+
+        /* Calculate the centered coordinates */
         int x = (rectWidth - metrics.stringWidth(text)) / 2;
         int y = (int) (rectHeight * 0.65);
-        
-        // 4. Apply the Greenfoot font and draw
+
+        /* Apply the Greenfoot font and draw */
         img.setFont(font);
         img.clear();
         if (button) { drawThickRect(img, rectWidth, rectHeight, 5, new java.awt.Color(150, 150, 150)); }
@@ -79,17 +84,17 @@ public class WorldSwappingButton extends Actor
     }
     
     public void drawThickRect(GreenfootImage img, int width, int height, int thickness, java.awt.Color color) {
-        // 1. Get the AWT graphics context from the GreenfootImage
+        /* Get the AWT graphics context from the GreenfootImage */
         Graphics2D g2d = (Graphics2D) img.getAwtImage().createGraphics();
-        
-        // 2. Set the color and line thickness (stroke)
+
+        /* Set the color and line thickness (stroke) */
         g2d.setColor(color);
         g2d.setStroke(new BasicStroke(thickness));
-        
-        // 3. Draw the rectangle using a standard AWT Rectangle object
+
+        /* Draw the rectangle using a standard AWT Rectangle object */
         g2d.draw(new Rectangle(0, 0, width, height));
-        
-        // 4. Clean up memory
+
+        /* Clean up memory */
         g2d.dispose();
     }
 }

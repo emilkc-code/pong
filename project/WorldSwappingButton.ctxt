@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=WorldSwappingButton
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ WorldSwappingButton\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\n\ Write\ a\ description\ of\ class\ WorldSwappingButton\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
 comment1.params=button\ targetWorldName\ text\ width\ height\ font\ color
 comment1.target=WorldSwappingButton(java.lang.Boolean,\ java.lang.String,\ java.lang.String,\ int,\ int,\ greenfoot.Font,\ greenfoot.Color)
 comment2.params=

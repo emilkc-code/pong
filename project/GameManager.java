@@ -1,7 +1,7 @@
 import greenfoot.*;
 public class GameManager  
 {
-    // Static instance variables for storing while program is open
+    /* Static instance variables for storing while program is open */
     private static int wins = 0;
     private static int loses = 0;
     private static int money;
@@ -10,7 +10,7 @@ public class GameManager
     private static Product activeSkinPack;
     private static int initializations = 0;
     
-    //setters and getters for each stat
+    /* setters and getters for each stat */
     public void setWins(int n) { wins = n; }
     public void setLoses(int n) { loses = n; }
     public void setMoney(int n) { money = n; }
@@ -25,10 +25,13 @@ public class GameManager
     public int getHighscore() { return highscore; }
     public Product getActiveSkinPack() { return activeSkinPack; };
     
-    // Constructor for creation
-public GameManager() {
+    /**
+     * Constructor for creation
+     */
+    public GameManager() {
         initializations++;
-        // If it's the first time GameManager loads, set csgo pack as default
+
+        /* If it's the first time GameManager loads, set csgo pack as default */
         if (initializations == 1) {
             activeSkinPack = new Product(
                 "CSGO", 
