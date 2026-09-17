@@ -18,8 +18,11 @@ public class Shop extends World
     
     private GameManager gm = new GameManager();
     
+
+    // Logos
     private static final GreenfootImage rocketLeagueLogo = new GreenfootImage("RLlogo.png");
     private static final GreenfootImage cs = new GreenfootImage("mir.jpg");
+    // product list containing a Rocket League pack and a CSGO pack (Skins/Sounds)
     private static final List<Product> products = List.of(
     new Product(
         "Rocket League pack", 
@@ -48,12 +51,14 @@ public class Shop extends World
         
         private WorldSwappingButton money_text = new WorldSwappingButton(false, "NULL", "Money: " + Integer.toString(gm.getMoney()), 200, 50, font, textColor);
         
+                
+        // Buttons and labels
+        private TextLabel money_text = new TextLabel("Money", 38, new Color(220, 220, 220));
+        private GameManager gm = new GameManager();
         private Button rlButton = new Button(products.get(0).getPrice(), false, 150, 50, products.get(0));
         private Button csButton = new Button(products.get(1).getPrice(), false, 150, 50, products.get(1));
-    /**
-     * Constructor for objects of class Shop.
-     * 
-     */
+   
+    // Constructor - Sets background and places all images and alike.    
     public Shop()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
@@ -64,6 +69,7 @@ public class Shop extends World
         placeImages();
     }
     
+    // Function for making images and buttons and alike
     public void placeImages()
     {
         // Rocket League
@@ -93,6 +99,7 @@ public class Shop extends World
         addObject(money_text, getWidth() / 2, getHeight() - 150);
     }
     
+    //Update all function, typically called by buttons
     public void updateAll() {
         // Upd money
         money_text.drawCenteredString(false, money_text.getImage(), "Money: " + Integer.toString(gm.getMoney()), 200, 50, font, textColor);

@@ -2,6 +2,7 @@ import greenfoot.*;
 
 public class Paddle extends Actor
 {
+    // Instance variables
     private final float DRAG_COEFFICIENT = 0.9f;
     private final float ACCELORATION_FORCE = 0.8f;
     
@@ -16,7 +17,9 @@ public class Paddle extends Actor
     private float velocity;
     private int acceleration = 0;
     private GreenfootImage image;
+    
 
+    // Paddle constructor with basic essentials
     public Paddle(int width, int height, int maxSpeed, boolean isAI, GreenfootImage img) {
         this.width = width;
         this.height = height;
@@ -26,6 +29,7 @@ public class Paddle extends Actor
         createImage();
     }
     
+    // method that runs every frame checking input and executing "movement"
     public void act() {
         if (!isAI) {
             if ( getWorld() != null && positionX == -1 ) { positionX = getWorld().getWidth() / 2; }
@@ -38,14 +42,19 @@ public class Paddle extends Actor
         }
     }
     
+    // Sets ball to target object ball
     public void setBall(Ball ball) { this.ball = ball; }
     
+    //Returns target ball
     public Ball getBall() { return ball; }
     
+    // Sets AI
     public void setAI(boolean b) { isAI = b; }
     
+    // Returns is air or not
     public boolean isAI() { return isAI; }
     
+    // Move to position
     private void moveHere(int n) {
         if (this.getX() < n
          && this.getX() < getWorld().getWidth() - width / 2) {
@@ -58,10 +67,12 @@ public class Paddle extends Actor
         }
     }
     
+    // Reset to center
     public void resetToCenter() {
         targetPoint = getWorld().getWidth() / 2;
     }
     
+    // Logic for predicting ball movement via function and targeting endpoint.
     public void setupPredictor(Ball ball) {
         int ballHeight = ball.getY();
         int ballRotation = ball.getRotation();
@@ -85,6 +96,7 @@ public class Paddle extends Actor
         targetPoint += snipe * 10;
     }
     
+    // execution logic for endpoint.
     private double predict(double angle, double startPosition, double predictionPoint) {
         angle = Math.toRadians(angle);
         double a = Math.sin(-angle) / Math.cos(-angle);
@@ -94,8 +106,10 @@ public class Paddle extends Actor
         return result;
     }
     
+    // Math function method
     private double trueModulo(double a, double b) { return a - b * Math.floor(a / b); }
 
+    // Checks for inputs such as movement left and right
     private void inputChecker() {
         if (!Greenfoot.isKeyDown("a") && !Greenfoot.isKeyDown("left") && !Greenfoot.isKeyDown("d") && !Greenfoot.isKeyDown("right")) {
             acceleration = 0;
@@ -106,6 +120,7 @@ public class Paddle extends Actor
         if ((Greenfoot.isKeyDown("d") || Greenfoot.isKeyDown("right"))) { acceleration = 1; }
     }
     
+    // Apply the movement of paddle
     private void applyMovement() {
         velocity += acceleration * ACCELORATION_FORCE;
         if (this.getX() > getWorld().getWidth() - width / 2) { velocity = Math.clamp(velocity, -maxSpeed, 0); }
@@ -115,6 +130,7 @@ public class Paddle extends Actor
         setLocation((int) positionX, getY());
     }
     
+    // Creates the image of said paddle
     private void createImage() {
         image.scale(this.width, this.height);
         setImage(image);

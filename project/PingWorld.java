@@ -2,8 +2,10 @@ import greenfoot.*;
 
 public class PingWorld extends World
 {
+    // Instance variables
     private static final int WORLD_WIDTH = 500;
     private static final int WORLD_HEIGHT = 700;
+    // Objects like gamemanager, paddles and ball.
     private GameManager gm = new GameManager();
     private Paddle topPaddle = new Paddle(100,20, 2, true, gm.getActiveSkinPack().getSkins().get(1));
     private Paddle bottomPaddle = new Paddle(100,20, 2, false, gm.getActiveSkinPack().getSkins().get(0));
@@ -11,6 +13,7 @@ public class PingWorld extends World
     private Background background;
     private int runner = 0;
     private boolean gameStarted;
+    // Constructor (assigning if said game started or not)
     public PingWorld(boolean gamestarted) {
         super(WORLD_WIDTH, WORLD_HEIGHT, 1);
         this.gameStarted = gamestarted;
@@ -18,6 +21,7 @@ public class PingWorld extends World
     
     
     public void act() {
+        // Loading everything after the 1st frame, to avoid problems with worldSwappingButtons
         runner++;
         if (runner == 1) {
             if (gameStarted) {
@@ -33,21 +37,27 @@ public class PingWorld extends World
         }
         }
         
+        // press ESC to  return to main menu.
         String key = Greenfoot.getKey();
         if (key != null && key.equals("escape")) { background.stopBGSound(); Greenfoot.setWorld(new IntroWorld());
         }
     }
     
+    // Set "player" paddle to AI to watch
     public void enableBottomAI() {
         bottomPaddle.setAI(true);
     }
     
+    // Shows speed
     public void levelText(int n) { showText("Speed: " + Integer.toString(n), 45, getHeight() - 16); }
     
+    //Shows Money
     public void moneyText(int n) { showText("Money: " + Integer.toString(n), getWidth() - 70, getHeight() - 16); }
     
+    //Shows Highscore
     public void highscoreText(int n) { showText("Highscore: " + Integer.toString(n), getWidth() - 70, 16); }
     
+    //Shows the ESC tip.
     public void returnText() {showText("Press ESC to return to main menu", 105, 16); }
     
 }
