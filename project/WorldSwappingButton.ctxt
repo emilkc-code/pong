@@ -1,14 +1,16 @@
 #BlueJ class context
 comment0.target=WorldSwappingButton
-comment0.text=\n\ Write\ a\ description\ of\ class\ WorldSwappingButton\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
 comment1.params=button\ targetWorldName\ text\ width\ height\ font\ color
 comment1.target=WorldSwappingButton(java.lang.Boolean,\ java.lang.String,\ java.lang.String,\ int,\ int,\ greenfoot.Font,\ greenfoot.Color)
+comment1.text=\n\ Constructor\n\ @param\ button\n\ @param\ targetWorldName\n\ @param\ text\n\ @param\ width\n\ @param\ height\n\ @param\ font\n\ @param\ color\n
 comment2.params=
 comment2.target=void\ drawCenteredString2()
 comment3.params=
 comment3.target=void\ act()
+comment3.text=\n\ Check\ if\ mouse\ clicked\ this\ button\ and\ act\ accordingly\n
 comment4.params=button\ img\ text\ rectWidth\ rectHeight\ font\ color
 comment4.target=void\ drawCenteredString(boolean,\ greenfoot.GreenfootImage,\ java.lang.String,\ int,\ int,\ greenfoot.Font,\ greenfoot.Color)
+comment4.text=Draw\ the\ string\ centered
 comment5.params=img\ width\ height\ thickness\ color
 comment5.target=void\ drawThickRect(greenfoot.GreenfootImage,\ int,\ int,\ int,\ java.awt.Color)
 numComments=6

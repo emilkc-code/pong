@@ -29,6 +29,8 @@ public class GameManager
      * Constructor for creation
      */
     public GameManager() {
+        highscore = new SaveManager().loadHighScore();
+        
         initializations++;
 
         /* If it's the first time GameManager loads, set csgo pack as default */

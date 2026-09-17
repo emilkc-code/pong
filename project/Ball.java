@@ -27,6 +27,7 @@ public class Ball extends Actor
     private Paddle topPaddle;
     private PingWorld pingWorld;
     private GameManager gameManager = new GameManager();
+    private SaveManager saveManager = new SaveManager();
 
     /* Sounds */
     private GreenfootSound wallHitSound;
@@ -106,10 +107,12 @@ public class Ball extends Actor
             gameManager.setWins(gameManager.getWins() + 1);
             gameManager.setMoney(gameManager.getMoney() + 100000);
             gameManager.setHighscore(-1);
+            saveManager.saveHighScore(-1);
         }
         if (isTouchingFloor() && !bottomPaddle.isAI()) {
             addMoney();
             gameManager.setLoses(gameManager.getLoses() + 1);
+            saveManager.saveHighScore(gameManager.getHighscore());
         }
         
         init(true);

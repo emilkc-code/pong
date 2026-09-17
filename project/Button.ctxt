@@ -1,16 +1,21 @@
 #BlueJ class context
 comment0.target=Button
-comment0.text=\n\ Write\ a\ description\ of\ class\ Button\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
 comment1.params=cost\ prePurchased\ width\ height\ prod
 comment1.target=Button(int,\ boolean,\ int,\ int,\ Product)
+comment1.text=\n\ Constructor\ for\ button\n\ @param\ cost\n\ @param\ prePurchased\n\ @param\ width\n\ @param\ height\n\ @param\ prod\n
 comment2.params=
 comment2.target=void\ act()
+comment2.text=Checking\ if\ said\ button\ has\ been\ clicked\ and\ updated\ money,\ shop\ and\ applies\ new\ skin\ pack
 comment3.params=color
 comment3.target=void\ setColor(greenfoot.Color)
+comment3.text=\n\ Setting\ color\ of\ said\ button\n
 comment4.params=
 comment4.target=greenfoot.Color\ getColor()
+comment4.text=\n\ Getting\ current\ color\n
 comment5.params=
 comment5.target=int\ getCost()
+comment5.text=\n\ Getting\ current\ cost\n
 comment6.params=
 comment6.target=boolean\ getPurchased()
+comment6.text=\n\ Getting\ if\ purchased\ or\ not\n
 numComments=7

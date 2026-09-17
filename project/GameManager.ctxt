@@ -2,6 +2,7 @@
 comment0.target=GameManager
 comment1.params=n
 comment1.target=void\ setWins(int)
+comment1.text=setters\ and\ getters\ for\ each\ stat
 comment10.params=
 comment10.target=int\ getLevel()
 comment11.params=
@@ -10,6 +11,7 @@ comment12.params=
 comment12.target=Product\ getActiveSkinPack()
 comment13.params=
 comment13.target=GameManager()
+comment13.text=\n\ Constructor\ for\ creation\n
 comment2.params=n
 comment2.target=void\ setLoses(int)
 comment3.params=n
