@@ -3,7 +3,7 @@ public class GameManager
 {
     private static int wins = 0;
     private static int loses = 0;
-    private static int money = 1000;
+    private static int money;
     private static int level = 0;
     private static int highscore;
     private static Product activeSkinPack;
