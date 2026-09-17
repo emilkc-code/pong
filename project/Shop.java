@@ -17,7 +17,7 @@ public class Shop extends World
     private Color textColor = new Color(220, 220, 220);
     
     private static final GreenfootImage rocketLeagueLogo = new GreenfootImage("RLlogo.png");
-    private static final GreenfootImage leagueOfLegendsLogo = new GreenfootImage("leagueLogo.jpg");
+    private static final GreenfootImage cs = new GreenfootImage("mir.jpg");
     private static final List<Product> products = List.of(
     new Product(
         "Rocket League pack", 
@@ -30,12 +30,24 @@ public class Shop extends World
         new GreenfootSound("rlPHso.mp3"), 
         new GreenfootSound("rlWso.mp3"), 
         new GreenfootSound("rlLso.mp3"),
-        new GreenfootSound("cs2LobbyMusic.mp3")));
+        new GreenfootSound("cs2LobbyMusic.mp3")),
+            new Product(
+                "CSGO", 
+                150,
+                new GreenfootImage("ct.png"), 
+                new GreenfootImage("ak.png"), 
+                new GreenfootImage("mir.jpg"), 
+                new GreenfootImage("c4.png"), 
+                new GreenfootSound("WallThudSound.mp3"), 
+                new GreenfootSound("BombBeep.mp3"), 
+                new GreenfootSound("WinningRobloxOldWinningSoundEffect.mp3"), 
+                new GreenfootSound("WinningRobloxOldWinningSoundEffect.mp3"),
+                new GreenfootSound("cs2LobbyMusic.mp3")));
         
         private TextLabel money_text = new TextLabel("Money", 38, new Color(220, 220, 220));
         private GameManager gm = new GameManager();
-        private Button rlButton = new Button(gm.getActiveSkinPack().getPrice(), false, 150, 50, products.get(0));
-        private Button llButton = new Button(gm.getActiveSkinPack().getPrice(), false, 150, 50, products.get(0));
+        private Button rlButton = new Button(products.get(0).getPrice(), false, 150, 50, products.get(0));
+        private Button csButton = new Button(products.get(1).getPrice(), false, 150, 50, products.get(1));
     /**
      * Constructor for objects of class Shop.
      * 
@@ -58,11 +70,13 @@ public class Shop extends World
         addObject(rlButton, 145, 190);
         WorldSwappingButton rl_money = new WorldSwappingButton(false, "NULL", Integer.toString(rlButton.getCost()), 350, 70, font, textColor);
         addObject(rl_money, 145, 240);
+        WorldSwappingButton cs_money = new WorldSwappingButton(false, "NULL", Integer.toString(csButton.getCost()), 350, 70, font, textColor);
+        addObject(cs_money, 375, 240);
         
         // League of legends
-        leagueOfLegendsLogo.scale(150,70);
-        getBackground().drawImage(leagueOfLegendsLogo, 300, 100);
-        addObject(llButton, 375, 190);
+        cs.scale(150,70);
+        getBackground().drawImage(cs, 300, 100);
+        addObject(csButton, 375, 190);
         
         // Menu button
         WorldSwappingButton menuButton = new WorldSwappingButton(true, "IntroWorld", "Return To Main Menu", 350, 70, font, textColor);
