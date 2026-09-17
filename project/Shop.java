@@ -9,9 +9,11 @@ import java.util.*;
  */
 public class Shop extends World
 {
+    //Instance variables
     private static final int WORLD_WIDTH = 500;
     private static final int WORLD_HEIGHT = 700;
     
+    // Text modefiers
     private Font titleFont = new greenfoot.Font("Arial", true, false, 48);
     private Font font = new greenfoot.Font("Arial", true, false, 30);
     private Color textColor = new Color(220, 220, 220);
