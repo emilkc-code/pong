@@ -22,7 +22,7 @@ public class Product
     private GreenfootSound lossSound;
     private GreenfootSound backgroundSound;
     
-    // Constructor 
+    // Constructor for each skin / sound in a pack
     public Product(String pN, int p, GreenfootImage bP, GreenfootImage tP, GreenfootImage bG, GreenfootImage b,
                    GreenfootSound wH, GreenfootSound pH, GreenfootSound wS, GreenfootSound lS, GreenfootSound bgS) 
     {
@@ -39,6 +39,7 @@ public class Product
         backgroundSound = bgS;
     }
     
+    // Return a list of skins in said pack
     public List<GreenfootImage> getSkins() {
         List<GreenfootImage> imgs = new ArrayList<>();
         imgs.add(botPaddle);
@@ -48,6 +49,7 @@ public class Product
         return imgs;
         }
         
+    // Return a list of sounds in said pack
     public List<GreenfootSound> getSounds() {
         List<GreenfootSound> sounds = new ArrayList<>();
         sounds.add(wallhit);
@@ -58,6 +60,7 @@ public class Product
         return sounds;
     }
     
+    // Return price of said skinpack
     public int getPrice() {
         return price;
     }

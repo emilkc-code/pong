@@ -1,5 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+// imports for functionallity
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.BasicStroke;
@@ -13,9 +13,11 @@ import java.awt.Rectangle;
  */
 public class WorldSwappingButton extends Actor
 {
+    // instance variables
     private String targetWorldName;
     private GreenfootImage img;
     
+    // Constructor for button, target world name and essential visuals
     public WorldSwappingButton(Boolean button, String targetWorldName, String text, int width, int height, Font font, Color color)
     {
         this.targetWorldName = targetWorldName;
@@ -29,6 +31,7 @@ public class WorldSwappingButton extends Actor
         return;
     }
     
+    // Check if mouse clicked this button and act accordingly
     public void act() {
         if (Greenfoot.mouseClicked(this)) {
             switch (targetWorldName) {
@@ -50,6 +53,7 @@ public class WorldSwappingButton extends Actor
         }
     }
     
+    // Draw the string centered
     public void drawCenteredString(boolean button, GreenfootImage img, String text, int rectWidth, int rectHeight, greenfoot.Font font, Color color) {
         // 1. Convert greenfoot.Font to java.awt.Font behind the scenes just to measure the text
         int style = java.awt.Font.PLAIN;

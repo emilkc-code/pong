@@ -55,8 +55,8 @@ public class Shop extends World
         
                 
         // Buttons and labels
-        private TextLabel money_text = new TextLabel("Money", 38, new Color(220, 220, 220));
-        private GameManager gm = new GameManager();
+        //private TextLabel money_text = new TextLabel("Money", 38, new Color(220, 220, 220));
+       // private GameManager gm = new GameManager();
         private Button rlButton = new Button(products.get(0).getPrice(), false, 150, 50, products.get(0));
         private Button csButton = new Button(products.get(1).getPrice(), false, 150, 50, products.get(1));
    
