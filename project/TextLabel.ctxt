@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=TextLabel
+comment1.params=text\ fontSize\ color
+comment1.target=TextLabel(java.lang.String,\ int,\ greenfoot.Color)
+comment2.params=
+comment2.target=void\ updateText()
+comment3.params=color
+comment3.target=void\ setColor(greenfoot.Color)
+comment4.params=text
+comment4.target=void\ setText(java.lang.String)
+numComments=5

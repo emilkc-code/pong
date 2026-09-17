@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=PingWorld
+comment1.params=gamestarted
+comment1.target=PingWorld(boolean)
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=void\ enableBottomAI()
+comment4.params=n
+comment4.target=void\ levelText(int)
+comment5.params=n
+comment5.target=void\ moneyText(int)
+comment6.params=n
+comment6.target=void\ highscoreText(int)
+comment7.params=
+comment7.target=void\ returnText()
+numComments=8
