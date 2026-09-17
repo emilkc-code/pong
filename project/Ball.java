@@ -80,8 +80,8 @@ public class Ball extends Actor
     
     private void checkRestart() {
         if (!isTouchingFloor() && !isTouchingCeiling()) { return; }
-        if (isTouchingCeiling()) { applyWin(); gameManager.setMoney(gameManager.getMoney() + 100000); }
-        if (isTouchingFloor()) { applyWin(); gameManager.setLoses(gameManager.getLoses() + 1); }
+        if (isTouchingCeiling() && !bottomPaddle.isAI()) { applyWin(); gameManager.setMoney(gameManager.getMoney() + 100000); }
+        if (isTouchingFloor() && !bottomPaddle.isAI()) { gameManager.setLoses(gameManager.getLoses() + 1); }
         
         init(true);
     }
@@ -109,6 +109,11 @@ public class Ball extends Actor
         if (getIntersectingObjects(Paddle.class).size() < 1 || getIntersectingObjects(Paddle.class).get(0).getY() < getWorld().getWidth() / 2 || getRotation() > 180) { return; }
         ownHits += 1;
         hitPaddle();
+        
+        if ( !bottomPaddle.isAI() && ownHits > gameManager.getHighscore() && gameManager.getHighscore() >= 0 ) {
+            gameManager.setHighscore(ownHits);
+            pingWorld.highscoreText(gameManager.getHighscore());
+        }
         
         velocity = 1;
     

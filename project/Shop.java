@@ -11,6 +11,11 @@ public class Shop extends World
 {
     private static final int WORLD_WIDTH = 500;
     private static final int WORLD_HEIGHT = 700;
+    
+    private Font titleFont = new greenfoot.Font("Arial", true, false, 48);
+    private Font font = new greenfoot.Font("Arial", true, false, 30);
+    private Color textColor = new Color(220, 220, 220);
+    
     private static final GreenfootImage rocketLeagueLogo = new GreenfootImage("RLlogo.png");
     private static final GreenfootImage leagueOfLegendsLogo = new GreenfootImage("leagueLogo.jpg");
     private static final List<Product> products = List.of(
@@ -51,6 +56,8 @@ public class Shop extends World
         rocketLeagueLogo.scale(150,70);
         getBackground().drawImage(rocketLeagueLogo, 70, 100);
         addObject(rlButton, 145, 190);
+        WorldSwappingButton rl_money = new WorldSwappingButton(false, "NULL", Integer.toString(rlButton.getCost()), 350, 70, font, textColor);
+        addObject(rl_money, 145, 240);
         
         // League of legends
         leagueOfLegendsLogo.scale(150,70);
@@ -58,19 +65,17 @@ public class Shop extends World
         addObject(llButton, 375, 190);
         
         // Menu button
-        WorldSwappingButton menuButton = new WorldSwappingButton("IntroWorld", 500, 70);
-        menuButton.setTextandColor("Return To Main Menu", 100, 45);
-        addObject(menuButton, 250, 550);
+        WorldSwappingButton menuButton = new WorldSwappingButton(true, "IntroWorld", "Return To Main Menu", 350, 70, font, textColor);
+        addObject(menuButton, 250, getHeight() - 80);
 
         // Shop display
-        TextLabel shop_text = new TextLabel("Shop", 38, new Color(220, 220, 220));
+        WorldSwappingButton shop_text = new WorldSwappingButton(false, "NULL", "Shop", 150, 70, titleFont, textColor);
         //shop_text.setBlackColor("Shop", 38);
-        addObject(shop_text, 250, 50);
+        addObject(shop_text, 70, 40);
         
         // Money Display
-        money_text.setText("Money: " + Integer.toString(gm.getMoney()));
-        money_text.setColor(new Color(220, 220, 220));
-        addObject(money_text, 400, 50);
+        WorldSwappingButton money_text = new WorldSwappingButton(false, "NULL", "Money: " + Integer.toString(gm.getMoney()), 200, 50, font, textColor);
+        addObject(money_text, getWidth() / 2, getHeight() - 150);
     }
     
     public void updateAll() {
