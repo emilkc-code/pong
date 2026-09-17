@@ -148,9 +148,13 @@ public class Ball extends Actor
         ownHits += 1;
         hitPaddle();
         
-        if ( !bottomPaddle.isAI() && ownHits > gameManager.getHighscore() && gameManager.getHighscore() >= 0 ) {
-            gameManager.setHighscore(ownHits);
-            pingWorld.highscoreText(gameManager.getHighscore());
+        if ( !bottomPaddle.isAI() ) {
+            pingWorld.scoreText(ownHits);
+            
+            if (ownHits > gameManager.getHighscore() && gameManager.getHighscore() >= 0 ) {
+                gameManager.setHighscore(ownHits);
+                pingWorld.highscoreText(gameManager.getHighscore());
+            }
         }
         
         velocity = 1;

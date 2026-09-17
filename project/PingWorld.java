@@ -32,6 +32,7 @@ public class PingWorld extends World
             levelText(1);
             moneyText(new GameManager().getMoney());
             highscoreText(new GameManager().getHighscore());
+            scoreText(0);
             returnText();
             background = new Background(getHeight(), getHeight(), gm.getActiveSkinPack().getSkins().get(2), gm.getActiveSkinPack().getSounds().get(4));
             addObject(background, getHeight()/2, getHeight()/2);
@@ -68,6 +69,11 @@ public class PingWorld extends World
      * Shows Highscore
      */
     public void highscoreText(int n) { showText("Highscore: " + Integer.toString(n), getWidth() - 70, 16); }
+    
+    /**
+     * Shows Score
+     */
+    public void scoreText(int n) { showText("Score: " + Integer.toString(n), getWidth() - 70, 38); }
     
     /**
      * Shows the ESC tip.
