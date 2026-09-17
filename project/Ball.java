@@ -80,17 +80,22 @@ public class Ball extends Actor
     
     private void checkRestart() {
         if (!isTouchingFloor() && !isTouchingCeiling()) { return; }
-        if (isTouchingCeiling() && !bottomPaddle.isAI()) { applyWin(); gameManager.setMoney(gameManager.getMoney() + 100000); }
-        if (isTouchingFloor() && !bottomPaddle.isAI()) { gameManager.setLoses(gameManager.getLoses() + 1); }
+        if (isTouchingCeiling() && !bottomPaddle.isAI()) {
+            addMoney();
+            gameManager.setWins(gameManager.getWins() + 1);
+            gameManager.setMoney(gameManager.getMoney() + 100000);
+            gameManager.setHighscore(-1);
+        }
+        if (isTouchingFloor() && !bottomPaddle.isAI()) {
+            addMoney();
+            gameManager.setLoses(gameManager.getLoses() + 1);
+        }
         
         init(true);
     }
 
-    private void applyWin() {
-        gameManager.setWins(gameManager.getWins() + 1);
+    private void addMoney() {
         gameManager.setMoney(gameManager.getMoney() + 1 * ownHits * ((int) (ownHits / 10) + 1));
-        pingWorld = (PingWorld) getWorld();
-        pingWorld.moneyText(gameManager.getMoney());
     }
     
     private void checkBounceOffPaddleTop() {
@@ -157,7 +162,11 @@ public class Ball extends Actor
         delay = DELAY_TIME;
         ownHits = 0;
         
-        if (pingWorld != null) { pingWorld.levelText(1); }
+        if (pingWorld != null) {
+            pingWorld.levelText(1);
+            pingWorld.highscoreText(gameManager.getHighscore());
+            pingWorld.moneyText(gameManager.getMoney());
+        }
         
         if (reset == false) { return; }
         setRotation(Greenfoot.getRandomNumber(STARTING_ANGLE_WIDTH)+STARTING_ANGLE_WIDTH/2 + 180);

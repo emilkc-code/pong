@@ -49,12 +49,12 @@ public class Paddle extends Actor
     private void moveHere(int n) {
         if (this.getX() < n
          && this.getX() < getWorld().getWidth() - width / 2) {
-             this.setLocation(getX() + maxSpeed, getY());
+             this.setLocation((int) (getX() + maxSpeed), getY());
         }
         
         if (this.getX() > n
          && this.getX() > width / 2) {
-             this.setLocation(getX() - maxSpeed, getY());
+             this.setLocation((int) (getX() - maxSpeed), getY());
         }
     }
     

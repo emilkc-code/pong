@@ -42,11 +42,11 @@ public class PingWorld extends World
         bottomPaddle.setAI(true);
     }
     
-    public void levelText(int n) { showText("Speed:" + Integer.toString(n), 40, getHeight() - 16); }
+    public void levelText(int n) { showText("Speed: " + Integer.toString(n), 45, getHeight() - 16); }
     
-    public void moneyText(int n) { showText("Money:" + Integer.toString(n), getWidth() - 70, getHeight() - 16); }
+    public void moneyText(int n) { showText("Money: " + Integer.toString(n), getWidth() - 70, getHeight() - 16); }
     
-    public void highscoreText(int n) { showText("Highscore:" + Integer.toString(n), getWidth() - 70, 16); }
+    public void highscoreText(int n) { showText("Highscore: " + Integer.toString(n), getWidth() - 70, 16); }
     
     public void returnText() {showText("Press ESC to return to main menu", 105, 16); }
     
