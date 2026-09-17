@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="fac9dffe-e5fe-4d61-9ca7-f8f330c3d3a1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/project/Background.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/Background.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/Ball.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/Button.ctxt" beforeDir="false" afterPath="$PROJECT_DIR$/project/Button.ctxt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/Button.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/Button.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/GameManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/GameManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/IntroWorld.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/IntroWorld.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/Paddle.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/Paddle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/PingWorld.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/PingWorld.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/Shop.class" beforeDir="false" afterPath="$PROJECT_DIR$/project/Shop.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/Shop.ctxt" beforeDir="false" afterPath="$PROJECT_DIR$/project/Shop.ctxt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/Shop.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/Shop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/TextLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/TextLabel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/WorldSwappingButton.ctxt" beforeDir="false" afterPath="$PROJECT_DIR$/project/WorldSwappingButton.ctxt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project/WorldSwappingButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/project/WorldSwappingButton.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 7,
+  "fromUser": false
+}]]></component>
+  <component name="ProjectId" id="3JRrrftOmaUTblYerbvD4YQ2LyQ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "Mikkel's-Branch",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/lizilaptop/Documents/Greenfoot/pong",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fac9dffe-e5fe-4d61-9ca7-f8f330c3d3a1" name="Changes" comment="" />
+      <created>1789634921198</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1789634921198</updated>
+    </task>
+    <servers />
+  </component>
+</project>
