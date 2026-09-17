@@ -16,6 +16,8 @@ public class Shop extends World
     private Font font = new greenfoot.Font("Arial", true, false, 30);
     private Color textColor = new Color(220, 220, 220);
     
+    private GameManager gm = new GameManager();
+    
     private static final GreenfootImage rocketLeagueLogo = new GreenfootImage("RLlogo.png");
     private static final GreenfootImage cs = new GreenfootImage("mir.jpg");
     private static final List<Product> products = List.of(
@@ -44,8 +46,8 @@ public class Shop extends World
                 new GreenfootSound("WinningRobloxOldWinningSoundEffect.mp3"),
                 new GreenfootSound("cs2LobbyMusic.mp3")));
         
-        private TextLabel money_text = new TextLabel("Money", 38, new Color(220, 220, 220));
-        private GameManager gm = new GameManager();
+        private WorldSwappingButton money_text = new WorldSwappingButton(false, "NULL", "Money: " + Integer.toString(gm.getMoney()), 200, 50, font, textColor);
+        
         private Button rlButton = new Button(products.get(0).getPrice(), false, 150, 50, products.get(0));
         private Button csButton = new Button(products.get(1).getPrice(), false, 150, 50, products.get(1));
     /**
@@ -88,14 +90,12 @@ public class Shop extends World
         addObject(shop_text, 70, 40);
         
         // Money Display
-        WorldSwappingButton money_text = new WorldSwappingButton(false, "NULL", "Money: " + Integer.toString(gm.getMoney()), 200, 50, font, textColor);
         addObject(money_text, getWidth() / 2, getHeight() - 150);
     }
     
     public void updateAll() {
         // Upd money
-        money_text.setText("Money: " + Integer.toString(gm.getMoney()));
-        addObject(money_text, 400, 50);
+        money_text.drawCenteredString(false, money_text.getImage(), "Money: " + Integer.toString(gm.getMoney()), 200, 50, font, textColor);
         if (rlButton.getCost() > gm.getMoney()) { rlButton.setColor(Color.RED); }
     }
 }

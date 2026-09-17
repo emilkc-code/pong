@@ -14,16 +14,21 @@ import java.awt.Rectangle;
 public class WorldSwappingButton extends Actor
 {
     private String targetWorldName;
+    private GreenfootImage img;
     
     public WorldSwappingButton(Boolean button, String targetWorldName, String text, int width, int height, Font font, Color color)
     {
         this.targetWorldName = targetWorldName;
         
-        GreenfootImage img = new GreenfootImage(width, height);
+        img = new GreenfootImage(width, height);
         drawCenteredString(button, img, text, width, height, font, color);
         setImage(img);
     }
-
+    
+    public void drawCenteredString2() {
+        return;
+    }
+    
     public void act() {
         if (Greenfoot.mouseClicked(this)) {
             switch (targetWorldName) {
@@ -63,6 +68,7 @@ public class WorldSwappingButton extends Actor
         
         // 4. Apply the Greenfoot font and draw
         img.setFont(font);
+        img.clear();
         if (button) { drawThickRect(img, rectWidth, rectHeight, 5, new java.awt.Color(150, 150, 150)); }
         img.setColor(color);
         img.drawString(text, x, y);
