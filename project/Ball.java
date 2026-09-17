@@ -218,6 +218,7 @@ public class Ball extends Actor
             pingWorld.levelText(1);
             pingWorld.highscoreText(gameManager.getHighscore());
             pingWorld.moneyText(gameManager.getMoney());
+            pingWorld.scoreText(ownHits);
         }
         
         if (reset == false) { return; }
