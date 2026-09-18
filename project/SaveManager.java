@@ -11,7 +11,7 @@ public class SaveManager
             BufferedWriter writer = new BufferedWriter(new FileWriter("highscore.txt"));
             writer.write("Highscore = " + score);
             writer.close();
-            System.out.println("High score saved!");
+            //System.out.println("High score saved!");
         } catch (IOException e) {
             System.out.println("Error saving high score.");
             e.printStackTrace();
@@ -34,7 +34,7 @@ public class SaveManager
             
             reader.close();
         } catch (IOException | NumberFormatException e) {
-            System.out.println("No valid high score file found. Starting at 0.");
+            //System.out.println("No valid high score file found. Starting at 0.");
         }
         
         return currentHighScore;
@@ -46,7 +46,7 @@ public class SaveManager
             BufferedWriter writer = new BufferedWriter(new FileWriter("savegame.txt"));
             writer.write(dataToWrite);
             writer.close();
-            System.out.println("File written successfully.");
+            //System.out.println("File written successfully.");
         } catch (IOException e) {
             System.out.println("An error occurred while writing the file.");
             e.printStackTrace();
@@ -59,7 +59,7 @@ public class SaveManager
             String line = reader.readLine();
             
             while (line != null) {
-                System.out.println(line); // Prints each line to the Greenfoot terminal
+                System.out.println(line);
                 line = reader.readLine();
             }
             

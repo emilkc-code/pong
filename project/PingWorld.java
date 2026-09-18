@@ -8,9 +8,9 @@ public class PingWorld extends World
 
     /* Objects like gamemanager, paddles and ball. */
     private GameManager gm = new GameManager();
-    private Paddle topPaddle = new Paddle(100,20, 2, true, gm.getActiveSkinPack().getSkins().get(1));
-    private Paddle bottomPaddle = new Paddle(100,20, 2, false, gm.getActiveSkinPack().getSkins().get(0));
-    private Ball ball = new Ball(bottomPaddle, topPaddle, gm.getActiveSkinPack().getSkins().get(3), gm.getActiveSkinPack().getSounds().get(0), gm.getActiveSkinPack().getSounds().get(1));
+    //private Paddle topPaddle = new Paddle(100,20, 2, true, gm.getActiveSkinPack().getSkins().get(1));
+    //private Paddle bottomPaddle = new Paddle(100,20, 2, false, gm.getActiveSkinPack().getSkins().get(0));
+    //private Ball ball = new Ball(bottomPaddle, topPaddle, gm.getActiveSkinPack().getSkins().get(3), gm.getActiveSkinPack().getSounds().get(0), gm.getActiveSkinPack().getSounds().get(1));
     private Background background;
     private int runner = 0;
     private boolean gameStarted;
@@ -34,11 +34,11 @@ public class PingWorld extends World
             highscoreText(new GameManager().getHighscore());
             scoreText(0);
             returnText();
-            background = new Background(getHeight(), getHeight(), gm.getActiveSkinPack().getSkins().get(2), gm.getActiveSkinPack().getSounds().get(4));
-            addObject(background, getHeight()/2, getHeight()/2);
-            addObject(topPaddle, getWidth() / 2, 50);
-            addObject(bottomPaddle, getWidth() / 2, getHeight() - 50);
-            addObject(ball, 0, 0);
+            //background = new Background(getHeight(), getHeight(), gm.getActiveSkinPack().getSkins().get(2), gm.getActiveSkinPack().getSounds().get(4));
+            //addObject(background, getHeight()/2, getHeight()/2);
+            //addObject(topPaddle, getWidth() / 2, 50);
+            //addObject(bottomPaddle, getWidth() / 2, getHeight() - 50);
+            //addObject(ball, 0, 0);
         }
         }
 
@@ -51,9 +51,9 @@ public class PingWorld extends World
     /**
      * Set "player" paddle to AI to watch
      */
-    public void enableBottomAI() {
-        bottomPaddle.setAI(true);
-    }
+    //public void enableBottomAI() {
+        //bottomPaddle.setAI(true);
+    //}
     
     /**
      * Shows speed

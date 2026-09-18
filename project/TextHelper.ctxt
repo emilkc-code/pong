@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=TextHelper
+comment1.params=img\ text\ font\ color
+comment1.target=void\ drawCenteredString(greenfoot.GreenfootImage,\ java.lang.String,\ greenfoot.Font,\ greenfoot.Color)
+comment2.params=img\ thickness\ color
+comment2.target=void\ drawThickRect(greenfoot.GreenfootImage,\ int,\ java.awt.Color)
+numComments=3

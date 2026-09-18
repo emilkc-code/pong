@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.target=Text
+comment1.params=text\ width\ height\ font
+comment1.target=Text(java.lang.String,\ int,\ int,\ greenfoot.Font)
+numComments=2

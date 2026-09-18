@@ -2,32 +2,28 @@ import greenfoot.*;
 
 public class IntroWorld extends World
 {
-    /* Instance Variables. */
-    private static final int WORLD_WIDTH = 500;
-    private static final int WORLD_HEIGHT = 700;
-    private Font font = new greenfoot.Font("Arial", true, false, 30);
-    private Font titleFont = new greenfoot.Font("Arial", true, false, 48);
-    private Color textColor = new Color(220, 220, 220);
-
-    /* World swapping buttons for swapping and Display. */
-    private WorldSwappingButton title_Button = new WorldSwappingButton(false, "NULL", "Ping", 120, 90, titleFont, textColor);
-    private WorldSwappingButton highscore_Button = new WorldSwappingButton(false, "NULL", "Highscore: " + Integer.toString(new GameManager().getHighscore()), 230, 50, font, textColor);
-    private WorldSwappingButton play_Button = new WorldSwappingButton(true, "PingWorld", "Play", 100, 60, font, textColor);
-    private WorldSwappingButton watch_Button = new WorldSwappingButton(true, "PingWorldAI", "Watch", 100, 60, font, textColor);
-    private WorldSwappingButton shop_Button = new WorldSwappingButton(true, "Shop", "Shop", 100, 60, font, textColor);
+    private Text title     = new Text("Ping",                                                             120, 90, Fonts.getTitle());
+    private Text highscore = new Text("Highscore: " + Integer.toString(new GameManager().getHighscore()), 230, 50, Fonts.getNormal());
+    
+    private Button playButton  = new Button("Play",  100, 60);
+    private Button watchButton = new Button("Watch", 100, 60);
+    private Button shopButton  = new Button("Shop",  100, 60);
     
     public IntroWorld() {
-        /* Create the world and its background. */
-        super(WORLD_WIDTH, WORLD_HEIGHT, 1); 
+        super(GameManager.getWindowWidth(), GameManager.getWindowHeight(), 1);
+        
+        playButton.setWorld("PingWorld");
+        watchButton.setWorld("PingWorldAI");
+        shopButton.setWorld("Shop");
+        
         GreenfootImage background = getBackground();
         background.setColor(new Color(35, 35, 35));
         background.fillRect(0, 0, getWidth(), getHeight());
-
-        /* Adding above names Buttons */
-        addObject(title_Button, getWidth() / 2, 150);
-        addObject(highscore_Button, getWidth() / 2, 200);
-        addObject(play_Button, getWidth() / 2, getHeight() - 250);
-        addObject(watch_Button, getWidth() / 2, getHeight() - 180);
-        addObject(shop_Button, getWidth() / 2, getHeight() - 50);
+        
+        addObject(title,        getWidth() / 2, 150);
+        addObject(highscore,    getWidth() / 2, 200);
+        addObject(playButton,  getWidth() / 2, getHeight() - 250);
+        addObject(watchButton, getWidth() / 2, getHeight() - 180);
+        addObject(shopButton,  getWidth() / 2, getHeight() - 50);
     }
 }
