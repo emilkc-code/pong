@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=Maths
+comment1.params=angle\ startPosition\ predictionPoint
+comment1.target=double\ predictionFunction(double,\ double,\ double)
+comment2.params=a\ b
+comment2.target=double\ trueModulo(double,\ double)
+numComments=3

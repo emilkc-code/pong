@@ -1,9 +1,0 @@
-#BlueJ class context
-comment0.target=Background
-comment1.params=width\ height\ img\ sound
-comment1.target=Background(int,\ int,\ greenfoot.GreenfootImage,\ greenfoot.GreenfootSound)
-comment1.text=Constructor\ for\ background
-comment2.params=
-comment2.target=void\ stopBGSound()
-comment2.text=\n\ Stopping\ background\ "music"\ to\ avoid\ uneeded\ sounds\ in\ other\ menus/worlds\n
-numComments=3

@@ -2,4 +2,8 @@
 comment0.target=Product
 comment1.params=
 comment1.target=int\ getPrice()
-numComments=2
+comment2.params=
+comment2.target=boolean\ isOwned()
+comment3.params=b
+comment3.target=void\ setOwned(boolean)
+numComments=4

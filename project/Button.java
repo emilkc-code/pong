@@ -10,64 +10,49 @@ public class Button extends Actor
     public static int borderThickness = 5;
     
     private String world = "";
-    private int price = -1;
+    
+    private int productIndex = -1;
+    private boolean canBuy = true;
+    
     private GreenfootImage image;
 
     public Button(String text, int width, int height) {
         image = new GreenfootImage(width, height);
-        image.clear();
-        TextHelper.drawCenteredString(image, text, Fonts.getNormal(), Colors.getText());
-        draw();
+        drawNew(text);
         setImage(image);
     }
     
     public void act() {
         if (!Greenfoot.mouseClicked(this)) { return; }
-        if (world != "") { switchWorld(); }
         
-        if (price > GameManager.getMoney() || price < 0) { return; }
-        buy();
+        if (world != "") { switchWorld(); return; }
+        
+        if (productIndex < 0) { return; }
+        Shop shop = (Shop) getWorld();
+        shop.tryBuy(productIndex, this);
     }
     
-    private void draw() {
-        switch (price) {
-            case -1: drawButtonBorder(Colors.getButtonBorder()); break;
-            case -2:
-                image.clear();
-                drawButton(Colors.getOwnedButton());
-                TextHelper.drawCenteredString(image, "Owned", Fonts.getNormal(), Colors.getText());
-                break;
-            default:
-                image.clear();
-                drawButton(getNewColor());
-                TextHelper.drawCenteredString(image, Integer.toString(price), Fonts.getNormal(), Colors.getText());
-        }
+    public void drawNew(String text) {
+        image.clear();
+        
+        if (productIndex == -1) { drawButtonBorder(Colors.getButtonBorder()); }
+        else                    { drawButton(canBuy); }
+        
+        TextHelper.drawCenteredString(image, text, Fonts.getNormal(), Colors.getText());
     }
     
-    private Color getNewColor() {
-        if (price > GameManager.getMoney())  { return Colors.getCantBuyButton(); }
-        else { return Colors.getCanBuyButton(); }
-    }
-    
-    private void drawButton(Color color) {
+    private void drawButton(boolean canBuy) {
+        Color color = Colors.getCantBuyButton();
+        if (canBuy) { color = Colors.getCanBuyButton(); }
+        
         image.setColor(color);
         image.fillRect(0, 0, image.getWidth(), image.getHeight());
     }
     
     private void drawButtonBorder(java.awt.Color color) { TextHelper.drawThickRect(image, borderThickness, color); }
     
-    public void setPrice(int price) {
-        this.price = price;
-        draw();
-    }
-    
-    public void buy() {
-        GameManager.setMoney(GameManager.getMoney() - price);
-        price = -2;
-        draw();
-        Shop shop = (Shop) getWorld();
-        shop.drawMoney();
-    }
+    public void setProductIndex(int n) { productIndex = n; }
+    public void setCanBuy(boolean canBuy) { this.canBuy = canBuy; }
     
     public void setWorld(String world) { this.world = world; }
     
@@ -79,7 +64,7 @@ public class Button extends Actor
             case "PingWorldAI":
                 PingWorld pingWorldAI = new PingWorld(true);
                 Greenfoot.setWorld(pingWorldAI);
-                //pingWorldAI.enableBottomAI();
+                pingWorldAI.enableBottomAI();
         }
     }
 }

@@ -2,12 +2,15 @@ import greenfoot.*;
 
 public class Product {
     protected int price;
-    protected int owned;
+    protected boolean owned;
     
     protected ImageContainer images = new ImageContainer();
     protected SoundContainer sounds = new SoundContainer();
     
     public int getPrice() { return price; }
+    
+    public boolean isOwned()        { return owned; }
+    public void setOwned(boolean b) { owned = b; }
 
     public class ImageContainer {
         protected GreenfootImage product;
@@ -16,11 +19,11 @@ public class Product {
         protected GreenfootImage bottomPaddle;
         protected GreenfootImage topPaddle;
         
-        protected GreenfootImage getProduct()      { return product; }
-        protected GreenfootImage getBackground()   { return background; }
-        protected GreenfootImage getBall()         { return ball; }
-        protected GreenfootImage getBottomPaddle() { return bottomPaddle; }
-        protected GreenfootImage getTopPaddle()    { return topPaddle; }
+        public GreenfootImage getProduct()      { return product; }
+        public GreenfootImage getBackground()   { return background; }
+        public GreenfootImage getBall()         { return ball; }
+        public GreenfootImage getBottomPaddle() { return bottomPaddle; }
+        public GreenfootImage getTopPaddle()    { return topPaddle; }
     }
 
     public class SoundContainer {
@@ -30,10 +33,10 @@ public class Product {
         protected GreenfootSound wallHit;
         protected GreenfootSound win;
         
-        protected GreenfootSound getAmbient()   { return ambient; }
-        protected GreenfootSound getLoss()      { return loss; }
-        protected GreenfootSound getPaddleHit() { return paddleHit; }
-        protected GreenfootSound getWallHit()   { return wallHit; }
-        protected GreenfootSound getWin()       { return win; }
+        public GreenfootSound getAmbient()   { return ambient; }
+        public GreenfootSound getLoss()      { return loss; }
+        public GreenfootSound getPaddleHit() { return paddleHit; }
+        public GreenfootSound getWallHit()   { return wallHit; }
+        public GreenfootSound getWin()       { return win; }
     }
 }

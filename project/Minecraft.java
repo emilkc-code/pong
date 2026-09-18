@@ -1,13 +1,12 @@
 import greenfoot.*;
 
-public class CounterStrike extends Product
+public class Minecraft extends Product
 {
-    private String name = "counter-strike";
+    private String name = "minecraft";
     
-    public CounterStrike()
+    public Minecraft()
     {
-        //price = 150;
-        owned = true;
+        price = 150;
         
         images.product = new GreenfootImage(name + "_product.png");
         

@@ -2,82 +2,65 @@ import greenfoot.*;
 
 public class PingWorld extends World
 {
-    /* Instance variables */
-    private static final int WORLD_WIDTH = 500;
-    private static final int WORLD_HEIGHT = 700;
-
-    /* Objects like gamemanager, paddles and ball. */
-    private GameManager gm = new GameManager();
-    //private Paddle topPaddle = new Paddle(100,20, 2, true, gm.getActiveSkinPack().getSkins().get(1));
-    //private Paddle bottomPaddle = new Paddle(100,20, 2, false, gm.getActiveSkinPack().getSkins().get(0));
-    //private Ball ball = new Ball(bottomPaddle, topPaddle, gm.getActiveSkinPack().getSkins().get(3), gm.getActiveSkinPack().getSounds().get(0), gm.getActiveSkinPack().getSounds().get(1));
-    private Background background;
+    private Product skin = Shop.products[GameManager.getSkin()];
+    private Paddle topPaddle = new Paddle(100, 20, 2, true, skin.images.getTopPaddle());
+    private Paddle bottomPaddle = new Paddle(100, 20, 2, false, skin.images.getBottomPaddle());
+    private Ball ball = new Ball(bottomPaddle, topPaddle, skin.images.getBall(), skin.sounds.getWallHit(), skin.sounds.getPaddleHit());
     private int runner = 0;
     private boolean gameStarted;
+    private GreenfootSound ambient = skin.sounds.getAmbient();
 
-    /**
-     * Constructor (assigning if said game started or not)
-     */
     public PingWorld(boolean gameStarted) {
-        super(WORLD_WIDTH, WORLD_HEIGHT, 1);
+        super(GameManager.getWindowWidth(), GameManager.getWindowHeight(), 1);
         this.gameStarted = gameStarted;
         }
     
     
     public void act() {
-        /* Loading everything after the 1st frame, to avoid problems with worldSwappingButtons */
         runner++;
         if (runner == 1) {
             if (gameStarted) {
-            levelText(1);
-            moneyText(new GameManager().getMoney());
-            highscoreText(new GameManager().getHighscore());
-            scoreText(0);
-            returnText();
-            //background = new Background(getHeight(), getHeight(), gm.getActiveSkinPack().getSkins().get(2), gm.getActiveSkinPack().getSounds().get(4));
-            //addObject(background, getHeight()/2, getHeight()/2);
-            //addObject(topPaddle, getWidth() / 2, 50);
-            //addObject(bottomPaddle, getWidth() / 2, getHeight() - 50);
-            //addObject(ball, 0, 0);
+                speedText(1 + (float) (GameManager.getHighscore() - 10) / (float) ball.getHitsForSpeed());
+                moneyText(new GameManager().getMoney());
+                highscoreText(new GameManager().getHighscore());
+                scoreText(GameManager.getHighscore() - 10);
+                returnText();
+                
+                addBackground();
+                
+                addObject(topPaddle, getWidth() / 2, 50);
+                addObject(bottomPaddle, getWidth() / 2, getHeight() - 50);
+                addObject(ball, 0, 0);
+                
+                ambient.playLoop();
+            }
         }
-        }
-
-        /* press ESC to  return to main menu. */
-        String key = Greenfoot.getKey();
-        if (key != null && key.equals("escape")) { background.stopBGSound(); Greenfoot.setWorld(new IntroWorld());
+        
+        if (Greenfoot.isKeyDown("Escape")) {
+            ambient.stop();
+            Greenfoot.setWorld(new IntroWorld());
         }
     }
     
-    /**
-     * Set "player" paddle to AI to watch
-     */
-    //public void enableBottomAI() {
-        //bottomPaddle.setAI(true);
-    //}
+    private void addBackground() {
+        GreenfootImage background = getBackground();
+        GreenfootImage image = skin.images.getBackground();
+        image.scale(getWidth(), getHeight());
+        background.drawImage(image, 0, 0);
+    }
     
-    /**
-     * Shows speed
-     */
-    public void levelText(int n) { showText("Speed: " + Integer.toString(n), 45, getHeight() - 16); }
+    public void enableBottomAI() {
+        bottomPaddle.setAI(true);
+    }
     
-    /**
-     * Shows Money
-     */
+    public void speedText(float x) { showText("Speed: " + Float.toString(x), 50, getHeight() - 16); }
+    
     public void moneyText(int n) { showText("Money: " + Integer.toString(n), getWidth() - 70, getHeight() - 16); }
     
-    /**
-     * Shows Highscore
-     */
     public void highscoreText(int n) { showText("Highscore: " + Integer.toString(n), getWidth() - 70, 16); }
     
-    /**
-     * Shows Score
-     */
     public void scoreText(int n) { showText("Score: " + Integer.toString(n), getWidth() - 70, 38); }
     
-    /**
-     * Shows the ESC tip.
-     */
     public void returnText() {showText("Press ESC to return to main menu", 105, 16); }
     
 }

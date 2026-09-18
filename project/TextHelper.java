@@ -18,7 +18,7 @@ public class TextHelper
         g2d.dispose();
         
         int x = (img.getWidth() - metrics.stringWidth(text)) / 2;
-        int y = (int) (img.getHeight() * 0.65);
+        int y = (int) (img.getHeight() * 0.5 + metrics.getHeight() / 4);
         
         img.setFont(font);
         img.setColor(color);

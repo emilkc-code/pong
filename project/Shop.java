@@ -1,9 +1,11 @@
 import greenfoot.*;
 import java.util.List;
+import java.util.ArrayList;
 
 public class Shop extends World
 {
-    private Product[] products = { new CounterStrike(), new LeagueOfLegends(), new RocketLeague() };
+    public static final Product[] products = { new CounterStrike(), new LeagueOfLegends(), new Minecraft(), new RocketLeague() };
+    private List<Button> buyButtons = new ArrayList<>();;
     
     private Text moneyText;
     
@@ -25,15 +27,41 @@ public class Shop extends World
         
         Button menuButton = new Button("Return To Main Menu", 350, 70);
         menuButton.setWorld("IntroWorld");
-        addObject(menuButton, 250, getHeight() - 80);
+        addObject(menuButton, getWidth() / 2, getHeight() - 80);
         
         drawMoney();
     }
     
-    public void drawMoney() {
+    private void drawMoney() {
         if (moneyText != null) { removeObject(moneyText); }
         moneyText = new Text("Money: " + Integer.toString(GameManager.getMoney()), 200, 50, Fonts.getNormal());
         addObject(moneyText, getWidth() / 2, getHeight() - 150);
+    }
+    
+    public void tryBuy(int n, Button button) {
+        if (products[n].isOwned()) {
+            GameManager.setSkin(n);
+            updateButtons(n);
+            return;
+        }
+        
+        if (GameManager.getMoney() < products[n].getPrice()) { return; }
+        
+        GameManager.setMoney(GameManager.getMoney() - products[n].getPrice());
+        drawMoney();
+        
+        products[n].setOwned(true);
+        GameManager.setSkin(n);
+        updateButtons(n);
+    }
+    
+    private void updateButtons(int n) {
+        for (int i = 0; i < buyButtons.size(); i++) {
+            if (!products[i].isOwned()) { continue; }
+            
+            if (i == n) { buyButtons.get(i).drawNew("Equipped"); continue; }
+            buyButtons.get(i).drawNew("Owned");
+        }
     }
     
     private void setupProducts() {
@@ -56,7 +84,15 @@ public class Shop extends World
             y += height + 10 + buttonHeight / 2;
             Button button = new Button("", width, buttonHeight);
             addObject(button, x, y);
-            button.setPrice(products[i].getPrice());
+            buyButtons.add(button);
+            button.setProductIndex(i);
+            if (GameManager.getSkin() == i) { button.drawNew("Equipped"); }
+            else                            { button.drawNew("Owned"); }
+            
+            if (products[i].isOwned()) { continue; }
+            
+            button.setCanBuy(GameManager.getMoney() >= products[i].getPrice());
+            button.drawNew(Integer.toString(products[i].getPrice()));
         }
     }
 }

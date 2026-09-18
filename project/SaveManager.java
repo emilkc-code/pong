@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class SaveManager  
 {
-    public void saveHighScore(int score) {
+    public static void saveHighScore(int score) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("highscore.txt"));
             writer.write("Highscore = " + score);
@@ -18,7 +18,7 @@ public class SaveManager
         }
     }
     
-    public int loadHighScore() {
+    public static int loadHighScore() {
         int currentHighScore = 0; // Default fallback if the file doesn't exist yet
         
         try {
@@ -41,7 +41,7 @@ public class SaveManager
     }
     
     
-    public void saveGameData(String dataToWrite) {
+    private void saveGameData(String dataToWrite) {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter("savegame.txt"));
             writer.write(dataToWrite);
@@ -53,7 +53,7 @@ public class SaveManager
         }
     }
     
-    public void readGameData() {
+    private void readGameData() {
         try {
             BufferedReader reader = new BufferedReader(new FileReader("savegame.txt"));
             String line = reader.readLine();
