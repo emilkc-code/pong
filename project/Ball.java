@@ -2,13 +2,13 @@ import greenfoot.*;
 
 public class Ball extends Actor
 {
-    private final int BALL_SIZE = 25;
-    private final int BOUNCE_DEVIANCE_MAX = 5;
-    private final int STARTING_ANGLE_WIDTH = 90;
-    private final int DELAY_TIME = 100;
-    private final int HITS_FOR_SPEED = 10;
-    private final int HIGHSCORE_SETBACK = 10;
-    private final int MAX_ANGLE = 60;
+    private final int   BALL_SIZE = 25;
+    private final int   BOUNCE_DEVIANCE_MAX = 5;
+    private final int   STARTING_ANGLE_WIDTH = 90;
+    private final int   DELAY_TIME = 100;
+    private final int   HITS_FOR_SPEED = 10;
+    private final int   HIGHSCORE_SETBACK = 10;
+    private final int   MAX_ANGLE = 60;
     private final float MINIMUM_SPEED = 1f;
     private final float DRAG_COEFFICIENT = 0.995f;
 
@@ -16,27 +16,34 @@ public class Ball extends Actor
     private float positionY;
     private float velocity;
     private float speed;
-    private int ownHits;
-    private int delay;
+    private int   ownHits;
+    private int   delay;
     private GreenfootImage image;
     
     private Paddle bottomPaddle;
     private Paddle topPaddle;
     private PingWorld pingWorld;
     
-    private GreenfootSound wallHitSound;
-    private GreenfootSound paddleHitSound;
+    private GreenfootSound soundWallHit;
+    private GreenfootSound soundPaddleHit;
     
-    public Ball(Paddle bottomPaddle, Paddle topPaddle, GreenfootImage img, GreenfootSound wallHitS, GreenfootSound paddleHitS) {
+    public Ball(
+        Paddle bottomPaddle,
+        Paddle topPaddle,
+        GreenfootImage image,
+        GreenfootSound soundWallHit,
+        GreenfootSound soundPaddleHit
+        ) {
+            
         this.bottomPaddle = bottomPaddle;
         this.topPaddle = topPaddle;
-        this.image = img;
-        this.wallHitSound = wallHitS;
-        this.paddleHitSound = paddleHitS;
+        this.image = image;
+        this.soundWallHit = soundWallHit;
+        this.soundPaddleHit = soundPaddleHit;
         createImage();
     }
     
-    public void addedToWorld(World world) { init(true); }
+    public void addedToWorld(World world) { resetBall(); }
     
     public int getSize() { return BALL_SIZE; }
     
@@ -49,19 +56,17 @@ public class Ball extends Actor
         if (topPaddle.getBall() == null) { topPaddle.setBall(this); }
         if (bottomPaddle.getBall() == null) { bottomPaddle.setBall(this); }
         
-        if (delay > 0) { delay--; }
+        if (delay > 0) { delay--; return; }
         
-        else {
-            positionX += Math.cos(Math.toRadians(getRotation())) * (velocity * speed + MINIMUM_SPEED);
-            positionY += Math.sin(Math.toRadians(getRotation())) * (velocity * speed + MINIMUM_SPEED);
-            setLocation((int) positionX, (int) positionY);
-            applyDrag();
-            
-            bounceWalls();
-            checkBounceOffPaddleBottom();
-            checkBounceOffPaddleTop();
-            checkRestart();
-        }
+        positionX += Math.cos(Math.toRadians(getRotation())) * (velocity * speed + MINIMUM_SPEED);
+        positionY += Math.sin(Math.toRadians(getRotation())) * (velocity * speed + MINIMUM_SPEED);
+        setLocation((int) positionX, (int) positionY);
+        applyDrag();
+        
+        bounceWalls();
+        checkBounceOffPaddleBottom();
+        checkBounceOffPaddleTop();
+        checkRestart();
     }
 
     public int getHitsForSpeed() { return HITS_FOR_SPEED; }
@@ -73,30 +78,42 @@ public class Ball extends Actor
     private void bounceWalls() {
         if (!isTouchingSides()) { return; }
         
-        if (90 < getRotation() && getRotation() < 270 && getX() < getWorld().getWidth() / 2) { setRotation(180 - getRotation()); }
-        if ((0 < getRotation() && getRotation() < 90 || 270 < getRotation() && getRotation() < 360) && getX() > getWorld().getWidth() / 2) { setRotation(180 - getRotation()); }
+        if (90 < getRotation() && getRotation() < 270
+            && getX() < getWorld().getWidth() / 2)
+            { setRotation(180 - getRotation()); }
+            
+        if ((
+            0 < getRotation() && getRotation() < 90
+            || 270 < getRotation()
+            && getRotation() < 360
+            )
+            && getX() > getWorld().getWidth() / 2)
+            { setRotation(180 - getRotation()); }
         
-        
-        wallHitSound.stop();
-        wallHitSound.play();
+        soundWallHit.stop();
+        soundWallHit.play();
     }
     
     private void checkRestart() {
         if (!isTouchingFloor() && !isTouchingCeiling()) { return; }
-        if (isTouchingCeiling() && !bottomPaddle.isAI()) {
-            addMoney();
-            GameManager.setWins(GameManager.getWins() + 1);
-            GameManager.setMoney(GameManager.getMoney() + 100000);
-            GameManager.setHighscore(-1);
-            SaveManager.saveHighScore(-1);
-        }
-        if (isTouchingFloor() && !bottomPaddle.isAI()) {
-            addMoney();
-            GameManager.setLoses(GameManager.getLoses() + 1);
-            SaveManager.saveHighScore(GameManager.getHighscore());
-        }
+        if (isTouchingCeiling() && !bottomPaddle.isAI()) { applyWin(); }
+        if (isTouchingFloor() && !bottomPaddle.isAI()) { applyLoss(); }
         
-        init(true);
+        resetBall();
+    }
+    
+    private void applyWin() {
+        addMoney();
+        GameManager.setWins(GameManager.getWins() + 1);
+        GameManager.setMoney(GameManager.getMoney() + 100000);
+        GameManager.setHighscore(-1);
+        SaveManager.saveHighScore(-1);
+    }
+    
+    private void applyLoss() {
+        addMoney();
+        GameManager.setLoses(GameManager.getLoses() + 1);
+        SaveManager.saveHighScore(GameManager.getHighscore());
     }
     
     private void addMoney() {
@@ -110,7 +127,11 @@ public class Ball extends Actor
     }
     
     private void checkBounceOffPaddleTop() {
-        if (getIntersectingObjects(Paddle.class).size() < 1 || getIntersectingObjects(Paddle.class).get(0).getY() > getWorld().getWidth() / 2 || getRotation() < 180) { return; }
+        if (   getIntersectingObjects(Paddle.class).size() < 1
+            || getIntersectingObjects(Paddle.class).get(0).getY() > getWorld().getWidth() / 2
+            || getRotation() < 180)
+            { return; }
+        
         hitPaddle();
         
         velocity = 1;
@@ -122,18 +143,13 @@ public class Ball extends Actor
     }
     
     private void checkBounceOffPaddleBottom() {
-        if (getIntersectingObjects(Paddle.class).size() < 1 || getIntersectingObjects(Paddle.class).get(0).getY() < getWorld().getWidth() / 2 || getRotation() > 180) { return; }
+        if (getIntersectingObjects(Paddle.class).size() < 1
+            || getIntersectingObjects(Paddle.class).get(0).getY() < getWorld().getWidth() / 2
+            || getRotation() > 180)
+            { return; }
+        
         ownHits += 1;
         hitPaddle();
-        
-        if ( !bottomPaddle.isAI() ) {
-            pingWorld.scoreText(ownHits);
-            
-            if (ownHits > GameManager.getHighscore() && GameManager.getHighscore() >= 0 ) {
-                GameManager.setHighscore(ownHits);
-                pingWorld.highscoreText(GameManager.getHighscore());
-            }
-        }
         
         velocity = 1;
     
@@ -141,23 +157,30 @@ public class Ball extends Actor
         
         if ( topPaddle.isAI() ) { topPaddle.setupPredictor(this); }
         if ( bottomPaddle.isAI() ) { bottomPaddle.resetToCenter(); }
+        
+        if ( bottomPaddle.isAI() ) { return; }
+        pingWorld.scoreText(ownHits);
+            
+        if (ownHits <= GameManager.getHighscore() || GameManager.getHighscore() < 0 ) { return; }
+        GameManager.setHighscore(ownHits);
+        pingWorld.highscoreText(GameManager.getHighscore());
     }
     
     private void hitPaddle() {
-        paddleHitSound.stop();
-        paddleHitSound.play();
+        soundPaddleHit.stop();
+        soundPaddleHit.play();
         increaseSpeed();
     }
     
     private void increaseSpeed() {
+        speed = (float) ownHits / (float) HITS_FOR_SPEED;
+        speed++;
+        
         pingWorld = (PingWorld) getWorld();
-        speed = 1 + (float) ownHits / (float) HITS_FOR_SPEED;
         pingWorld.speedText(speed);
     }
     
-    private void applyDrag() {
-        velocity *= DRAG_COEFFICIENT;
-    }
+    private void applyDrag() { velocity *= DRAG_COEFFICIENT; }
     
     private void turnAwayFrom(int x, int y, boolean goingUp) {
         turnTowards(x, y);
@@ -165,28 +188,33 @@ public class Ball extends Actor
         else { setRotation(Math.clamp((180 + getRotation()) % 360, 270 - MAX_ANGLE, 270 + MAX_ANGLE)); }
     }
     
-    private void init(boolean reset) {
-        setLocation(getWorld().getWidth() / 2, getWorld().getHeight() - 60 - BALL_SIZE);
+    private void resetBall() {
+        int x = getWorld().getWidth() / 2;
+        int y = getWorld().getHeight() - 60 - BALL_SIZE;
+        setLocation(x, y);
         
         positionX = getX();
         positionY = getY();
         
         velocity = 1;
-        ownHits = (int) Math.clamp(GameManager.getHighscore() - HIGHSCORE_SETBACK, 0, Double.POSITIVE_INFINITY);
-        speed = 1 + (float) ownHits / (float) HITS_FOR_SPEED;
+        
+        ownHits = GameManager.getHighscore() - HIGHSCORE_SETBACK;
+        ownHits = (int) Math.clamp(ownHits, 0, Double.POSITIVE_INFINITY);
+        
+        speed = (float) ownHits / (float) HITS_FOR_SPEED;
+        speed++;
+        
         delay = DELAY_TIME;
         
-        if (pingWorld != null) {
-            pingWorld.speedText(speed);
-            pingWorld.highscoreText(GameManager.getHighscore());
-            pingWorld.moneyText(GameManager.getMoney());
-            pingWorld.scoreText(ownHits);
-        }
-        
-        if (reset == false) { return; }
         setRotation(Greenfoot.getRandomNumber(STARTING_ANGLE_WIDTH)+STARTING_ANGLE_WIDTH/2 + 180);
         
         topPaddle.setupPredictor(this);
         if ( bottomPaddle.isAI() ) { bottomPaddle.resetToCenter(); }
+        
+        if (pingWorld == null) { return; }
+        pingWorld.speedText(speed);
+        pingWorld.highscoreText(GameManager.getHighscore());
+        pingWorld.moneyText(GameManager.getMoney());
+        pingWorld.scoreText(ownHits);
     }
 }

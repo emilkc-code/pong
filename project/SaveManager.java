@@ -4,7 +4,7 @@ import java.io.BufferedWriter;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class SaveManager  
+public class SaveManager extends Manager
 {
     public static void saveHighScore(int score) {
         try {
@@ -38,35 +38,5 @@ public class SaveManager
         }
         
         return currentHighScore;
-    }
-    
-    
-    private void saveGameData(String dataToWrite) {
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("savegame.txt"));
-            writer.write(dataToWrite);
-            writer.close();
-            //System.out.println("File written successfully.");
-        } catch (IOException e) {
-            System.out.println("An error occurred while writing the file.");
-            e.printStackTrace();
-        }
-    }
-    
-    private void readGameData() {
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader("savegame.txt"));
-            String line = reader.readLine();
-            
-            while (line != null) {
-                System.out.println(line);
-                line = reader.readLine();
-            }
-            
-            reader.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred while reading the file (it might not exist yet).");
-            e.printStackTrace();
-        }
     }
 }

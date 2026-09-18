@@ -32,10 +32,12 @@ public class Paddle extends Actor
             
             inputChecker();
             applyMovement();
-        } else {
-            if (ball == null || targetPoint < 0) { return; }
-            moveHere((int) targetPoint);
+            
+            return;
         }
+        
+        if (ball == null || targetPoint < 0) { return; }
+        moveHere((int) targetPoint);
     }
     
     public void setBall(Ball ball) { this.ball = ball; }
@@ -46,14 +48,12 @@ public class Paddle extends Actor
     
     private void moveHere(int n) {
         if (this.getX() < n
-         && this.getX() < getWorld().getWidth() - width / 2) {
-             this.setLocation((int) (getX() + maxSpeed), getY());
-        }
+            && this.getX() < getWorld().getWidth() - width / 2)
+            { this.setLocation((int) (getX() + maxSpeed), getY()); }
         
         if (this.getX() > n
-         && this.getX() > width / 2) {
-             this.setLocation((int) (getX() - maxSpeed), getY());
-        }
+            && this.getX() > width / 2)
+            { this.setLocation((int) (getX() - maxSpeed), getY()); }
     }
     
     public void resetToCenter() {
@@ -84,7 +84,11 @@ public class Paddle extends Actor
     }
     
     private void inputChecker() {
-        if (!Greenfoot.isKeyDown("a") && !Greenfoot.isKeyDown("left") && !Greenfoot.isKeyDown("d") && !Greenfoot.isKeyDown("right")) {
+        if (!Greenfoot.isKeyDown("a")
+            && !Greenfoot.isKeyDown("left")
+            && !Greenfoot.isKeyDown("d")
+            && !Greenfoot.isKeyDown("right"))
+            {
             acceleration = 0;
             velocity *= DRAG_COEFFICIENT;
         }
@@ -106,5 +110,4 @@ public class Paddle extends Actor
         image.scale(this.width, this.height);
         setImage(image);
     }
-
 }

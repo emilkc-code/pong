@@ -1,5 +1,5 @@
 import greenfoot.*;
-public class GameManager  
+public class GameManager extends Manager
 {
     private static int windowWidth = 500;  // 2290
     private static int windowHeight = 700; // 1250

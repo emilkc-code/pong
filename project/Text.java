@@ -1,6 +1,6 @@
 import greenfoot.*;
 
-public class Text extends Actor
+public class Text extends UI
 {
     public Text(String text, int width, int height, Font font) {
         GreenfootImage image = new GreenfootImage(width, height);

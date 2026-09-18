@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.BasicStroke;
 import java.awt.Rectangle;
 
-public class Button extends Actor
+public class Button extends UI
 {
     public static int borderThickness = 5;
     
