@@ -1,5 +1,5 @@
 import greenfoot.*;
-public class SoundManager extends Actor
+public class SoundManager extends Manager
 {
     private static Product skin = Shop.products[GameManager.getSkin()];
     

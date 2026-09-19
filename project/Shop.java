@@ -10,7 +10,8 @@ public class Shop extends World
         new MinecraftOverworld(),
         new MinecraftNether(),
         new RocketLeague(),
-        new TeamFortress()
+        new TeamFortress(),
+        new Roblox()
     };
     
     private List<Text> productButtonTexts = new ArrayList<>();;

@@ -19,13 +19,13 @@ public class IntroWorld extends World
         background.drawImage(image, 0, 0);
         
         
-        Text title = new Text(120, 90);
+        Text title = new Text(120, 60);
         title.setText("Ping");
         title.setFont(Fonts.getTitle());
         title.setIsFilled(true);
         addObject(title, getWidth() / 2, 150);
         
-        Text highscore = new Text(230, 50);
+        Text highscore = new Text(160, 30);
         highscore.setText("Highscore: " + Integer.toString(new GameManager().getHighscore()));
         highscore.setIsFilled(true);
         addObject(highscore, getWidth() / 2, 200);
@@ -39,7 +39,8 @@ public class IntroWorld extends World
         
         Text playText = new Text(x, y);
         playText.setText("Play");
-        playText.setIsFilled(true);
+        //playText.setIsFilled(true);
+        playText.setHasBorder(true);
         
         addObject(playText,    getWidth() / 2, getHeight() - 250);
         addObject(playButton,  getWidth() / 2, getHeight() - 250);
@@ -50,7 +51,8 @@ public class IntroWorld extends World
         
         Text watchText = new Text(x, y);
         watchText.setText("Watch");
-        watchText.setIsFilled(true);
+        //watchText.setIsFilled(true);
+        watchText.setHasBorder(true);
         
         addObject(watchText,   getWidth() / 2, getHeight() - 180);
         addObject(watchButton, getWidth() / 2, getHeight() - 180);
@@ -61,7 +63,8 @@ public class IntroWorld extends World
         
         Text shopText = new Text(x, y);
         shopText.setText("Shop");
-        shopText.setIsFilled(true);
+        //shopText.setIsFilled(true);
+        shopText.setHasBorder(true);
         
         addObject(shopText,    getWidth() / 2, getHeight() - 50);
         addObject(shopButton,  getWidth() / 2, getHeight() - 50);
