@@ -9,8 +9,8 @@ public class Shop extends World
     
     private Text moneyText;
     
-    private static Product skin = Shop.products[GameManager.getSkin()];
-    public static GreenfootSound ambient = skin.sounds.getAmbient();
+    private static Product skin;
+    public static GreenfootSound ambient;
     
     GreenfootImage background = getBackground();
     
@@ -63,7 +63,12 @@ public class Shop extends World
     }
     
     public static void playAmbient() {
-        if (skin == Shop.products[GameManager.getSkin()]) { return; }
+        if (ambient == null || skin == null) {
+            skin = Shop.products[GameManager.getSkin()];
+            ambient = skin.sounds.getAmbient();
+            ambient.playLoop();
+        }
+        if (ambient.isPlaying() && skin == Shop.products[GameManager.getSkin()]) { return; }
         ambient.stop();
         skin = Shop.products[GameManager.getSkin()];
         ambient = skin.sounds.getAmbient();
