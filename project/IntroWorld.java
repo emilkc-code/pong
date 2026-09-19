@@ -2,6 +2,11 @@ import greenfoot.*;
 
 public class IntroWorld extends World
 {
+    private static final int BUTTON_WIDTH  = 100;
+    private static final int BUTTON_HEIGHT = 60;
+    private static final int BORDER_THICKNESS = 3;
+    
+    private GreenfootImage background = getBackground();
     
     public IntroWorld() {
         super(GameManager.getWindowWidth(), GameManager.getWindowHeight(), 1);
@@ -9,7 +14,6 @@ public class IntroWorld extends World
         SaveManager.loadData();
         SoundManager.playAmbient();
         
-        GreenfootImage background = getBackground();
         background.setColor(Colors.getBackground());
         background.fillRect(0, 0, getWidth(), getHeight());
         
@@ -18,55 +22,27 @@ public class IntroWorld extends World
         image.scale(getWidth(), getHeight());
         background.drawImage(image, 0, 0);
         
+        // Everything below is drawn onto the background, so the skin image must already be there
+        drawText("Ping", Fonts.getTitle(), getWidth() / 2, 150);
+        drawText("Highscore: " + Integer.toString(GameManager.getHighscore()), Fonts.getNormal(), getWidth() / 2, 200);
         
-        Text title = new Text(120, 60);
-        title.setText("Ping");
-        title.setFont(Fonts.getTitle());
-        title.setIsFilled(true);
-        addObject(title, getWidth() / 2, 150);
+        addMenuButton("Play",  "PingWorld",   getWidth() / 2, getHeight() - 250);
+        addMenuButton("Watch", "PingWorldAI", getWidth() / 2, getHeight() - 180);
+        addMenuButton("Shop",  "Shop",        getWidth() / 2, getHeight() - 50);
+    }
+    
+    /** XOR-draws text straight onto the world background. */
+    private void drawText(String text, greenfoot.Font font, int x, int y) {
+        TextHelper.drawCenteredStringXOR(background, text, font, x, y);
+    }
+    
+    /** Draws a bordered label on the background and places an invisible Button actor over it to handle clicks. */
+    private void addMenuButton(String label, String worldName, int x, int y) {
+        TextHelper.drawThickRectAt(background, x, y, BUTTON_WIDTH, BUTTON_HEIGHT, BORDER_THICKNESS, Colors.getTextBorder(), true);
+        drawText(label, Fonts.getNormal(), x, y);
         
-        Text highscore = new Text(160, 30);
-        highscore.setText("Highscore: " + Integer.toString(new GameManager().getHighscore()));
-        highscore.setIsFilled(true);
-        addObject(highscore, getWidth() / 2, 200);
-        
-        
-        int x = 100;
-        int y = 60;
-        
-        Button playButton = new Button(x, y);
-        playButton.setWorld("PingWorld");
-        
-        Text playText = new Text(x, y);
-        playText.setText("Play");
-        playText.setIsFilled(true);
-        playText.setHasBorder(true);
-        
-        addObject(playText,    getWidth() / 2, getHeight() - 250);
-        addObject(playButton,  getWidth() / 2, getHeight() - 250);
-        
-        
-        Button watchButton = new Button(x, y);
-        watchButton.setWorld("PingWorldAI");
-        
-        Text watchText = new Text(x, y);
-        watchText.setText("Watch");
-        watchText.setIsFilled(true);
-        watchText.setHasBorder(true);
-        
-        addObject(watchText,   getWidth() / 2, getHeight() - 180);
-        addObject(watchButton, getWidth() / 2, getHeight() - 180);
-        
-        
-        Button shopButton  = new Button(x, y);
-        shopButton.setWorld("Shop");
-        
-        Text shopText = new Text(x, y);
-        shopText.setText("Shop");
-        shopText.setIsFilled(true);
-        shopText.setHasBorder(true);
-        
-        addObject(shopText,    getWidth() / 2, getHeight() - 50);
-        addObject(shopButton,  getWidth() / 2, getHeight() - 50);
+        Button button = new Button(BUTTON_WIDTH, BUTTON_HEIGHT);
+        button.setWorld(worldName);
+        addObject(button, x, y);
     }
 }

@@ -35,7 +35,8 @@ public class Text extends UI
             image.fillRect(0, 0, image.getWidth(), image.getHeight());
         }
         
-        TextHelper.drawCenteredString(image, text, font, Colors.getText());
+        // Text is drawn through Graphics2D (see TextHelper)
+        TextHelper.drawCenteredString(image, text, font, textColor);
         if (hasBorder) { TextHelper.drawThickRect(image, borderThickness, borderColor); }
     }
 }

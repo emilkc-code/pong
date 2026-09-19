@@ -2,4 +2,10 @@
 comment0.target=IntroWorld
 comment1.params=
 comment1.target=IntroWorld()
-numComments=2
+comment2.params=text\ font\ x\ y
+comment2.target=void\ drawText(java.lang.String,\ greenfoot.Font,\ int,\ int)
+comment2.text=XOR-draws\ text\ straight\ onto\ the\ world\ background.
+comment3.params=label\ worldName\ x\ y
+comment3.target=void\ addMenuButton(java.lang.String,\ java.lang.String,\ int,\ int)
+comment3.text=Draws\ a\ bordered\ label\ on\ the\ background\ and\ places\ an\ invisible\ Button\ actor\ over\ it\ to\ handle\ clicks.
+numComments=4
