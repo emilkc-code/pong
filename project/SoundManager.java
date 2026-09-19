@@ -10,11 +10,11 @@ public class SoundManager extends Actor
     private static GreenfootSound win = skin.sounds.getWin();
     
     static {
-        ambient.setVolume(100);
-        loss.setVolume(40);
-        paddleHit.setVolume(40);
-        wallHit.setVolume(40);
-        win.setVolume(40);
+        ambient.setVolume(70);
+        loss.setVolume(30);
+        paddleHit.setVolume(30);
+        wallHit.setVolume(30);
+        win.setVolume(30);
     }
     
     public static void updateSounds() {
