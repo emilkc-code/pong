@@ -1,15 +1,19 @@
 #BlueJ class context
 comment0.target=Colors
 comment1.params=
-comment1.target=greenfoot.Color\ getText()
+comment1.target=greenfoot.Color\ getBackground()
 comment2.params=
-comment2.target=greenfoot.Color\ getBackground()
+comment2.target=greenfoot.Color\ getText()
 comment3.params=
-comment3.target=java.awt.Color\ getButtonBorder()
+comment3.target=greenfoot.Color\ getTextFill()
 comment4.params=
-comment4.target=greenfoot.Color\ getCanBuyButton()
+comment4.target=java.awt.Color\ getTextBorder()
 comment5.params=
-comment5.target=greenfoot.Color\ getCantBuyButton()
+comment5.target=greenfoot.Color\ getProductCanBuy()
 comment6.params=
-comment6.target=greenfoot.Color\ getOwnedButton()
-numComments=7
+comment6.target=greenfoot.Color\ getProductCantBuy()
+comment7.params=
+comment7.target=greenfoot.Color\ getProductOwned()
+comment8.params=
+comment8.target=greenfoot.Color\ getProductEquipped()
+numComments=9

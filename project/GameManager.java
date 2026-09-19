@@ -7,7 +7,7 @@ public class GameManager extends Manager
     private static int loses = 0;
     private static int money = 0;
     private static int highscore;
-    private static int skin = 1;
+    private static int skin = 0;
     
     public static void setWindowWidth(int n)  { windowWidth = n; }
     public static void setWindowHeight(int n) { windowHeight = n; }

@@ -7,18 +7,15 @@ import java.awt.Rectangle;
 
 public class Button extends UI
 {
-    public static int borderThickness = 5;
-    
     private String world = "";
-    
     private int productIndex = -1;
-    private boolean canBuy = true;
-    
     private GreenfootImage image;
+    
+    public void setProductIndex(int n) { productIndex = n; }
+    public void setWorld(String world) { this.world = world; }
 
-    public Button(String text, int width, int height) {
+    public Button(int width, int height) {
         image = new GreenfootImage(width, height);
-        drawNew(text);
         setImage(image);
     }
     
@@ -31,30 +28,6 @@ public class Button extends UI
         Shop shop = (Shop) getWorld();
         shop.tryBuy(productIndex, this);
     }
-    
-    public void drawNew(String text) {
-        image.clear();
-        
-        if (productIndex == -1) { drawButtonBorder(Colors.getButtonBorder()); }
-        else                    { drawButton(canBuy); }
-        
-        TextHelper.drawCenteredString(image, text, Fonts.getNormal(), Colors.getText());
-    }
-    
-    private void drawButton(boolean canBuy) {
-        Color color = Colors.getCantBuyButton();
-        if (canBuy) { color = Colors.getCanBuyButton(); }
-        
-        image.setColor(color);
-        image.fillRect(0, 0, image.getWidth(), image.getHeight());
-    }
-    
-    private void drawButtonBorder(java.awt.Color color) { TextHelper.drawThickRect(image, borderThickness, color); }
-    
-    public void setProductIndex(int n) { productIndex = n; }
-    public void setCanBuy(boolean canBuy) { this.canBuy = canBuy; }
-    
-    public void setWorld(String world) { this.world = world; }
     
     public void switchWorld(){
         switch (world) {

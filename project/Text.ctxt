@@ -1,5 +1,23 @@
 #BlueJ class context
 comment0.target=Text
-comment1.params=text\ width\ height\ font
-comment1.target=Text(java.lang.String,\ int,\ int,\ greenfoot.Font)
-numComments=2
+comment1.params=text
+comment1.target=void\ setText(java.lang.String)
+comment10.params=
+comment10.target=void\ drawNew()
+comment2.params=font
+comment2.target=void\ setFont(greenfoot.Font)
+comment3.params=color
+comment3.target=void\ setTextColor(greenfoot.Color)
+comment4.params=b
+comment4.target=void\ setIsFilled(boolean)
+comment5.params=color
+comment5.target=void\ setFillColor(greenfoot.Color)
+comment6.params=b
+comment6.target=void\ setHasBorder(boolean)
+comment7.params=n
+comment7.target=void\ setBorderThickness(int)
+comment8.params=color
+comment8.target=void\ setBorderColor(java.awt.Color)
+comment9.params=width\ height
+comment9.target=Text(int,\ int)
+numComments=11

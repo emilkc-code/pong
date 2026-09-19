@@ -4,13 +4,18 @@ import java.util.ArrayList;
 
 public class Shop extends World
 {
-    public static final Product[] products = { new CounterStrike(), new LeagueOfLegends(), new MinecraftOverworld(), new MinecraftNether(), new RocketLeague(), new TeamFortress() };
-    private List<Button> buyButtons = new ArrayList<>();;
+    public static final Product[] products = {
+        new CounterStrike(),
+        new LeagueOfLegends(),
+        new MinecraftOverworld(),
+        new MinecraftNether(),
+        new RocketLeague(),
+        new TeamFortress()
+    };
     
-    private Text moneyText;
+    private List<Text> productButtonTexts = new ArrayList<>();;
     
-    private static Product skin;
-    public static GreenfootSound ambient;
+    private Text moneyText = new Text(200, 50);
     
     GreenfootImage background = getBackground();
     
@@ -25,66 +30,72 @@ public class Shop extends World
         background.setColor(Colors.getBackground());
         background.fillRect(0, 0, getWidth(), getHeight());
         
-        Text shop_text = new Text("Shop", 150, 70, Fonts.getTitle());
-        addObject(shop_text, 70, 40);
+        Text shopText = new Text(150, 70);
+        shopText.setText("Shop");
+        shopText.setFont(Fonts.getTitle());
+        addObject(shopText, 70, 40);
         
-        Button menuButton = new Button("Return To Main Menu", 350, 70);
+        
+        int x = 350;
+        int y = 70;
+        
+        Button menuButton = new Button(350, 70);
         menuButton.setWorld("IntroWorld");
+        
+        Text menuText = new Text(x, y);
+        menuText.setText("Return To Main Menu");
+        menuText.setIsFilled(true);
+        
+        addObject(menuText,   getWidth() / 2, getHeight() - 80);
         addObject(menuButton, getWidth() / 2, getHeight() - 80);
         
-        drawMoney();
+        
+        addObject(moneyText, getWidth() / 2, getHeight() - 150);
+        updateMoneyText();
     }
     
-    private void drawMoney() {
-        if (moneyText != null) { removeObject(moneyText); }
-        moneyText = new Text("Money: " + Integer.toString(GameManager.getMoney()), 200, 50, Fonts.getNormal());
-        addObject(moneyText, getWidth() / 2, getHeight() - 150);
-    }
+    private void updateMoneyText() { moneyText.setText("Money: " + Integer.toString(GameManager.getMoney())); }
     
     public void tryBuy(int n, Button button) {
         if (products[n].isOwned()) {
             GameManager.setSkin(n);
             SaveManager.saveData();
-            playAmbient();
-            updateButtons(n);
+            SoundManager.updateSounds();
+            SoundManager.playAmbient();
+            updateButtonTexts(n);
             return;
         }
         
         if (GameManager.getMoney() < products[n].getPrice()) { return; }
         
         GameManager.setMoney(GameManager.getMoney() - products[n].getPrice());
-        drawMoney();
+        updateMoneyText();
         
         products[n].setOwned(true);
         GameManager.setSkin(n);
         SaveManager.saveData();
-        playAmbient();
-        updateButtons(n);
+        SoundManager.updateSounds();
+        SoundManager.playAmbient();
+        updateButtonTexts(n);
     }
     
-    public static void playAmbient() {
-        if (ambient == null || skin == null) {
-            skin = Shop.products[GameManager.getSkin()];
-            ambient = skin.sounds.getAmbient();
-            ambient.playLoop();
-        }
-        if (ambient.isPlaying() && skin == Shop.products[GameManager.getSkin()]) { return; }
-        ambient.stop();
-        skin = Shop.products[GameManager.getSkin()];
-        ambient = skin.sounds.getAmbient();
-        ambient.playLoop();
-    }
-    
-    private void updateButtons(int n) {
-        for (int i = 0; i < buyButtons.size(); i++) {
+    private void updateButtonTexts(int n) {
+        for (int i = 0; i < productButtonTexts.size(); i++) {
+            String text = "Owned";
+            Color color = Colors.getProductOwned();
             if (!products[i].isOwned()) {
-                buyButtons.get(i).setCanBuy(GameManager.getMoney() >= products[i].getPrice());
-                buyButtons.get(i).drawNew(Integer.toString(products[i].getPrice()));
-                continue;
+                text = Integer.toString(products[i].getPrice());
+                color = Colors.getProductCanBuy();
+                if (GameManager.getMoney() < products[i].getPrice()) { color = Colors.getProductCantBuy(); }
             }
             
-            if (i == n) { buyButtons.get(i).drawNew("Equipped"); continue; }
-            buyButtons.get(i).drawNew("Owned");
+            else if (i == n) {
+                text = "Equipped";
+                color = Colors.getProductEquipped();
+            }
+            
+            productButtonTexts.get(i).setText(text);
+            productButtonTexts.get(i).setFillColor(color);
         }
     }
     
@@ -107,18 +118,30 @@ public class Shop extends World
             int buttonWidth = (int) (width * 0.95f);
             int buttonHeight = height / 4;
             y += height + 10 + buttonHeight / 2;
-            Button button = new Button("", buttonWidth, buttonHeight);
-            addObject(button, x, y);
-            buyButtons.add(button);
+            Button button =   new Button(buttonWidth, buttonHeight);
+            Text buttonText = new Text(  buttonWidth, buttonHeight);
+            buttonText.setIsFilled(true);
+            addObject(buttonText, x, y);
+            addObject(button,     x, y);
+            productButtonTexts.add(buttonText);
             button.setProductIndex(i);
-            button.drawNew("Owned");
+            
+            String text = "Owned";
+            Color color = Colors.getProductOwned();
             
             if (!products[i].isOwned()) {
-                button.setCanBuy(GameManager.getMoney() >= products[i].getPrice());
-                button.drawNew(Integer.toString(products[i].getPrice()));
+                text = Integer.toString(products[i].getPrice());
+                color = Colors.getProductCanBuy();
+                if (GameManager.getMoney() < products[i].getPrice()) { color = Colors.getProductCantBuy(); }
             }
             
-            if (GameManager.getSkin() == i) { button.drawNew("Equipped"); }
+            if (GameManager.getSkin() == i) {
+                text = "Equipped";
+                color = Colors.getProductEquipped();
+            }
+            
+            buttonText.setText(text);
+            buttonText.setFillColor(color);
         }
     }
 }

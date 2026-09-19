@@ -28,17 +28,10 @@ public class Ball extends Actor
     private Product skin = Shop.products[GameManager.getSkin()];
     
     private GreenfootImage image = skin.images.getBall();
-    private GreenfootSound soundWallHit = skin.sounds.getWallHit();
-    private GreenfootSound soundPaddleHit = skin.sounds.getPaddleHit();
-    private GreenfootSound soundWin = skin.sounds.getWin();
-    private GreenfootSound soundLoss = skin.sounds.getLoss();
     
     public Ball(Paddle bottomPaddle, Paddle topPaddle) {
         this.bottomPaddle = bottomPaddle;
         this.topPaddle = topPaddle;
-        
-        soundWallHit.setVolume(50);
-        soundPaddleHit.setVolume(50);
         
         createImage();
     }
@@ -90,8 +83,8 @@ public class Ball extends Actor
             && getX() > getWorld().getWidth() / 2)
             { setRotation(180 - getRotation()); }
         
-        soundWallHit.stop();
-        soundWallHit.play();
+        
+        SoundManager.playWallHit();
     }
     
     private void checkRestart() {
@@ -103,8 +96,7 @@ public class Ball extends Actor
     }
     
     private void applyWin() {
-        soundWin.stop();
-        soundWin.play();
+        SoundManager.playWin();
         addMoney();
         GameManager.setWins(GameManager.getWins() + 1);
         GameManager.setMoney(GameManager.getMoney() + WIN_BONUS);
@@ -112,8 +104,7 @@ public class Ball extends Actor
     }
     
     private void applyLoss() {
-        soundLoss.stop();
-        soundLoss.play();
+        SoundManager.playLoss();
         addMoney();
         GameManager.setLoses(GameManager.getLoses() + 1);
         SaveManager.saveData();
@@ -170,8 +161,7 @@ public class Ball extends Actor
     }
     
     private void hitPaddle() {
-        soundPaddleHit.stop();
-        soundPaddleHit.play();
+        SoundManager.playPaddleHit();
         increaseSpeed();
     }
     
