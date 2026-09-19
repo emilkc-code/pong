@@ -30,6 +30,8 @@ public class Ball extends Actor
     private GreenfootImage image = skin.images.getBall();
     private GreenfootSound soundWallHit = skin.sounds.getWallHit();
     private GreenfootSound soundPaddleHit = skin.sounds.getPaddleHit();
+    private GreenfootSound soundWin = skin.sounds.getWin();
+    private GreenfootSound soundLoss = skin.sounds.getLoss();
     
     public Ball(Paddle bottomPaddle, Paddle topPaddle) {
         this.bottomPaddle = bottomPaddle;
@@ -101,6 +103,8 @@ public class Ball extends Actor
     }
     
     private void applyWin() {
+        soundWin.stop();
+        soundWin.play();
         addMoney();
         GameManager.setWins(GameManager.getWins() + 1);
         GameManager.setMoney(GameManager.getMoney() + WIN_BONUS);
@@ -108,6 +112,8 @@ public class Ball extends Actor
     }
     
     private void applyLoss() {
+        soundLoss.stop();
+        soundLoss.play();
         addMoney();
         GameManager.setLoses(GameManager.getLoses() + 1);
         SaveManager.saveData();
