@@ -45,7 +45,8 @@ public class Shop extends World
         
         Text menuText = new Text(x, y);
         menuText.setText("Return To Main Menu");
-        menuText.setIsFilled(true);
+        //menuText.setIsFilled(true);
+        menuText.setHasBorder(true);
         
         addObject(menuText,   getWidth() / 2, getHeight() - 80);
         addObject(menuButton, getWidth() / 2, getHeight() - 80);
