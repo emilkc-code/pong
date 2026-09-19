@@ -9,6 +9,9 @@ public class Shop extends World
     
     private Text moneyText;
     
+    private static Product skin = Shop.products[GameManager.getSkin()];
+    public static GreenfootSound ambient = skin.sounds.getAmbient();
+    
     GreenfootImage background = getBackground();
     
     public Shop()
@@ -42,6 +45,7 @@ public class Shop extends World
         if (products[n].isOwned()) {
             GameManager.setSkin(n);
             SaveManager.saveData();
+            playAmbient();
             updateButtons(n);
             return;
         }
@@ -54,7 +58,16 @@ public class Shop extends World
         products[n].setOwned(true);
         GameManager.setSkin(n);
         SaveManager.saveData();
+        playAmbient();
         updateButtons(n);
+    }
+    
+    public static void playAmbient() {
+        if (skin == Shop.products[GameManager.getSkin()]) { return; }
+        ambient.stop();
+        skin = Shop.products[GameManager.getSkin()];
+        ambient = skin.sounds.getAmbient();
+        ambient.play();
     }
     
     private void updateButtons(int n) {

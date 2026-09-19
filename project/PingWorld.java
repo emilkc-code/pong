@@ -8,7 +8,6 @@ public class PingWorld extends World
     private Ball ball = new Ball(bottomPaddle, topPaddle);
     private int runner = 0;
     private boolean gameStarted;
-    private GreenfootSound ambient = skin.sounds.getAmbient();
 
     public PingWorld(boolean gameStarted) {
         super(GameManager.getWindowWidth(), GameManager.getWindowHeight(), 1);
@@ -41,13 +40,10 @@ public class PingWorld extends World
                 addObject(topPaddle, getWidth() / 2, 50);
                 addObject(bottomPaddle, getWidth() / 2, getHeight() - 50);
                 addObject(ball, 0, 0);
-                
-                ambient.playLoop();
             }
         }
         
         if (Greenfoot.isKeyDown("Escape")) {
-            ambient.stop();
             Greenfoot.setWorld(new IntroWorld());
         }
     }
