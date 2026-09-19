@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Ball
-comment1.params=bottomPaddle\ topPaddle\ image\ soundWallHit\ soundPaddleHit
-comment1.target=Ball(Paddle,\ Paddle,\ greenfoot.GreenfootImage,\ greenfoot.GreenfootSound,\ greenfoot.GreenfootSound)
+comment1.params=bottomPaddle\ topPaddle
+comment1.target=Ball(Paddle,\ Paddle)
 comment10.params=
 comment10.target=void\ bounceWalls()
 comment11.params=

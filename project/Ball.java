@@ -18,28 +18,25 @@ public class Ball extends Actor
     private float speed;
     private int   ownHits;
     private int   delay;
-    private GreenfootImage image;
     
     private Paddle bottomPaddle;
     private Paddle topPaddle;
     private PingWorld pingWorld;
     
-    private GreenfootSound soundWallHit;
-    private GreenfootSound soundPaddleHit;
     
-    public Ball(
-        Paddle bottomPaddle,
-        Paddle topPaddle,
-        GreenfootImage image,
-        GreenfootSound soundWallHit,
-        GreenfootSound soundPaddleHit
-        ) {
-            
+    private Product skin = Shop.products[GameManager.getSkin()];
+    
+    private GreenfootImage image = skin.images.getBall();
+    private GreenfootSound soundWallHit = skin.sounds.getWallHit();
+    private GreenfootSound soundPaddleHit = skin.sounds.getPaddleHit();
+    
+    public Ball(Paddle bottomPaddle, Paddle topPaddle) {
         this.bottomPaddle = bottomPaddle;
         this.topPaddle = topPaddle;
-        this.image = image;
-        this.soundWallHit = soundWallHit;
-        this.soundPaddleHit = soundPaddleHit;
+        
+        soundWallHit.setVolume(50);
+        soundPaddleHit.setVolume(50);
+        
         createImage();
     }
     

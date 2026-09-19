@@ -5,7 +5,7 @@ public class PingWorld extends World
     private Product skin = Shop.products[GameManager.getSkin()];
     private Paddle topPaddle = new Paddle(100, 20, 2, true, skin.images.getTopPaddle());
     private Paddle bottomPaddle = new Paddle(100, 20, 2, false, skin.images.getBottomPaddle());
-    private Ball ball = new Ball(bottomPaddle, topPaddle, skin.images.getBall(), skin.sounds.getWallHit(), skin.sounds.getPaddleHit());
+    private Ball ball = new Ball(bottomPaddle, topPaddle);
     private int runner = 0;
     private boolean gameStarted;
     private GreenfootSound ambient = skin.sounds.getAmbient();
@@ -15,8 +15,8 @@ public class PingWorld extends World
         this.gameStarted = gameStarted;
         }
     
-    
     public void act() {
+        
         runner++;
         if (runner == 1) {
             if (gameStarted) {

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Shop extends World
 {
-    public static final Product[] products = { new CounterStrike(), new LeagueOfLegends(), new Minecraft(), new RocketLeague() };
+    public static final Product[] products = { new CounterStrike(), new LeagueOfLegends(), new Minecraft(), new RocketLeague(), new TeamFortress() };
     private List<Button> buyButtons = new ArrayList<>();;
     
     private Text moneyText;
@@ -57,7 +57,11 @@ public class Shop extends World
     
     private void updateButtons(int n) {
         for (int i = 0; i < buyButtons.size(); i++) {
-            if (!products[i].isOwned()) { continue; }
+            if (!products[i].isOwned()) {
+                buyButtons.get(i).setCanBuy(GameManager.getMoney() >= products[i].getPrice());
+                buyButtons.get(i).drawNew(Integer.toString(products[i].getPrice()));
+                continue;
+            }
             
             if (i == n) { buyButtons.get(i).drawNew("Equipped"); continue; }
             buyButtons.get(i).drawNew("Owned");
@@ -74,15 +78,16 @@ public class Shop extends World
             int height = getWidth() / 4;
             image.scale(width, height);
             
-            int x = (int) (getWidth() / 4 * (i % 2 * 2 + 1) - getWidth() / 8);
-            int y = (int) (getWidth() / 4 * ((int) (i / 2) % 2 * 2 + 1) - getWidth() / 8);
+            int x = (int) (getWidth() / 4 * (i % 4));
+            int y = (int) (getWidth() / 4 * ((int) (i / 4) * 2 + 1) - width / 2);
             y += 20;
             background.drawImage(image, x, y);
             
             x += width / 2;
+            int buttonWidth = (int) (width * 0.95f);
             int buttonHeight = height / 4;
             y += height + 10 + buttonHeight / 2;
-            Button button = new Button("", width, buttonHeight);
+            Button button = new Button("", buttonWidth, buttonHeight);
             addObject(button, x, y);
             buyButtons.add(button);
             button.setProductIndex(i);

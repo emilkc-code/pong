@@ -11,6 +11,7 @@ public class IntroWorld extends World
     
     public IntroWorld() {
         super(GameManager.getWindowWidth(), GameManager.getWindowHeight(), 1);
+        Greenfoot.setSpeed(58);
         
         playButton.setWorld("PingWorld");
         watchButton.setWorld("PingWorldAI");
