@@ -67,7 +67,7 @@ public class Shop extends World
         ambient.stop();
         skin = Shop.products[GameManager.getSkin()];
         ambient = skin.sounds.getAmbient();
-        ambient.play();
+        ambient.playLoop();
     }
     
     private void updateButtons(int n) {
