@@ -6,7 +6,7 @@ public class LeagueOfLegends extends Product
     
     public LeagueOfLegends()
     {
-        price = 150;
+        price = 400;
         
         images.product = new GreenfootImage(name + "_product.png");
         

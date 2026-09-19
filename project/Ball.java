@@ -11,6 +11,7 @@ public class Ball extends Actor
     private final int   MAX_ANGLE = 60;
     private final float MINIMUM_SPEED = 1f;
     private final float DRAG_COEFFICIENT = 0.995f;
+    private final int   WIN_BONUS = 1000;
 
     private float positionX;
     private float positionY;
@@ -102,15 +103,14 @@ public class Ball extends Actor
     private void applyWin() {
         addMoney();
         GameManager.setWins(GameManager.getWins() + 1);
-        GameManager.setMoney(GameManager.getMoney() + 100000);
-        GameManager.setHighscore(-1);
-        SaveManager.saveHighScore(-1);
+        GameManager.setMoney(GameManager.getMoney() + WIN_BONUS);
+        SaveManager.saveData();
     }
     
     private void applyLoss() {
         addMoney();
         GameManager.setLoses(GameManager.getLoses() + 1);
-        SaveManager.saveHighScore(GameManager.getHighscore());
+        SaveManager.saveData();
     }
     
     private void addMoney() {

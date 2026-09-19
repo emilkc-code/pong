@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Shop extends World
 {
-    public static final Product[] products = { new CounterStrike(), new LeagueOfLegends(), new Minecraft(), new RocketLeague(), new TeamFortress() };
+    public static final Product[] products = { new CounterStrike(), new LeagueOfLegends(), new MinecraftOverworld(), new MinecraftNether(), new RocketLeague(), new TeamFortress() };
     private List<Button> buyButtons = new ArrayList<>();;
     
     private Text moneyText;
@@ -41,6 +41,7 @@ public class Shop extends World
     public void tryBuy(int n, Button button) {
         if (products[n].isOwned()) {
             GameManager.setSkin(n);
+            SaveManager.saveData();
             updateButtons(n);
             return;
         }
@@ -52,6 +53,7 @@ public class Shop extends World
         
         products[n].setOwned(true);
         GameManager.setSkin(n);
+        SaveManager.saveData();
         updateButtons(n);
     }
     
@@ -91,13 +93,14 @@ public class Shop extends World
             addObject(button, x, y);
             buyButtons.add(button);
             button.setProductIndex(i);
+            button.drawNew("Owned");
+            
+            if (!products[i].isOwned()) {
+                button.setCanBuy(GameManager.getMoney() >= products[i].getPrice());
+                button.drawNew(Integer.toString(products[i].getPrice()));
+            }
+            
             if (GameManager.getSkin() == i) { button.drawNew("Equipped"); }
-            else                            { button.drawNew("Owned"); }
-            
-            if (products[i].isOwned()) { continue; }
-            
-            button.setCanBuy(GameManager.getMoney() >= products[i].getPrice());
-            button.drawNew(Integer.toString(products[i].getPrice()));
         }
     }
 }

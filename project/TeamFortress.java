@@ -6,7 +6,7 @@ public class TeamFortress extends Product
     
     public TeamFortress()
     {
-        price = 150;
+        price = 3500;
         
         images.product = new GreenfootImage(name + "_product.png");
         

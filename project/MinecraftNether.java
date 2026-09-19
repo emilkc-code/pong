@@ -1,12 +1,12 @@
 import greenfoot.*;
 
-public class Minecraft extends Product
+public class MinecraftNether extends Product
 {
-    private String name = "minecraft";
+    private String name = "minecraft-nether";
     
-    public Minecraft()
+    public MinecraftNether()
     {
-        price = 150;
+        price = 10000;
         
         images.product = new GreenfootImage(name + "_product.png");
         

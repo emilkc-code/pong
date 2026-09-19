@@ -6,7 +6,7 @@ public class CounterStrike extends Product
     
     public CounterStrike()
     {
-        //price = 150;
+        price = 800;
         owned = true;
         
         images.product = new GreenfootImage(name + "_product.png");

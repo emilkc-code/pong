@@ -5,9 +5,9 @@ public class GameManager extends Manager
     private static int windowHeight = 700; // 1250
     private static int wins = 0;
     private static int loses = 0;
-    private static int money = 150;
+    private static int money = 0;
     private static int highscore;
-    private static int skin = 0;
+    private static int skin = 1;
     
     public static void setWindowWidth(int n)  { windowWidth = n; }
     public static void setWindowHeight(int n) { windowHeight = n; }
@@ -25,7 +25,5 @@ public class GameManager extends Manager
     public static int getHighscore()    { return highscore; }
     public static int getSkin()        { return skin; }
     
-    public GameManager() {
-        highscore = new SaveManager().loadHighScore();
-    }
+    public GameManager() { SaveManager.loadData(); }
 }

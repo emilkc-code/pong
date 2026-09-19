@@ -1,12 +1,12 @@
 import greenfoot.*;
 
-public class RocketLeague extends Product
+public class MinecraftOverworld extends Product
 {
-    private String name = "rocket-league";
+    private String name = "minecraft-overworld";
     
-    public RocketLeague()
+    public MinecraftOverworld()
     {
-        price = 1500;
+        price = 10000;
         
         images.product = new GreenfootImage(name + "_product.png");
         

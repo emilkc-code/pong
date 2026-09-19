@@ -20,10 +20,20 @@ public class PingWorld extends World
         runner++;
         if (runner == 1) {
             if (gameStarted) {
-                speedText(1 + (float) (GameManager.getHighscore() - 10) / (float) ball.getHitsForSpeed());
+                float speed = 1.0f;
+                if (GameManager.getHighscore() >= 10) {
+                    speed = (float) (GameManager.getHighscore() - 10) / (float) ball.getHitsForSpeed();
+                    speed++;
+                }
+                speedText(speed);
+                
                 moneyText(new GameManager().getMoney());
                 highscoreText(new GameManager().getHighscore());
-                scoreText(GameManager.getHighscore() - 10);
+                
+                int score = 0;
+                if (GameManager.getHighscore() >= 10) { score = GameManager.getHighscore() - 10; }
+                scoreText(score);
+                
                 returnText();
                 
                 addBackground();
