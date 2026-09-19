@@ -79,8 +79,8 @@ public class Shop extends World
             image.scale(width, height);
             
             int x = (int) (getWidth() / 4 * (i % 4));
-            int y = (int) (getWidth() / 4 * ((int) (i / 4) * 2 + 1) - width / 2);
-            y += 20;
+            int y = (int) (getWidth() / 5 * ((int) (i / 4) * 2 + 1) - width / 2);
+            y += 60;
             background.drawImage(image, x, y);
             
             x += width / 2;
