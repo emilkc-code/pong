@@ -3,7 +3,7 @@ import greenfoot.*;
 public class Paddle extends Actor
 {
     private final float DRAG_COEFFICIENT = 0.9f;
-    private final float ACCELORATION_FORCE = 0.8f;
+    private final float ACCELERATION_FORCE = 0.8f;
     
     private boolean isAI;
     private double targetPoint = -1;
@@ -98,7 +98,7 @@ public class Paddle extends Actor
     }
     
     private void applyMovement() {
-        velocity += acceleration * ACCELORATION_FORCE;
+        velocity += acceleration * ACCELERATION_FORCE;
         if (this.getX() > getWorld().getWidth() - width / 2) { velocity = Math.clamp(velocity, -maxSpeed, 0); }
         if (this.getX() < width / 2) { velocity = Math.clamp(velocity, 0, maxSpeed); }
         velocity = Math.clamp(velocity, -maxSpeed, maxSpeed);
