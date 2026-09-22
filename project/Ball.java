@@ -3,7 +3,6 @@ import greenfoot.*;
 public class Ball extends Actor
 {
     private final int   BALL_SIZE = 25;
-    private final int   BOUNCE_DEVIANCE_MAX = 5;
     private final int   STARTING_ANGLE_WIDTH = 90;
     private final int   DELAY_TIME = 100;
     private final int   HITS_FOR_SPEED = 10;
